@@ -1,25 +1,37 @@
-# Gerador de Roteiros e Prompts para TikTok Shop ⚡
+# Gerador de Roteiros TikTok Shop & Prompts Google Veo 3 ⚡🎬
 
-Aplicação web estática e responsiva para criação de roteiros e prompts de alta conversão para vídeos de produtos no TikTok Shop.
+Aplicação web estática e responsiva para criação de roteiros de alta conversão para o **TikTok Shop** e geração de prompts técnicos para o **Google Veo 3** com protocolo rigoroso anti-distorção para a foto anexada do produto, tudo em **100% Português**.
 
-## 🚀 Funcionalidades
+🔗 **Acesse Online:** [https://duhduh2019.github.io/Achadinhos_Jesus/](https://duhduh2019.github.io/Achadinhos_Jesus/)
 
-- **Seleção de Nichos:** Sugestões dinâmicas para Beleza & Skincare, Casa & Cozinha, Gadgets, Moda, Fitness, Pet Care, Infantil e Escritório.
-- **Estilos de Vídeo TikTok:** Review UGC autêntico, Choque / Antes & Depois, Achadinho Viral, Unboxing e Storytime.
-- **Modelos de Apresentação:**
-  - 🖐️ **Apenas as Mãos (POV / Faceless):** Foco tátil e macro sem mostrar o rosto.
-  - 🗣️ **Pessoa Falando (Lip Sync):** Roteiro otimizado para sincronia labial com marcações para IAs e criadores.
-- **Fidelidade Visual Extrema:** Regras estritas para geração de prompts sem alucinação de produto com base na imagem do item.
-- **Gatilhos de Venda TikTok Shop:** Frete grátis, descontos relâmpago, escassez de estoque e garantia blindada.
-- **Cópia Rápida com Toast Notification:** Cópia com um clique direto para a área de transferência.
+---
 
-## 💻 Como Executar
+## 🚀 Principais Funcionalidades
 
-Por ser uma aplicação HTML/CSS/JavaScript pura, não é necessário instalar nenhum gerenciador de pacotes.
+### 1. Copywriting TikTok Shop (Foco em Conversão)
+- **Ganchos Psicológicos (0 a 3s):** Dor aguda & alívio, curiosidade / anti-hype, achadinho econômico e demonstração de choque.
+- **Roteiro Cronometrado:** Segmentação em blocos de tempo com fala natural, pausas para respiro `[pausa]`, texto dinâmico na tela e gatilhos de urgência.
+- **Chamada Carrinho Amarelo:** Direcionamento explícito para o botão de compra no canto inferior esquerdo do TikTok.
 
-1. Abra o arquivo `index.html` diretamente no seu navegador de preferência (Google Chrome, Edge, Firefox, Safari);
-2. Ou utilize a extensão **Live Server** no VS Code para rodar com recarregamento em tempo real.
+### 2. Motor Anti-Distorção para o Google Veo 3 (100% em Português)
+- **Trava de Geometria Rígida:** Instruções para a IA tratar a imagem de referência como um sólido imutável, evitando alucinações, derretimento de botões ou alteração de cores.
+- **Direção de Câmera Estável:** Seleção entre aproximação lenta (*push-in* suave), deslocamento lateral estável e iluminação de estúdio percorrendo a textura (sem giros de 360° que causam distorção).
+- **Controle de Interação:** Produto em estúdio sem mãos, mãos segurando pelas bordas ou micro-ação funcional precisa.
+- **Geração Cena a Cena (3 a 5 segundos):** Prompts prontos para você anexar a foto e gerar tomadas curtas no Veo 3 para unir no CapCut.
 
-## 📦 Versionamento
+### 3. Interface e Usabilidade
+- Navegação em abas: **Roteiro TikTok Shop**, **Prompts Veo 3 (Cena a Cena)** e **Visão Completa**.
+- Botões de cópia individual por cena ou cópia total.
+- Download direto do planejamento completo em arquivo `.txt`.
 
-- **v1.0.0**: Versão inicial da aplicação com suporte a nichos, estilos de apresentação, gatilhos de venda e cópia para área de transferência.
+---
+
+## 📦 Histórico de Versões
+
+- **v1.1.0**:
+  - Integração do motor técnico para o Google Veo 3 em 100% português.
+  - Implementação do protocolo de fidelidade geométrica anti-distorção.
+  - Prompts segmentados por cenas com controles de movimento de câmera e interação.
+  - Interface com abas dinâmicas e exportação para `.txt`.
+- **v1.0.0**:
+  - Versão inicial com seleção de nichos e estilos de vídeo TikTok.

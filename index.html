@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Prompts para TikTok Shop</title>
+    <title>Gerador de Roteiros TikTok Shop & Prompts Google Veo 3</title>
     <style>
         :root {
-            --bg-color: #0f172a;
+            --bg-color: #0b1120;
             --card-bg: #1e293b;
+            --card-inner: #0f172a;
             --accent-color: #10b981;
             --accent-hover: #059669;
-            --tiktok-cyan: #00f2fe;
+            --veo-cyan: #06b6d4;
+            --veo-cyan-hover: #0891b2;
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #334155;
-            --badge-bg: #0f172a;
+            --border-highlight: #475569;
+            --badge-bg: rgba(16, 185, 129, 0.12);
+            --badge-border: rgba(16, 185, 129, 0.3);
         }
 
         * {
@@ -29,20 +33,27 @@
             color: var(--text-color);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px 16px;
         }
 
         .container {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 32px;
+            border-radius: 16px;
+            padding: 36px;
             width: 100%;
-            max-width: 780px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: 860px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-color);
             position: relative;
+        }
+
+        .header-badge-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
 
         .tag-badge {
@@ -53,28 +64,43 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            background: rgba(16, 185, 129, 0.15);
+            background: var(--badge-bg);
             color: var(--accent-color);
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid var(--badge-border);
+        }
+
+        .tag-badge.cyan {
+            background: rgba(6, 182, 212, 0.12);
+            color: var(--veo-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
         }
 
         h1 {
-            font-size: 1.85rem;
+            font-size: 1.95rem;
             margin-bottom: 6px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #ffffff;
+            letter-spacing: -0.02em;
         }
 
         p.subtitle {
             color: var(--text-muted);
-            margin-bottom: 24px;
-            font-size: 0.95rem;
-            line-height: 1.4;
+            margin-bottom: 26px;
+            font-size: 0.96rem;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin: 22px 0 14px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .form-group {
@@ -92,19 +118,20 @@
         .help-text {
             font-size: 0.78rem;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 5px;
+            line-height: 1.4;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 12px;
+            padding: 12px 14px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            background-color: #0f172a;
+            background-color: var(--card-inner);
             color: var(--text-color);
             font-size: 0.95rem;
             outline: none;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input::placeholder, textarea::placeholder {
@@ -118,14 +145,14 @@
 
         .row {
             display: flex;
-            gap: 15px;
+            gap: 16px;
         }
 
         .row .form-group {
             flex: 1;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 680px) {
             .row {
                 flex-direction: column;
                 gap: 0;
@@ -138,66 +165,158 @@
             }
         }
 
+        /* Caixa de Destaque Veo 3 Anti-Distorção */
+        .veo-box {
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 10px;
+            padding: 18px;
+            margin: 20px 0;
+        }
+
+        .veo-box-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .veo-box-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--veo-cyan);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .toggle-switch input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--veo-cyan);
+            cursor: pointer;
+        }
+
+        .toggle-switch span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
         button.primary-btn {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border: none;
-            border-radius: 8px;
-            background-color: var(--accent-color);
+            border-radius: 10px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            margin-top: 10px;
+            margin-top: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
         }
 
         button.primary-btn:hover {
-            background-color: var(--accent-hover);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
             transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
         }
 
         button.primary-btn:active {
             transform: translateY(0);
         }
 
+        /* Área de Resultados */
         .output-group {
-            margin-top: 25px;
+            margin-top: 30px;
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.35s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Abas de Navegação */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 18px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: -2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .tab-btn.veo.active {
+            color: var(--veo-cyan);
+            border-bottom-color: var(--veo-cyan);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
         }
 
         .output-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        textarea#output {
-            height: 280px;
-            resize: vertical;
-            line-height: 1.55;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.88rem;
-            white-space: pre-wrap;
+        .action-btn-group {
+            display: flex;
+            gap: 8px;
         }
 
-        .copy-btn {
-            width: auto;
+        .action-btn {
             padding: 7px 14px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-top: 0;
             background-color: #334155;
             color: #f8fafc;
             border: 1px solid #475569;
@@ -209,12 +328,71 @@
             gap: 6px;
         }
 
-        .copy-btn:hover {
+        .action-btn:hover {
             background-color: #475569;
             border-color: #64748b;
         }
 
-        /* Toast notification without alert() */
+        .action-btn.cyan {
+            background-color: rgba(6, 182, 212, 0.15);
+            border-color: rgba(6, 182, 212, 0.4);
+            color: #67e8f9;
+        }
+
+        .action-btn.cyan:hover {
+            background-color: rgba(6, 182, 212, 0.25);
+            border-color: #22d3ee;
+        }
+
+        textarea.result-box {
+            height: 340px;
+            resize: vertical;
+            line-height: 1.6;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88rem;
+            white-space: pre-wrap;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        /* Cartões de Cena Veo 3 */
+        .scene-card {
+            background: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .scene-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .scene-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--veo-cyan);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .scene-prompt-text {
+            background: #090e17;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            border: 1px solid #1e293b;
+            white-space: pre-wrap;
+        }
+
+        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -246,19 +424,25 @@
 <body>
 
 <div class="container">
-    <div class="tag-badge">
-        <span>⚡ TikTok Shop Engine</span>
+    <div class="header-badge-row">
+        <div class="tag-badge">
+            <span>⚡ TikTok Shop Conversão</span>
+        </div>
+        <div class="tag-badge cyan">
+            <span>🎬 Motor Google Veo 3 (100% Português)</span>
+        </div>
     </div>
-    <h1>Gerador de Roteiros TikTok Shop</h1>
-    <p class="subtitle">Selecione a linha de produto e o formato de engajamento para gerar o prompt perfeito de vídeo focado em conversão e carrinho amarelo.</p>
+    <h1>Gerador de Roteiros & Prompts Veo 3</h1>
+    <p class="subtitle">Crie roteiros magnéticos de vendas para o TikTok Shop e gere prompts para o Google Veo 3 com protocolo anti-distorção para a foto anexada do produto.</p>
 
-    <!-- Linha de Produto (Nicho) -->
+    <!-- 1. DADOS DO PRODUTO & NICHO -->
+    <div class="section-title">📦 1. Produto & Nicho</div>
     <div class="row">
         <div class="form-group">
             <label for="productCategory">Linha do Produto (Nicho)</label>
             <select id="productCategory" onchange="updateProductSuggestions()">
                 <option value="Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)">💄 Beleza & Skincare</option>
-                <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)">🏠 Casa, Cozinha & Hacks</option>
+                <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)" selected>🏠 Casa, Cozinha & Hacks</option>
                 <option value="Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)">📱 Tecnologia & Gadgets</option>
                 <option value="Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)">👗 Moda & Acessórios</option>
                 <option value="Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)">💪 Saúde & Fitness</option>
@@ -269,93 +453,185 @@
         </div>
 
         <div class="form-group">
-            <label for="formatStyle">Estilo de Vídeo TikTok</label>
-            <select id="formatStyle">
-                <option value="UGC Autêntico / POV 'Comprei no TikTok Shop e Me Surpreendi'">UGC POV / Review Espontâneo</option>
-                <option value="Demonstração Prática de Choque (Problema Irritante vs. Solução Imediata)">Choque / Antes & Depois</option>
-                <option value="Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')">Achadinho Viral & Custo-benefício</option>
-                <option value="Desboxing & Teste ao Vivo de Primeira Impressão">Unboxing + Teste Honesto</option>
-                <option value="Storytime / Situação Cômica com Resolução pelo Produto">Storytime / Humor com Solução</option>
-            </select>
+            <label for="productName">Nome do Produto & Função Principal</label>
+            <input type="text" id="productName" value="Mini Selador Portátil de Pacotes com Lâmina Embutida" placeholder="Ex: Mini Selador Térmico Portátil de Embalagens">
+            <div class="help-text">Dica: Inclua a função prática ou a dor que o produto resolve.</div>
         </div>
     </div>
 
-    <!-- Nome do Produto e Diferencial -->
-    <div class="form-group">
-        <label for="productName">Nome do Produto & Função Principal</label>
-        <input type="text" id="productName" placeholder="Ex: Mini Selador Térmico Portátil para Embalagens">
-        <div class="help-text">Dica: Adicione a principal dor que o produto resolve para um gancho magnético.</div>
-    </div>
-
+    <!-- 2. ESTRATÉGIA DE CONVERSÃO & TIKTOK SHOP -->
+    <div class="section-title">🎯 2. Estratégia de Venda no TikTok Shop</div>
     <div class="row">
         <div class="form-group">
-            <label for="salesHook">Gatilho de Venda (Oferta TikTok Shop)</label>
+            <label for="hookType">Tipo de Gancho Psicológico (Primeiros 3 segundos)</label>
+            <select id="hookType">
+                <option value="alivio_dor">Dor Aguda & Alívio: 'Pare de estragar seus alimentos hoje'</option>
+                <option value="polemico_curiosidade">Anti-Hype / Curiosidade: 'Não compre isso antes de ver este teste'</option>
+                <option value="achadinho_economico">Achadinho Barato: 'O item mais barato do TikTok Shop que realmente funciona'</option>
+                <option value="choque_demonstracao">Demonstração de Choque: Problema nojento/chato vs. Resolução em 1 segundo</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="salesHook">Gatilho da Oferta (Carrinho Amarelo)</label>
             <select id="salesHook">
                 <option value="Frete Grátis + Cupom exclusivo de primeira compra no carrinho">Frete Grátis + Cupom no Carrinho</option>
-                <option value="Preço promocional relâmpago ('Custa menos que um lanche/café')">Desconto Relâmpago / Custa menos que um lanche</option>
+                <option value="Preço promocional relâmpago ('Custa menos que um lanche/café')">Preço Relâmpago (Menos que um lanche)</option>
                 <option value="Alerta de Estoque Esgotando rapidamente por viralização">Escassez: Estoque acabando rápido</option>
                 <option value="Garantia blindada e devolução sem burocracia pela plataforma">Garantia & Compra Segura TikTok Shop</option>
             </select>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <label for="formatStyle">Estilo de Vídeo</label>
+            <select id="formatStyle">
+                <option value="UGC Autêntico / POV 'Comprei no TikTok Shop e Me Surpreendi'">UGC POV / Review Espontâneo</option>
+                <option value="Demonstração Prática de Choque (Antes & Depois Direto)">Demonstração Prática de Choque</option>
+                <option value="Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')">Achadinho Viral & Custo-benefício</option>
+                <option value="Desboxing & Teste ao Vivo de Primeira Impressão">Unboxing + Teste Honesto</option>
+            </select>
+        </div>
 
         <div class="form-group">
-            <label for="toneVoice">Tom de Voz do Criador</label>
-            <select id="toneVoice">
-                <option value="Empolgado e Amigável (fala rápida, gírias leves, energia alta)">Empolgado & Dinâmico (Estilo TikTok)</option>
-                <option value="Honesto e 'Sincero Demais' (crítica inicial que vira elogio)">Sincero & Cético no início</option>
-                <option value="Urgente e Curioso (revelando um segredo ou truque)">Curioso / 'Segredo revelado'</option>
-                <option value="Relaxante / Satisfatório (ASMR visual e foco no uso)">Satisfatório / Estético (ASMR & Clean)</option>
+            <label for="presentationModel">Apresentador do Vídeo</label>
+            <select id="presentationModel">
+                <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total)</option>
+                <option value="person_lipsync">🗣️ Pessoa Falando com Sincronia Labial (Criador ou Avatar IA)</option>
             </select>
         </div>
     </div>
 
-    <!-- Modelo de Apresentação Visual -->
-    <div class="form-group">
-        <label for="presentationModel">Modelo de Apresentação no Vídeo</label>
-        <select id="presentationModel">
-            <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total no Produto)</option>
-            <option value="person_lipsync">🗣️ Pessoa Falando com Lip Sync Perfeito em Português (Criador ou Avatar IA sincronizado)</option>
-        </select>
-        <div class="help-text">Define o tipo de enquadramento, instruções de captação ou sincronia labial para IAs de vídeo.</div>
-    </div>
+    <!-- 3. CONFIGURAÇÕES ANTI-DISTORÇÃO PARA O GOOGLE VEO 3 -->
+    <div class="veo-box">
+        <div class="veo-box-header">
+            <div class="veo-box-title">
+                <span>🛡️ Protocolo Anti-Distorção para Google Veo 3</span>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="strictFidelity" checked>
+                <span>Trava Rígida de Geometria (Ativada)</span>
+            </label>
+        </div>
+        <div class="help-text" style="margin-bottom: 14px; color: #cbd5e1;">
+            Instrui o Google Veo 3 a respeitar 100% da foto anexada. O produto é mantido como peça sólida imutável, evitando que botões derretam, cores mudem ou a forma se deforme.
+        </div>
 
-    <!-- Controle de Fidelidade Estrita à Imagem do Produto -->
-    <div class="form-group" style="background: rgba(16, 185, 129, 0.08); border: 1px dashed rgba(16, 185, 129, 0.4); padding: 14px; border-radius: 8px;">
-        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 2px;">
-            <input type="checkbox" id="strictImageFidelity" checked style="width: 18px; height: 18px; accent-color: var(--accent-color); cursor: pointer;">
-            <span style="font-weight: 700; color: #fff;">📸 Fidelidade Visual Extrema à Imagem Anexada (Zero Distorção)</span>
-        </label>
-        <div class="help-text" style="color: #cbd5e1; margin-left: 28px; line-height: 1.4;">
-            Instrui a IA a escanear e respeitar 100% dos detalhes da foto do produto: cores, texturas, botões, proporções e acabamentos, sem inventar nada fora da imagem real.
+        <div class="row">
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="cameraMovement">Movimento de Câmera Recomendado no Veo 3</label>
+                <select id="cameraMovement">
+                    <option value="push_in_lento">Aproximação Lenta e Focada (Push-in suave - Zero Deformação)</option>
+                    <option value="deslocamento_lateral">Deslizamento Lateral Leve (Pan suave de 5° - Destaque de Textura)</option>
+                    <option value="estatico_luz">Câmera Estática com Iluminação de Estúdio Suave (Foco Puro)</option>
+                    <option value="macro_close">Plano Macro Close-up Fixo (Detalhes de Acabamento e Botões)</option>
+                </select>
+                <div class="help-text">Evita rotações bruscas de 360° que provocam mutação no modelo 3D do produto.</div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="productInteraction">Interação Física na Cena</label>
+                <select id="productInteraction">
+                    <option value="sem_maos">Produto em Mesa de Estúdio Limpa (Sem Mãos / Risco Zero de Deformar)</option>
+                    <option value="maos_bordas">Mãos Apoiando Delicadamente pelas Bordas (Sem Cobrir Detalhes)</option>
+                    <option value="acao_funcional">Micro-Ação Funcional (Dedo apertando botão real já existente na foto)</option>
+                </select>
+                <div class="help-text">Garante que os dedos não fundam com a carcaça do produto na animação.</div>
+            </div>
         </div>
     </div>
 
-    <button class="primary-btn" onclick="generatePrompt()">
-        <span>✨ Gerar Prompt para Vídeo TikTok Shop</span>
+    <button class="primary-btn" onclick="generateAll()">
+        <span>✨ Gerar Roteiro TikTok & Prompts Veo 3 (100% Português)</span>
     </button>
 
-    <!-- Área de Saída -->
+    <!-- 4. ÁREA DE SAÍDA COM ABAS -->
     <div class="output-group" id="outputGroup">
-        <div class="output-header">
-            <label for="output">Comando Gerado (Copie e cole no ChatGPT, Claude ou Gemini):</label>
-            <button class="copy-btn" onclick="copyToClipboard()">📋 Copiar Comando</button>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('tab-roteiro')">📱 Roteiro TikTok Shop</button>
+            <button class="tab-btn veo" onclick="switchTab('tab-veo')">🎬 Prompts Veo 3 (Cena a Cena)</button>
+            <button class="tab-btn" onclick="switchTab('tab-completo')">📋 Visão Completa (Tudo em Um)</button>
         </div>
-        <textarea id="output" readonly></textarea>
+
+        <!-- ABA 1: ROTEIRO TIKTOK SHOP -->
+        <div class="tab-pane active" id="tab-roteiro">
+            <div class="output-header">
+                <label>Roteiro Otimizado para Alta Conversão (Fala + Efeitos + Carrinho Amarelo):</label>
+                <div class="action-btn-group">
+                    <button class="action-btn" onclick="copyText('outputRoteiro')">📋 Copiar Roteiro</button>
+                    <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
+                </div>
+            </div>
+            <textarea id="outputRoteiro" class="result-box" readonly></textarea>
+        </div>
+
+        <!-- ABA 2: PROMPTS VEO 3 CENA A CENA -->
+        <div class="tab-pane" id="tab-veo">
+            <div class="output-header">
+                <label>Prompts Técnicos em Português para o Google Veo 3 (Gere com a Imagem Anexada):</label>
+                <div class="action-btn-group">
+                    <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar Todas as Cenas</button>
+                </div>
+            </div>
+
+            <!-- CENA 1 -->
+            <div class="scene-card">
+                <div class="scene-card-header">
+                    <div class="scene-title">🎬 Cena 1: Gancho & Impacto Visual (Duração: 3 a 4s)</div>
+                    <button class="action-btn" onclick="copyText('scenePrompt1')">📋 Copiar Cena 1</button>
+                </div>
+                <div class="help-text" style="margin-bottom: 8px;">Anexe a foto do produto no Veo 3 e use este prompt:</div>
+                <div class="scene-prompt-text" id="scenePrompt1"></div>
+            </div>
+
+            <!-- CENA 2 -->
+            <div class="scene-card">
+                <div class="scene-card-header">
+                    <div class="scene-title">🎬 Cena 2: Demonstração & Solução do Problema (Duração: 4 a 5s)</div>
+                    <button class="action-btn" onclick="copyText('scenePrompt2')">📋 Copiar Cena 2</button>
+                </div>
+                <div class="help-text" style="margin-bottom: 8px;">Anexe a foto do produto no Veo 3 e use este prompt:</div>
+                <div class="scene-prompt-text" id="scenePrompt2"></div>
+            </div>
+
+            <!-- CENA 3 -->
+            <div class="scene-card">
+                <div class="scene-card-header">
+                    <div class="scene-title">🎬 Cena 3: Chamada Final & Carrinho Amarelo (Duração: 3 a 4s)</div>
+                    <button class="action-btn" onclick="copyText('scenePrompt3')">📋 Copiar Cena 3</button>
+                </div>
+                <div class="help-text" style="margin-bottom: 8px;">Anexe a foto do produto no Veo 3 e use este prompt:</div>
+                <div class="scene-prompt-text" id="scenePrompt3"></div>
+            </div>
+        </div>
+
+        <!-- ABA 3: VISÃO COMPLETA INTEGRADA -->
+        <div class="tab-pane" id="tab-completo">
+            <div class="output-header">
+                <label>Documento Completo (Roteiro, Prompts do Veo 3 e Dicas de Edição):</label>
+                <div class="action-btn-group">
+                    <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
+                    <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
+                </div>
+            </div>
+            <textarea id="outputCompleto" class="result-box" readonly></textarea>
+        </div>
     </div>
 </div>
 
-<div id="toast" class="toast">Comando copiado para a área de transferência!</div>
+<div id="toast" class="toast">Conteúdo copiado para a área de transferência!</div>
 
 <script>
-    // Sugestões de exemplo por categoria para inspirar o usuário
+    // Exemplos práticos por nicho
     const productExamples = {
-        "Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)": "",
+        "Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)": "Bastão Hidratante Antirrugas com Colágeno e Ácido Hialurônico",
         "Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)": "Mini Selador Portátil de Pacotes com Lâmina Embutida",
-        "Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)": "Carregador Magnético 3 em 1 Portátil Dobrável",
-        "Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)": "Body Modelador Anatômico Invisível que afina a cintura",
+        "Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)": "Carregador Magnético 3 em 1 Dobrável para Celular, Fone e Relógio",
+        "Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)": "Body Modelador Anatômico Invisível que afina a cintura instantaneamente",
         "Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)": "Garrafa Motivacional 2 Litros com Infusor e Marcador de Horas",
         "Pet Care & Acessórios para Animais": "Escova Removedora de Pelos a Vapor para Gatos e Cães",
-        "Infantil, Brinquedos Educativos & Maternidade": "Prato Giratório 360° Antiderramamento para Bebês",
+        "Infantil, Brinquedos Educativos & Maternidade": "Prato Giratório 360° Antiderramamento para Bebês e Crianças",
         "Papelaria, Escritório & Produtividade": "Suporte Articulado Ergonômico de Alumínio para Notebook"
     };
 
@@ -369,8 +645,18 @@
         }
     }
 
-    // Inicializa sugestão padrão
-    updateProductSuggestions();
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+        const targetPane = document.getElementById(tabId);
+        if (targetPane) targetPane.classList.add('active');
+
+        // Ativa o botão correspondente
+        if (tabId === 'tab-roteiro') document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        if (tabId === 'tab-veo') document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        if (tabId === 'tab-completo') document.querySelectorAll('.tab-btn')[2].classList.add('active');
+    }
 
     function showToast(message, isError = false) {
         const toast = document.getElementById('toast');
@@ -383,115 +669,267 @@
         toast.classList.add('show');
         setTimeout(() => {
             toast.classList.remove('show');
-        }, 3200);
+        }, 3000);
     }
 
-    function generatePrompt() {
+    function copyText(elementId) {
+        let text = '';
+        const el = document.getElementById(elementId);
+        if (!el) return;
+
+        if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+            text = el.value;
+        } else {
+            text = el.innerText;
+        }
+
+        if (!text) return;
+
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('✅ Copiado para a área de transferência!');
+        }).catch(() => {
+            showToast('Erro ao copiar automaticamente. Selecione e copie manualmente.', true);
+        });
+    }
+
+    function copyAllVeoScenes() {
+        const p1 = document.getElementById('scenePrompt1').innerText;
+        const p2 = document.getElementById('scenePrompt2').innerText;
+        const p3 = document.getElementById('scenePrompt3').innerText;
+
+        const allScenes = `[PROMPTS TÉCNICOS PARA O GOOGLE VEO 3 - 100% EM PORTUGUÊS]
+(Anexe a foto do produto e gere cada tomada individualmente para máxima consistência visual)
+
+--- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
+${p1}
+
+--- CENA 2: DEMONSTRAÇÃO E RESOLUÇÃO DO PROBLEMA (4 a 5 segundos) ---
+${p2}
+
+--- CENA 3: CHAMADA FINAL & CARRINHO AMARELO (3 a 4 segundos) ---
+${p3}`;
+
+        navigator.clipboard.writeText(allScenes).then(() => {
+            showToast('✅ Todos os prompts do Veo 3 foram copiados!');
+        }).catch(() => {
+            showToast('Erro ao copiar.', true);
+        });
+    }
+
+    function generateAll() {
         const category = document.getElementById('productCategory').value;
-        const formatStyle = document.getElementById('formatStyle').value;
         const productName = document.getElementById('productName').value.trim();
+        const hookType = document.getElementById('hookType').value;
         const salesHook = document.getElementById('salesHook').value;
-        const toneVoice = document.getElementById('toneVoice').value;
+        const formatStyle = document.getElementById('formatStyle').value;
         const presentationModel = document.getElementById('presentationModel').value;
-        const strictFidelity = document.getElementById('strictImageFidelity') ? document.getElementById('strictImageFidelity').checked : true;
-        const outputGroup = document.getElementById('outputGroup');
-        const outputTextarea = document.getElementById('output');
+        const cameraMovement = document.getElementById('cameraMovement').value;
+        const productInteraction = document.getElementById('productInteraction').value;
+        const strictFidelity = document.getElementById('strictFidelity').checked;
 
         if (!productName) {
-            showToast('Por favor, informe o nome do produto ou nicho desejado.', true);
+            showToast('Por favor, informe o nome do produto.', true);
             document.getElementById('productName').focus();
             return;
         }
 
         const isHandsOnly = presentationModel === 'hands_only';
-        const modelLabel = isHandsOnly 
-            ? 'Apenas as mãos em ação (POV em primeira pessoa / Sem rosto visível / Foco 100% tátil e visual no produto)' 
-            : 'Pessoa/Criador falando diretamente para a câmera com Lip Sync impecável em Português do Brasil';
 
-        const modelInstructions = isHandsOnly 
-            ? `[DIRETRIZES DO FORMATO: APENAS MÃOS (FACELSS / POV)]
-- CÂMERA & VISUAL: NÃO mostre rosto. Use visão POV (primeira pessoa) ou enquadramento de mesa (top-down) e macro/close-ups extremos. As mãos devem interagir ativamente (abrindo embalagem, testando texturas, apertando botões, demonstrando a função do produto com agilidade).
-- ÁUDIO: Narração em voz em off (voiceover) dinâmica e sincera, combinada com sons ambientes do produto em evidência (ASMR suave, cliques, texturas sonoras).`
-            : `[DIRETRIZES DO FORMATO: PESSOA FALANDO COM LIP SYNC PERFEITO EM PORTUGUÊS (BR)]
-- SINCRONIA LABIAL & DICÇÃO: Roteiro otimizado para fala fluida em Português do Brasil, ideal para atores reais ou avatares de IA (Hedra, HeyGen, Kling, Runway, ElevenLabs).
-- ESTRUTURAÇÃO DAS FRASES: Frases curtas e rítmicas, com marcações de pausas respiratórias ([pausa de 0.5s]) para garantir que a movimentação da boca seja milimetricamente orgânica e natural, sem palavras complexas que quebrem o lip sync.
-- EXPRESSÃO & OLHAR: Indicar orientações cênicas para o apresentador (olhar fixo na lente, expressões faciais que variam de dúvida para entusiasmo, segurando e apontando o produto na altura do peito).`;
+        // Definir descrição do gancho
+        let hookExample = "";
+        let hookAudio = "";
+        let hookScreenText = "";
 
-        const fidelityInstructions = strictFidelity ? `
-[DIRETRIZ CRÍTICA DE ANÁLISE DE IMAGEM & FIDELIDADE VISUAL ABSOLUTA (ZERO ALUCINAÇÃO)]
-⚠️ REGRA MANDATÓRIA DE RENDERIZAÇÃO E CONSISTÊNCIA VISUAL:
-1. ANÁLISE MINUCIOSA DA IMAGEM FORNECIDA: Analise criteriosamente a foto/imagem do produto enviada em anexo. Identifique com exatidão cirúrgica:
-   - Formato geométrico, dimensões e ergonomia exatas;
-   - Cores fiéis (tonalidade, brilho, fosco, degradê ou transparência real);
-   - Materiais e texturas visíveis (plástico, silicone, aço escovado, tecido, vidro);
-   - Todos os detalhes físicos reais: botões, frestas, costuras, conexões/entradas, luzes LED, logotipos e inscrições.
-2. TOLERÂNCIA ZERO PARA DISTORÇÕES OU INVENÇÕES:
-   - É terminantemente PROIBIDO alucinar, inventar ou alterar peças, mecanismos, botões, cores ou funções que NÃO estejam demonstrados ou evidentes na imagem do produto real.
-   - Não adicione componentes imaginários nem mude a escala do produto em relação às mãos ou ao ambiente.
-3. CONSISTÊNCIA MULTI-ÂNGULOS DO OBJETO:
-   - Em todos os closes, cortes e transições de cena, o produto exibido no vídeo DEVE permanecer 100% idêntico e consistente com a imagem de referência fornecida, sem variações visuais entre um segundo e outro.
-4. DESCRIÇÃO VISUAL HIPER-ESPECÍFICA:
-   - Ao detalhar as ações visuais do roteiro e os prompts visuais de cada tomada, use descritores extraídos diretamente da imagem real para que IAs de vídeo (Kling, Runway, Sora, Luma, Minimax) ou editores mantenham a réplica exata do produto em tela.` : '';
-
-        const promptTemplate = `Você é um Estrategista de Conteúdo e Copywriter de Elite especialista em Vendas no TIKTOK SHOP (vídeos curtos virais que convertem em compras diretas pelo carrinho amarelo).
-
-Crie um roteiro de alta conversão estruturado segundo as especificações abaixo:
-
-[DADOS DA CAMPANHA]
-- Linha / Nicho do Produto: ${category}
-- Produto & Diferencial: ${productName}
-- Formato de Vídeo: ${formatStyle}
-- Modelo de Apresentação: ${modelLabel}
-- Oferta / Gatilho de Venda: ${salesHook}
-- Tom de Voz: ${toneVoice}
-- Duração ideal: 35 a 55 segundos (ótimo para retenção e compra rápida no TikTok)
-
-${modelInstructions}
-${fidelityInstructions}
-
-[REQUISITOS OBRIGATÓRIOS DO ROTEIRO]
-Estruture a resposta contendo exatamente:
-
-1. GANCHO DOS PRIMEIROS 3 SEGUNDOS (O Hook Vital):
-   - Forneça 3 opções de ganchos irresistíveis (Ação Visual com o produto idêntico à imagem + Frase falada + Texto na tela em caixa alta).
-   - O gancho DEVE quebrar o padrão do feed logo no primeiro segundo.
-
-2. ROTEIRO DETALHADO CRONOMETRADO:
-   Organize em blocos de tempo com:
-   - [Segundo / Tempo estimado]
-   - [Ação Visual / Enquadramento] (${isHandsOnly ? 'Foco nas mãos, movimentos e close-ups fiéis à imagem' : 'Gestos da pessoa, expressão facial e exibição do produto idêntico à foto'})
-   - [Fala / Roteiro de Áudio em Português] (${isHandsOnly ? 'Narração em off com naturalidade' : 'Texto articulado com pausas [pausa] para Lip Sync perfeito'})
-   - [Texto na Tela / Efeitos Sonoros] (legendas dinâmicas, pop-ups, efeito sonoro sutil)
-
-3. APELO AO CARRINHO AMARELO (CTA TikTok Shop):
-   - Frase exata indicando o botão de compra no canto inferior esquerdo da tela.
-   - Reforço do gatilho (${salesHook}).
-
-4. DICAS DE CAPTAÇÃO E ILUMINAÇÃO (${isHandsOnly ? 'Top-down, luz suave nas mãos, fundo limpo' : 'Luz nos olhos, microfone lapela, enquadramento 9:16 na altura dos olhos'}).
-
-5. HASHTAGS E TRILHA SONORA RECOMENDADA.`;
-
-        outputTextarea.value = promptTemplate;
-        outputGroup.style.display = 'block';
-
-        // Scroll suave até o resultado
-        outputGroup.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function copyToClipboard() {
-        const outputTextarea = document.getElementById('output');
-        if (!outputTextarea.value) return;
-
-        outputTextarea.select();
-        outputTextarea.setSelectionRange(0, 99999);
-
-        try {
-            document.execCommand('copy');
-            showToast('✅ Comando copiado! Cole no ChatGPT ou Claude.');
-        } catch (err) {
-            showToast('Erro ao copiar. Selecione o texto manualmente.', true);
+        if (hookType === 'alivio_dor') {
+            hookExample = "Mostra uma situação frustrante com o problema em foco, seguida pela aparição imediata do produto.";
+            hookAudio = `Se você ainda perde tempo ou dinheiro com isso, você precisa conhecer isso agora! [pausa de 0.4s]`;
+            hookScreenText = "NÃO PERCA MAIS DINHEIRO COM ISSO ⚠️";
+        } else if (hookType === 'polemico_curiosidade') {
+            hookExample = "O apresentador/mãos apontam para o produto com ar de mistério e revelação.";
+            hookAudio = `Não compre esse item antes de ver este teste rápido até o final! [pausa de 0.4s]`;
+            hookScreenText = "NÃO COMPRE ANTES DE VER ISTO! 🚨";
+        } else if (hookType === 'achadinho_economico') {
+            hookExample = "O produto sendo colocado na mesa com destaque para seu custo-benefício incrível.";
+            hookAudio = `Esse é literalmente o achadinho mais barato e útil que já encontrei no TikTok Shop! [pausa de 0.4s]`;
+            hookScreenText = "ACHADINHO SECRETO DO TIKTOK SHOP 🏷️";
+        } else {
+            hookExample = "Choque direto: a falha imediata sendo corrigida pelo produto em menos de 2 segundos.";
+            hookAudio = `Olha a diferença absurda disso antes e depois em apenas um segundo! [pausa de 0.4s]`;
+            hookScreenText = "OLHA A DIFERENÇA DISSO! 😱";
         }
+
+        // 1. ROTEIRO TIKTOK SHOP
+        const scriptContent = `📱 ROTEIRO DE ALTA CONVERSÃO - TIKTOK SHOP (35 A 45 SEGUNDOS)
+Produto: ${productName}
+Nicho: ${category}
+Gatilho de Venda: ${salesHook}
+Estilo: ${formatStyle}
+Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visível)' : 'Pessoa/Criador falando com sincronia labial'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱️ [00s - 03s] GANCHO DE IMPACTO (O Hook Vital)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: ${hookExample}
+🗣️ Fala: "${hookAudio}"
+📝 Texto na Tela: ${hookScreenText}
+🎵 Trilha Sonora: Batida rítmica moderna em alta no TikTok (volume médio).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱️ [04s - 15s] A DOR REAL & A ENTRADA DO PRODUTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: O produto é exibido em close-up limpo e nítido. ${isHandsOnly ? 'Mãos seguram o produto pelas bordas sem cobrir detalhes da carcaça.' : 'Apresentador segura o produto na altura do peito, apontando para o diferencial.'}
+🗣️ Fala: "Eu vivia passando raiva com isso no meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver essa dor sem complicação."
+📝 Texto na Tela: "FINALMENTE UMA SOLUÇÃO QUE FUNCIONA ✅"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱️ [16s - 30s] DEMONSTRAÇÃO PRÁTICA & QUEBRA DE OBJEÇÕES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: Demonstração da função prática em velocidade real, sem cortes falsos. Foco tátil e claro na eficiência do item.
+🗣️ Fala: "Olha como é simples e prático de usar. Funciona na hora, o material é super resistente e não ocupa quase nenhum espaço. [pausa de 0.3s] Mudou totalmente a minha rotina!"
+📝 Texto na Tela: "PRÁTICO, RESISTENTE E FUNCIONA DE VERDADE 🔥"
+🔊 Efeito Sonoro: Efeito suave de clique ou som tátil do produto operando com perfeição.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱️ [31s - 45s] CHAMADA DECISIVA PARA O CARRINHO AMARELO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: O produto é colocado em destaque na frente da tela, com uma mão apontando diretamente para o canto inferior esquerdo da tela (onde fica o botão de compra do TikTok Shop).
+🗣️ Fala: "Ele tá com ${salesHook.toLowerCase()}. É só clicar aqui embaixo no carrinho amarelo antes que o lote promocional acabe!"
+📝 Texto na Tela: "👉 CLIQUE NO CARRINHO AMARELO AQUI EMBAIXO!"
+🎯 CTA: Indicação clara com setas apontando para o botão de compra.`;
+
+        // 2. DIRETRIZES ANTI-DISTORÇÃO VEO 3
+        let cameraDirective = "";
+        if (cameraMovement === 'push_in_lento') {
+            cameraDirective = "A câmera realiza um movimento muito suave e linear de aproximação frontal lenta (push-in suave), mantendo o foco nítido e estável no produto centralizado.";
+        } else if (cameraMovement === 'deslocamento_lateral') {
+            cameraDirective = "A câmera realiza um deslizamento lateral muito lento e contínuo (panorâmica suave de no máximo 5 graus), revelando o produto de forma estável e fluida.";
+        } else if (cameraMovement === 'estatico_luz') {
+            cameraDirective = "A câmera permanece 100% estática e fixa. Uma iluminação suave de estúdio percorre sutilmente o acabamento e a textura do produto, destacando seu design.";
+        } else {
+            cameraDirective = "A câmera mantém um enquadramento macro fixo e cristalino, capturando os detalhes finos, botões e acabamentos do produto com foco cirúrgico.";
+        }
+
+        let interactionDirective = "";
+        if (productInteraction === 'sem_maos') {
+            interactionDirective = "O produto repousa apoiado sobre uma superfície de estúdio limpa, moderna e minimalista. Nenhuma mão ou elemento externo interfere na visão do produto.";
+        } else if (productInteraction === 'maos_bordas') {
+            interactionDirective = "Duas mãos humanas seguram o produto delicadamente apenas pelas extremidades e bordas inferiores, deixando 100% da parte frontal, logotipos e botões totalmente desobstruídos e visíveis.";
+        } else {
+            interactionDirective = "Uma mão humana realiza uma micro-interação precisa e suave, apenas apoiando ou pressionando levemente um botão real já visível na foto do produto, com movimentos lentos e sem cobrir a carcaça.";
+        }
+
+        const strictClause = strictFidelity ? `DIRETRIZ CRÍTICA DE FIDELIDADE GEOMÉTRICA (ANTI-DISTORÇÃO):
+Trate o produto da imagem anexada como uma peça física rígida, sólida e imutável. Não modifique sob hipótese alguma o formato, as cores exatas, a textura, as proporções, os botões, os relevos ou as inscrições presentes na foto original. Proibido esticar, distorcer, derreter, girar bruscamente em 360 graus ou inventar componentes que não existem na imagem anexada.` : '';
+
+        // PROMPTS VEO 3 CENA A CENA (100% PORTUGUÊS)
+        const pVeo1 = `Vídeo vertical no formato 9:16 para TikTok. Estilo comercial profissional de estúdio.
+PRODUTO DE REFERÊNCIA: Utilize com fidelidade máxima a imagem do produto anexada (${productName}).
+
+CENA 1 - GANCHO E IMPACTO VISUAL:
+O produto está posicionado no centro do quadro com iluminação suave de estúdio e fundo contemporâneo limpo.
+DIREÇÃO DE CÂMERA: ${cameraDirective}
+INTERAÇÃO: ${interactionDirective}
+ATMOSFERA & QUALIDADE: Imagem hiper-nítida, foco cristalino, cores fiéis à foto anexada, profundidade de campo suave, sem borrões de movimento brusco.
+
+${strictClause}`;
+
+        const pVeo2 = `Vídeo vertical no formato 9:16 para TikTok. Demonstração prática e sensorial.
+PRODUTO DE REFERÊNCIA: Utilize com fidelidade máxima a imagem do produto anexada (${productName}).
+
+CENA 2 - DEMONSTRAÇÃO E SOLUÇÃO:
+O produto permanece no centro da cena enquanto a função prática é evidenciada de forma clara e objetiva.
+DIREÇÃO DE CÂMERA: Movimento estável de aproximação linear muito sutil, destacando o funcionamento do produto sem tremuras.
+INTERAÇÃO: ${interactionDirective}
+ATMOSFERA & QUALIDADE: Iluminação de alta definição, realce nas texturas e acabamentos reais do produto, nitidez absoluta em cada detalhe.
+
+${strictClause}`;
+
+        const pVeo3 = `Vídeo vertical no formato 9:16 para TikTok. Chamada para ação e conversão.
+PRODUTO DE REFERÊNCIA: Utilize com fidelidade máxima a imagem do produto anexada (${productName}).
+
+CENA 3 - CHAMADA FINAL E CARRINHO:
+Enquadramento frontal nítido do produto. O item é colocado em primeiro plano com clareza total, com uma leve indicação gestual sutil na direção da parte inferior da tela (onde localiza-se o carrinho de compras do TikTok Shop).
+DIREÇÃO DE CÂMERA: Câmera fixa em plano médio com leve recuo suave, mantendo o produto perfeitamente centralizado e nítido.
+INTERAÇÃO: O produto fica apoiado com firmeza, destacado pela luz ambiente acolhedora.
+ATMOSFERA & QUALIDADE: Visual limpo de catálogo profissional, cores autênticas à foto de referência, foco impecável.
+
+${strictClause}`;
+
+        // 3. DOCUMENTO COMPLETO
+        const fullDocument = `══════════════════════════════════════════════════════════════════════
+PLANEJAMENTO COMPLETO DE CONVERSÃO TIKTOK SHOP & GOOGLE VEO 3
+══════════════════════════════════════════════════════════════════════
+Produto: ${productName}
+Nicho: ${category}
+Gatilho: ${salesHook}
+Data: ${new Date().toLocaleDateString('pt-BR')}
+
+${scriptContent}
+
+══════════════════════════════════════════════════════════════════════
+PROMPTS TÉCNICOS PARA O GOOGLE VEO 3 (100% EM PORTUGUÊS)
+══════════════════════════════════════════════════════════════════════
+💡 Dica de Ouro para o Veo 3:
+1. Abra o Google Veo 3;
+2. Anexe a foto real e nítida do seu produto;
+3. Copie e cole o prompt de cada cena individualmente;
+4. Como cada tomada terá de 3 a 5 segundos, o Veo 3 não irá distorcer ou derreter o produto!
+5. Junte as 3 tomadas geradas no CapCut e aplique a narração do roteiro acima.
+
+--- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
+${pVeo1}
+
+--- CENA 2: DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA (4 a 5 segundos) ---
+${pVeo2}
+
+--- CENA 3: CHAMADA FINAL & CARRINHO AMARELO (3 a 4 segundos) ---
+${pVeo3}
+
+══════════════════════════════════════════════════════════════════════
+REGRAS ANTI-DISTORÇÃO APLICADAS AUTOMATICAMENTE:
+- Objeto tratado como sólido rígido e imutável;
+- Movimento exclusivamente gerado pela câmera (aproximação/deslizamento sutil);
+- Sem rotações de 360 graus para evitar alucinação geométrica;
+- Dedos posicionados apenas nas bordas sem tampar detalhes do produto;
+- Vocabulário técnico 100% em Português perfeitamente interpretado pelo Veo 3.
+══════════════════════════════════════════════════════════════════════`;
+
+        // Preenche os campos
+        document.getElementById('outputRoteiro').value = scriptContent;
+        document.getElementById('scenePrompt1').innerText = pVeo1;
+        document.getElementById('scenePrompt2').innerText = pVeo2;
+        document.getElementById('scenePrompt3').innerText = pVeo3;
+        document.getElementById('outputCompleto').value = fullDocument;
+
+        // Exibe a seção de saída
+        const outputGroup = document.getElementById('outputGroup');
+        outputGroup.style.display = 'block';
+        outputGroup.scrollIntoView({ behavior: 'smooth' });
+
+        showToast('✨ Roteiro e Prompts do Veo 3 gerados com sucesso!');
     }
+
+    function downloadTxt() {
+        const content = document.getElementById('outputCompleto').value;
+        if (!content) {
+            showToast('Gere o conteúdo primeiro antes de baixar.', true);
+            return;
+        }
+
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Roteiro_TikTokShop_Veo3.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast('📥 Arquivo baixado com sucesso!');
+    }
+
+    // Inicializa sugestão padrão ao carregar
+    updateProductSuggestions();
 </script>
 
 </body>
