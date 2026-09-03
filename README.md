@@ -1,23 +1,26 @@
 # Gerador TikTok Shop & Prompts Videos ⚡🎬
 
-Aplicação web estática e responsiva para criação de roteiros de alta conversão para o **TikTok Shop** e geração de prompts técnicos **Image-to-Video (I2V)** para IAs de vídeo (como **Google Veo 3**), com suporte a fluxo contínuo, DNA unificado de consistência entre cenas e orientações de conversão com **setas dinâmicas para o Carrinho Amarelo**, tudo em **100% Português**.
+Aplicação web estática e responsiva para criação de roteiros de alta conversão para o **TikTok Shop** e geração de prompts técnicos **Image-to-Video (I2V)** para IAs de vídeo (como **Google Veo 3**), com suporte a fluxo contínuo (Flow), DNA unificado de consistência entre cenas, orientações de conversão com **setas dinâmicas para o Carrinho Amarelo**, e bloco pronto de **Título da Postagem + Hashtags Virais**, tudo em **100% Português**.
 
 🔗 **Acesse Online:** [https://duhduh2019.github.io/Achadinhos_Jesus/](https://duhduh2019.github.io/Achadinhos_Jesus/)
 
 ---
 
-## 🚀 Principais Funcionalidades da v1.5.1
+## 🚀 Principais Funcionalidades da v1.6.0
 
-### 1. Instrução Clara e Direta
+### 1. Campo de Nome do Produto 100% em Branco
+- O campo *"Nome do Produto & Função Principal"* agora inicia limpo, permitindo que você digite livremente sem precisar apagar nada. O placeholder dá exemplos de inspiração de acordo com o nicho selecionado.
+
+### 2. Card Pronto de Título & Hashtags para o TikTok
+- Gera automaticamente a copy pronta para postar no TikTok:
+  - **Título/Legenda:** Curto, magnético e com chamada para o carrinho amarelo e emojis de alta retenção.
+  - **Hashtags Virais:** Hashtags oficiais do TikTok Shop (`#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #CompreiNoTikTok`) combinadas com as principais tags do nicho do produto.
+  - **Botão Dedicado:** `📋 Copiar Título + Hashtags` para você copiar com 1 clique e colar direto no aplicativo do TikTok!
+
+### 3. Instrução Direta e Genérica da Imagem
 - *💡 Anexe a imagem com alta qualidade do produto na IA e cole o prompt gerado abaixo e deixa rodar.*
 
-### 2. Instruções do Flow em Cada Cena
-Na aba de prompts técnicos, cada cena traz sua linha de instrução prática:
-- **Cena 1:** *💡 Anexe a foto do seu produto e cole este comando para gerar o clipe inicial (Frame 0).*
-- **Cena 2:** *💡 No Flow da IA: clique em "Estender" (Extend) e cole este comando como 1ª extensão contínua (ou anexe a mesma foto para novo clipe).*
-- **Cena 3:** *💡 No Flow da IA: clique em "Estender" (Extend) novamente e cole este comando para a extensão final do Carrinho Amarelo.*
-
-### 3. Mais Ganchos Psicológicos Virais (9 Opções em Ordem A a Z):
+### 4. Mais Ganchos Psicológicos Virais (9 Opções em Ordem A a Z)
 1. **Achadinho Barato**: 'O item mais barato do TikTok Shop que realmente funciona'
 2. **Alerta de Erro Comum**: 'Você provavelmente está fazendo isso totalmente errado'
 3. **Anti-Hype / Curiosidade**: 'Não compre isso antes de ver este teste rápido'
@@ -28,17 +31,13 @@ Na aba de prompts técnicos, cada cena traz sua linha de instrução prática:
 8. **Prova Social Massiva**: 'Por que todo mundo no TikTok só está falando desse produto?'
 9. **Transformação Imediata**: 'Olha o que aconteceu quando usei isso pela primeira vez'
 
-### 4. Seletores 100% em Ordem Alfabética (A a Z)
-Todos os campos e menus suspensos organizados alfabeticamente para navegação rápida e intuitiva.
-
-### 5. Chamada de Compra com Setas (`↘️ 👇`) e DNA de Consistência
-- Instruções visuais e gestuais no roteiro e na Cena 3 com stickers de setas animadas apontando diretamente para o botão do carrinho no canto inferior esquerdo.
-- Todas as tomadas compartilham a mesma fórmula de iluminação de estúdio difusa a 45° e bancada neutra.
-
 ---
 
 ## 📦 Histórico de Versões
 
+- **v1.6.0**:
+  - Campo do produto limpo (sem texto pré-preenchido).
+  - Adicionado card dedicado de **Título da Postagem & Hashtags do TikTok** com botão de cópia rápida.
 - **v1.5.1**:
   - Atualização do título para **Gerador TikTok Shop & Prompts Videos**.
   - Simplificação da instrução de uso: *"Anexe a imagem com alta qualidade do produto na IA e cole o prompt gerado abaixo e deixa rodar."*

@@ -165,7 +165,7 @@
             }
         }
 
-        /* Notificação explicativa */
+        /* Notificação explicativa genérica */
         .photo-notice-card {
             background: rgba(6, 182, 212, 0.04);
             border: 1px solid rgba(6, 182, 212, 0.25);
@@ -183,16 +183,12 @@
         }
 
         .photo-notice-text {
-            font-size: 0.84rem;
+            font-size: 0.88rem;
             color: #cbd5e1;
             line-height: 1.5;
         }
 
-        .photo-notice-text strong {
-            color: var(--veo-cyan);
-        }
-
-        /* Caixa Veo 3 I2V */
+        /* Caixa I2V */
         .veo-box {
             background: rgba(6, 182, 212, 0.05);
             border: 1px solid rgba(6, 182, 212, 0.25);
@@ -388,6 +384,17 @@
             border-color: #22d3ee;
         }
 
+        .action-btn.emerald {
+            background-color: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #6ee7b7;
+        }
+
+        .action-btn.emerald:hover {
+            background-color: rgba(16, 185, 129, 0.25);
+            border-color: #34d399;
+        }
+
         textarea.result-box {
             height: 340px;
             resize: vertical;
@@ -465,6 +472,25 @@
             white-space: pre-wrap;
         }
 
+        /* Card de Título e Hashtags */
+        .caption-card {
+            background: var(--card-inner);
+            border: 1px solid #3b82f6;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 20px;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.12);
+        }
+
+        .caption-card-title {
+            font-weight: 700;
+            font-size: 0.96rem;
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         /* Toast notification */
         .toast {
             position: fixed;
@@ -502,7 +528,7 @@
             <span>⚡ TikTok Shop Conversão</span>
         </div>
         <div class="tag-badge cyan">
-            <span>🎬 Image-to-Video Google Veo 3</span>
+            <span>🎬 Image-to-Video Prompts</span>
         </div>
     </div>
     <h1>Gerador TikTok Shop & Prompts Videos</h1>
@@ -517,7 +543,7 @@
     </div>
 
     <!-- 1. DADOS DO PRODUTO & TIPO DA FOTO (EM ORDEM ALFABÉTICA) -->
-    <div class="section-title">📦 1. Produto & Como é a Foto que Você vai Anexar no Veo 3</div>
+    <div class="section-title">📦 1. Produto & Como é a Foto que Você vai Anexar na IA</div>
     
     <div class="row">
         <div class="form-group">
@@ -535,21 +561,21 @@
         </div>
 
         <div class="form-group">
-            <label for="photoType">Como é a Foto que Você vai Anexar no Veo 3?</label>
+            <label for="photoType">Como é a Foto que Você vai Anexar na IA?</label>
             <select id="photoType">
                 <option value="ambiente_real">🏠 No Ambiente Real de Uso (Cozinha, Mesa, Bancada)</option>
                 <option value="fundo_branco">⚪ Catálogo com Fundo Branco / Neutro (Produto Isolado)</option>
                 <option value="close_macro">🔍 Foto em Close-up / Macro (Foco nos detalhes e botões)</option>
                 <option value="na_mao">🖐️ Segurado na Mão (Mãos já aparecem na foto)</option>
             </select>
-            <div class="help-text">Orienta o Veo 3 sobre como ambientar o cenário ao redor do produto anexado.</div>
+            <div class="help-text">Orienta a IA de vídeo sobre como ambientar o cenário ao redor do produto anexado.</div>
         </div>
     </div>
 
     <div class="form-group">
         <label for="productName">Nome do Produto & Função Principal</label>
-        <input type="text" id="productName" value="Mini Selador Portátil de Pacotes com Lâmina Embutida" placeholder="Ex: Mini Selador Térmico Portátil de Embalagens">
-        <div class="help-text">Dica: Adicione o diferencial que o produto resolve para o gancho viral.</div>
+        <input type="text" id="productName" value="" placeholder="Ex: Mini Selador Térmico Portátil de Embalagens">
+        <div class="help-text">Dica: Digite o nome do seu produto ou deixe em branco para usar o exemplo sugerido do nicho.</div>
     </div>
 
     <!-- 2. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP (TODAS AS OPÇÕES RIGOROSAMENTE EM ORDEM ALFABÉTICA A-Z) -->
@@ -602,7 +628,7 @@
         </div>
     </div>
 
-    <!-- 3. CONFIGURAÇÕES IMAGE-TO-VIDEO VEO 3 (EM ORDEM ALFABÉTICA) -->
+    <!-- 3. CONFIGURAÇÕES IMAGE-TO-VIDEO (EM ORDEM ALFABÉTICA) -->
     <div class="veo-box">
         <div class="veo-box-header">
             <div class="veo-box-title">
@@ -614,17 +640,17 @@
             </label>
         </div>
         <div class="help-text" style="margin-bottom: 10px; color: #cbd5e1;">
-            Esta opção injeta a <strong>Cláusula Mandatória de Frame 0</strong> no topo de cada prompt, instruindo o Veo 3 a iniciar a gravação exatamente a partir dos pixels da foto anexada.
+            Esta opção injeta a <strong>Cláusula Mandatória de Frame 0</strong> no topo de cada prompt, instruindo a IA de vídeo a iniciar a gravação exatamente a partir dos pixels da foto anexada.
         </div>
 
         <div class="clause-preview">
-            📌 <strong>Texto que será inserido no topo do prompt do Veo 3:</strong><br>
+            📌 <strong>Texto que será inserido no topo do prompt:</strong><br>
             <em>"REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da cena. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto. Trate-o como peça sólida, física e imutável..."</em>
         </div>
 
         <div class="row" style="margin-top: 16px;">
             <div class="form-group" style="margin-bottom: 0;">
-                <label for="cameraMovement">Cinemática de Câmera no Veo 3 (A a Z)</label>
+                <label for="cameraMovement">Cinemática de Câmera (A a Z)</label>
                 <select id="cameraMovement">
                     <option value="push_in_lento">Aproximação Lenta e Focada (Push-in suave a partir do Frame 0)</option>
                     <option value="estatico_luz">Câmera Fixa com Iluminação Percorrendo a Textura do Produto</option>
@@ -645,14 +671,29 @@
     </div>
 
     <button class="primary-btn" onclick="generateAll()">
-        <span>✨ Gerar Roteiro TikTok & Prompts Veo 3 com Trava de Imagem</span>
+        <span>✨ Gerar Roteiro TikTok & Prompts Videos com Trava de Imagem</span>
     </button>
 
     <!-- 4. ÁREA DE RESULTADOS COM ABAS -->
     <div class="output-group" id="outputGroup">
-        <div class="tabs">
+        
+        <!-- CARD DE TÍTULO E HASHTAGS PARA COPIAR E COLAR NO TIKTOK -->
+        <div class="caption-card">
+            <div class="output-header">
+                <div class="caption-card-title">
+                    <span>🏷️ Título da Postagem & Hashtags Prontas para o TikTok:</span>
+                </div>
+                <button class="action-btn emerald" onclick="copyText('outputCaptionTags')">📋 Copiar Título + Hashtags</button>
+            </div>
+            <div class="help-text" style="margin-bottom: 10px; color: #94a3b8;">
+                Pronto para copiar e colar na legenda do seu vídeo quando for publicar no TikTok:
+            </div>
+            <textarea id="outputCaptionTags" class="result-box" style="height: 110px; font-family: inherit; font-size: 0.92rem; line-height: 1.5;" readonly></textarea>
+        </div>
+
+        <div class="tabs" style="margin-top: 24px;">
             <button class="tab-btn active" onclick="switchTab('tab-roteiro')">📱 Roteiro TikTok Shop</button>
-            <button class="tab-btn veo" onclick="switchTab('tab-veo')">🎬 Prompts Veo 3 (Cena a Cena)</button>
+            <button class="tab-btn veo" onclick="switchTab('tab-veo')">🎬 Prompts Videos (Cena a Cena)</button>
             <button class="tab-btn" onclick="switchTab('tab-completo')">📋 Visão Completa (Tudo Integrado)</button>
         </div>
 
@@ -668,7 +709,7 @@
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
         </div>
 
-        <!-- ABA 2: PROMPTS I2V VEO 3 CENA A CENA COM LINHAS DE INSTRUÇÃO FLOW -->
+        <!-- ABA 2: PROMPTS I2V CENA A CENA COM LINHAS DE INSTRUÇÃO FLOW -->
         <div class="tab-pane" id="tab-veo">
             <div class="output-header">
                 <label>Prompts Técnicos em Português com Consistência Unificada (Use na Geração ou no Flow Extend):</label>
@@ -685,7 +726,7 @@
                     <button class="action-btn" onclick="copyText('scenePrompt1')">📋 Copiar Cena 1</button>
                 </div>
                 <div class="flow-instruction-line">
-                    <span>💡 <strong>No Google Veo 3:</strong> anexe a foto do seu produto e cole este comando para gerar o clipe inicial (Frame 0).</span>
+                    <span>💡 <strong>Na IA de Vídeo:</strong> anexe a foto de alta qualidade do seu produto e cole este comando para gerar o clipe inicial (Frame 0).</span>
                 </div>
                 <div class="scene-prompt-text" id="scenePrompt1"></div>
             </div>
@@ -698,7 +739,7 @@
                     <button class="action-btn" onclick="copyText('scenePrompt2')">📋 Copiar Cena 2</button>
                 </div>
                 <div class="flow-instruction-line">
-                    <span>💡 <strong>No Flow do Veo 3:</strong> clique em "Estender" (Extend) e cole este comando como 1ª extensão contínua (ou anexe a mesma foto para novo clipe).</span>
+                    <span>💡 <strong>No Flow da IA:</strong> clique em "Estender" (Extend) e cole este comando como 1ª extensão contínua (ou anexe a mesma foto para novo clipe).</span>
                 </div>
                 <div class="scene-prompt-text" id="scenePrompt2"></div>
             </div>
@@ -711,7 +752,7 @@
                     <button class="action-btn" onclick="copyText('scenePrompt3')">📋 Copiar Cena 3</button>
                 </div>
                 <div class="flow-instruction-line">
-                    <span>💡 <strong>No Flow do Veo 3:</strong> clique em "Estender" (Extend) novamente e cole este comando para a extensão final do Carrinho Amarelo.</span>
+                    <span>💡 <strong>No Flow da IA:</strong> clique em "Estender" (Extend) novamente e cole este comando para a extensão final do Carrinho Amarelo.</span>
                 </div>
                 <div class="scene-prompt-text" id="scenePrompt3"></div>
             </div>
@@ -720,7 +761,7 @@
         <!-- ABA 3: VISÃO COMPLETA INTEGRADA -->
         <div class="tab-pane" id="tab-completo">
             <div class="output-header">
-                <label>Documento Completo (Roteiro, Prompts do Veo 3 e Dicas de Consistência no Flow):</label>
+                <label>Documento Completo (Legenda, Hashtags, Roteiro e Prompts com Dicas de Consistência):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
                     <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
@@ -746,14 +787,24 @@
         "Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)": "Carregador Magnético 3 em 1 Dobrável para Celular, Fone e Relógio"
     };
 
+    // Hashtags de alta conversão por nicho
+    const categoryHashtags = {
+        "Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #Beleza #SkincareBrasil #DicasDeBeleza #CabelosSaudaveis #CompreiNoTikTok",
+        "Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #DicasDeCasa #CozinhaPratica #Organizacao #HacksDeCasa #CompreiNoTikTok",
+        "Infantil, Brinquedos Educativos & Maternidade": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #MaternidadeReal #DicasDeMae #BrinquedosEducativos #Maternidade #CompreiNoTikTok",
+        "Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #ModaFeminina #LooksTikTok #Moda #Shapewear #CompreiNoTikTok",
+        "Papelaria, Escritório & Produtividade": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #Papelaria #HomeOffice #Estudos #Produtividade #CompreiNoTikTok",
+        "Pet Care & Acessórios para Animais": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #PetsDoTikTok #Cachorros #Gatos #PetLovers #CompreiNoTikTok",
+        "Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #FitnessBrasil #TreinoEmCasa #VidaSaudavel #Academia #CompreiNoTikTok",
+        "Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #TechTokBrasil #Gadgets #Tecnologia #AchadosTech #CompreiNoTikTok"
+    };
+
     function updateProductSuggestions() {
         const categorySelect = document.getElementById('productCategory');
         const productInput = document.getElementById('productName');
         const selectedCat = categorySelect.value;
-
-        if (!productInput.value || Object.values(productExamples).includes(productInput.value)) {
-            productInput.value = productExamples[selectedCat] || '';
-        }
+        const example = productExamples[selectedCat] || 'Ex: Mini Selador Térmico Portátil de Embalagens';
+        productInput.placeholder = `Ex: ${example}`;
     }
 
     function switchTab(tabId) {
@@ -807,8 +858,8 @@
         const p2 = document.getElementById('scenePrompt2').innerText;
         const p3 = document.getElementById('scenePrompt3').innerText;
 
-        const allScenes = `[PROMPTS TÉCNICOS COM CONSISTÊNCIA UNIFICADA - GOOGLE VEO 3]
-(Anexe a mesma foto original do produto no Veo 3 em todas as tomadas ou use como extensão no Flow)
+        const allScenes = `[PROMPTS TÉCNICOS COM CONSISTÊNCIA UNIFICADA - VÍDEOS DE ALTA CONVERSÃO]
+(Anexe a mesma foto original do produto na IA em todas as tomadas ou use como extensão no Flow)
 
 --- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
 ${p1}
@@ -820,7 +871,7 @@ ${p2}
 ${p3}`;
 
         navigator.clipboard.writeText(allScenes).then(() => {
-            showToast('✅ Todos os prompts do Veo 3 foram copiados!');
+            showToast('✅ Todos os prompts foram copiados!');
         }).catch(() => {
             showToast('Erro ao copiar.', true);
         });
@@ -829,7 +880,13 @@ ${p3}`;
     function generateAll() {
         const category = document.getElementById('productCategory').value;
         const photoType = document.getElementById('photoType').value;
-        const productName = document.getElementById('productName').value.trim();
+        let productName = document.getElementById('productName').value.trim();
+        
+        // Se estiver em branco, utiliza o produto de referência do nicho
+        if (!productName) {
+            productName = productExamples[category] || "Produto Achadinho";
+        }
+
         const hookType = document.getElementById('hookType').value;
         const salesHook = document.getElementById('salesHook').value;
         const formatStyle = document.getElementById('formatStyle').value;
@@ -838,57 +895,64 @@ ${p3}`;
         const productInteraction = document.getElementById('productInteraction').value;
         const strictFidelity = document.getElementById('strictFidelity').checked;
 
-        if (!productName) {
-            showToast('Por favor, informe o nome do produto.', true);
-            document.getElementById('productName').focus();
-            return;
-        }
-
         const isHandsOnly = presentationModel === 'hands_only';
 
-        // Ganchos & Textos Implícitos na Tela gerados dinamicamente pela IA (ampliados)
+        // Ganchos & Textos Implícitos na Tela gerados dinamicamente pela IA
         let hookExample = "";
         let hookAudio = "";
         let hookScreenText = "";
+        let postTitle = "";
 
         if (hookType === 'achadinho_economico') {
             hookExample = "O produto sendo colocado na mesa com destaque para seu custo-benefício incrível.";
             hookAudio = `Esse é literalmente o achadinho mais barato e útil que já encontrei no TikTok Shop! [pausa de 0.4s]`;
             hookScreenText = `ACHADINHO SECRETO DO TIKTOK SHOP 🏷️`;
+            postTitle = `O item mais barato e útil do TikTok Shop que você precisa ter! 😱 Clica no carrinho amarelo aqui embaixo antes que acabe 👇🛒`;
         } else if (hookType === 'alerta_erro') {
             hookExample = "Mostra a forma errada e incômoda que as pessoas fazem no dia a dia, interrompida bruscamente pela solução.";
             hookAudio = `Você provavelmente está fazendo isso totalmente errado e nem sabia! [pausa de 0.4s]`;
             hookScreenText = `VOCÊ ESTÁ FAZENDO ISSO ERRADO! ❌`;
+            postTitle = `Você provavelmente está fazendo isso totalmente errado e nem sabia! ❌ Olha a diferença desse ${productName}. Corre no carrinho amarelo 👇🛒`;
         } else if (hookType === 'polemico_curiosidade') {
             hookExample = "O apresentador ou as mãos apontam para o produto com ar de mistério e revelação.";
             hookAudio = `Não compre esse item antes de ver este teste rápido até o final! [pausa de 0.4s]`;
             hookScreenText = `NÃO COMPRE ANTES DE VER ISTO! 🚨`;
+            postTitle = `NÃO COMPRE antes de ver este teste rápido até o final! 🚨 Testei o ${productName} e me surpreendi. Link no carrinho amarelo aqui embaixo 👇🛒`;
         } else if (hookType === 'ceticismo_desafio') {
             hookExample = "Expressão ou gesto de dúvida inicial, aplicando o produto e mostrando resultado surpreendente.";
             hookAudio = `Disseram nos comentários que isso não funcionava, então resolvi testar na prática! [pausa de 0.4s]`;
             hookScreenText = `TESTEI PRA VER SE É GOLPE OU SE FUNCIONA! 🧐`;
+            postTitle = `Disseram nos comentários que isso não funcionava... Então resolvi testar! 🧐 Olha o resultado chocante! Link no carrinho amarelo 👇🛒`;
         } else if (hookType === 'choque_demonstracao') {
             hookExample = "Choque direto: a falha imediata sendo corrigida pelo produto em menos de 2 segundos.";
             hookAudio = `Olha a diferença absurda disso antes e depois em apenas um segundo! [pausa de 0.4s]`;
             hookScreenText = `OLHA A DIFERENÇA EM 1 SEGUNDO! 😱`;
+            postTitle = `Olha a diferença absurda em apenas 1 segundo! 😱 Melhor achado do mês no TikTok Shop. Clica no carrinho amarelo 👇🛒`;
         } else if (hookType === 'alivio_dor') {
             hookExample = "Mostra uma situação frustrante com o problema em foco, seguida pela aparição imediata do produto.";
             hookAudio = `Se você ainda perde tempo ou dinheiro com isso, você precisa conhecer isso agora! [pausa de 0.4s]`;
             hookScreenText = `PARE DE PASSAR RAIVA COM ISSO HOJE! ⚠️`;
+            postTitle = `Chega de passar raiva e perder dinheiro com isso! ⚠️ O ${productName} resolveu tudo. Garanta no carrinho amarelo com ${salesHook.toLowerCase()} 👇🛒`;
         } else if (hookType === 'segredo_revelado') {
             hookExample = "Enquadramento em tom confidencial, aproximando o produto da câmera como um segredo revelado.";
             hookAudio = `A indústria nunca quis que você descobrisse esse truque tão fácil! [pausa de 0.4s]`;
             hookScreenText = `O SEGREDO QUE NUNCA TE CONTARAM 🤫`;
+            postTitle = `O segredo que nunca quiseram te contar sobre isso! 🤫 O ${productName} é surreal de prático. Link no carrinho amarelo 👇🛒`;
         } else if (hookType === 'prova_social') {
             hookExample = "Print rápido ou menção de viralização, seguido do produto em mãos pronto para teste.";
             hookAudio = `Por que todo mundo no TikTok só está falando desse produto essa semana? [pausa de 0.4s]`;
             hookScreenText = `POR QUE TODO MUNDO SÓ FALA DISSO? 🔥`;
+            postTitle = `Por que TODO MUNDO no TikTok só está falando desse produto?! 🔥 Finalmente testei e aprovei! Clica no carrinho amarelo 👇🛒`;
         } else {
-            // transformacao_imediata
             hookExample = "Close-up acelerado mostrando o antes e o exato momento em que o produto atua.";
             hookAudio = `Olha o que aconteceu quando usei isso pela primeira vez, eu fiquei de queixo caído! [pausa de 0.4s]`;
             hookScreenText = `FIQUEI DE QUEIXO CAÍDO COM O RESULTADO! 🤯`;
+            postTitle = `Fiquei de queixo caído quando usei isso pela primeira vez! 🤯 ${productName} aprovadíssimo. Link no carrinho amarelo aqui embaixo 👇🛒`;
         }
+
+        // Hashtags estratégicas
+        const hashtags = categoryHashtags[category] || "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #CompreiNoTikTok";
+        const captionAndHashtags = `${postTitle}\n\n${hashtags}`;
 
         // 1. ROTEIRO TIKTOK SHOP COM SETINHAS E TEXTOS DINÂMICOS NA TELA
         const scriptContent = `📱 ROTEIRO DE ALTA CONVERSÃO - TIKTOK SHOP (35 A 45 SEGUNDOS)
@@ -928,7 +992,12 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
 👉 Elementos Visuais na Tela: Inserir adesivos/stickers de SETAS ANIMADAS piscando (👇 ↘️) apontando com precisão para o botão do carrinho de compras!
 📝 Texto na Tela: "👉 CLIQUE NO LINK / CARRINHO AMARELO AQUI EMBAIXO! 👇" (com efeito de pulsar)
 🗣️ Fala: "Ele tá com ${salesHook.toLowerCase()}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!"
-🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.`;
+🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏷️ LEGENDA & HASHTAGS RECOMENDADAS PARA A POSTAGEM NO TIKTOK:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${captionAndHashtags}`;
 
         // 2. DIRETRIZES DE ENTRADA & TRAVA DE FRAME 0
         let photoContextDirective = "";
@@ -963,7 +1032,7 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
         }
 
         // CLÁUSULA MANDATÓRIA POSICIONADA NO TOPO
-        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO - GOOGLE VEO 3]:
+        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO]:
 1. REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da tomada. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto no início da cena. A gravação deve continuar diretamente dos pixels da foto.
 2. TRAVA GEOMÉTRICA DE OBJETO RÍGIDO: O produto é uma peça sólida, física e imutável. Mantenha com precisão cirúrgica todas as cores, texturas, botões, proporções, logotipos e contornos da foto anexada.
 3. PROIBIÇÃO ABSOLUTA: Proibido girar o produto em 360 graus, derreter arestas, esticar peças ou criar componentes que não existam na foto anexada.
@@ -973,7 +1042,7 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
         // DNA DE CONSISTÊNCIA VISUAL COMPARTILHADO ENTRE CENAS
         const sharedStudioDNA = "ATMOSFERA & DNA VISUAL PADRONIZADO: Mesma iluminação suave e difusa de estúdio comercial a 45°, foco cristalino, profundidade de campo suave, cores e materiais 100% autênticos à foto de referência em todas as tomadas para máxima continuidade cinematográfica.";
 
-        // PROMPTS VEO 3 COM A TRAVA NO TOPO E CONSISTÊNCIA UNIFICADA
+        // PROMPTS COM A TRAVA NO TOPO E CONSISTÊNCIA UNIFICADA
         const pVeo1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok. Estilo comercial profissional de produto.
 PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0).
 
@@ -1004,22 +1073,28 @@ ${sharedStudioDNA}`;
 
         // DOCUMENTO COMPLETO
         const fullDocument = `══════════════════════════════════════════════════════════════════════
-PLANEJAMENTO COMPLETO DE CONVERSÃO TIKTOK SHOP & GOOGLE VEO 3
+PLANEJAMENTO COMPLETO DE CONVERSÃO TIKTOK SHOP & PROMPTS DE VÍDEO
 ══════════════════════════════════════════════════════════════════════
 Produto: ${productName}
 Nicho: ${category}
 Gatilho de Venda: ${salesHook}
-Foto no Veo 3: ${photoType}
+Foto na IA: ${photoType}
 Data: ${new Date().toLocaleDateString('pt-BR')}
 
+🏷️ LEGENDA E HASHTAGS PARA A POSTAGEM NO TIKTOK:
+${captionAndHashtags}
+
+══════════════════════════════════════════════════════════════════════
+ROTEIRO DE ALTA CONVERSÃO:
+══════════════════════════════════════════════════════════════════════
 ${scriptContent}
 
 ══════════════════════════════════════════════════════════════════════
-PROMPTS COM CONSISTÊNCIA UNIFICADA PARA O GOOGLE VEO 3 (100% PORTUGUÊS)
+PROMPTS COM CONSISTÊNCIA UNIFICADA PARA A IA DE VÍDEO (100% PORTUGUÊS)
 ══════════════════════════════════════════════════════════════════════
-💡 Como Gerar no Google Veo 3 com Consistência Absoluta:
-1. Abra o Google Veo 3;
-2. Anexe a mesma foto original do produto em cada uma das tomadas (Frame 0);
+💡 Como Gerar na IA com Consistência Absoluta:
+1. Abra a IA de vídeo;
+2. Anexe a mesma foto original de alta qualidade do produto em cada uma das tomadas (Frame 0);
 3. Cole o prompt de cada cena separadamente (ou use como extensão no Flow);
 4. Todas as cenas compartilham o mesmo DNA de estúdio e iluminação, garantindo que o produto pareça filmado na mesma mesa;
 5. Junte os 3 clipes curtos no CapCut, aplique a narração do roteiro e insira os stickers de setas apontando para o carrinho amarelo no final!
@@ -1042,6 +1117,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 ══════════════════════════════════════════════════════════════════════`;
 
         // Preenche campos
+        document.getElementById('outputCaptionTags').value = captionAndHashtags;
         document.getElementById('outputRoteiro').value = scriptContent;
         document.getElementById('scenePrompt1').innerText = pVeo1;
         document.getElementById('scenePrompt2').innerText = pVeo2;
@@ -1053,7 +1129,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         outputGroup.style.display = 'block';
         outputGroup.scrollIntoView({ behavior: 'smooth' });
 
-        showToast('✨ Roteiro e Prompts com Consistência e Setas gerados com sucesso!');
+        showToast('✨ Roteiro, Prompts, Título e Hashtags gerados com sucesso!');
     }
 
     function downloadTxt() {
@@ -1067,7 +1143,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'Planejamento_TikTokShop_Veo3.txt';
+        link.download = 'Planejamento_TikTokShop_Videos.txt';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -1075,7 +1151,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         showToast('📥 Arquivo baixado com sucesso!');
     }
 
-    // Inicialização
+    // Inicialização apenas com o placeholder sugerido (sem preencher o valor do input)
     updateProductSuggestions();
 </script>
 
