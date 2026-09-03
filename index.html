@@ -435,6 +435,24 @@
             font-weight: 700;
         }
 
+        .flow-instruction-line {
+            font-size: 0.82rem;
+            color: #38bdf8;
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1.4;
+        }
+
+        .flow-instruction-line strong {
+            color: #ffffff;
+        }
+
         .scene-prompt-text {
             background: #090e17;
             padding: 14px;
@@ -534,43 +552,49 @@
         <div class="help-text">Dica: Adicione o diferencial que o produto resolve para o gancho viral.</div>
     </div>
 
-    <!-- 2. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP (SELETORES EM ORDEM ALFABÉTICA) -->
-    <div class="section-title">🎯 2. Estratégia de Venda no TikTok Shop (A a Z)</div>
+    <!-- 2. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP (TODAS AS OPÇÕES RIGOROSAMENTE EM ORDEM ALFABÉTICA A-Z) -->
+    <div class="section-title">🎯 2. Estratégia de Venda no TikTok Shop (Ordem Alfabética A a Z)</div>
     <div class="row">
         <div class="form-group">
-            <label for="hookType">Gancho Psicológico dos Primeiros 3 Segundos</label>
+            <label for="hookType">Gancho Psicológico dos Primeiros 3 Segundos (A a Z)</label>
             <select id="hookType">
                 <option value="achadinho_economico">Achadinho Barato: 'O item mais barato do TikTok Shop que realmente funciona'</option>
-                <option value="polemico_curiosidade">Anti-Hype / Curiosidade: 'Não compre isso antes de ver este teste'</option>
-                <option value="choque_demonstracao">Demonstração de Choque: Problema vs. Resolução em 1 segundo</option>
-                <option value="alivio_dor">Dor Aguda & Alívio: 'Pare de estragar seus alimentos hoje'</option>
+                <option value="alerta_erro">Alerta de Erro Comum: 'Você provavelmente está fazendo isso totalmente errado'</option>
+                <option value="polemico_curiosidade">Anti-Hype / Curiosidade: 'Não compre isso antes de ver este teste rápido'</option>
+                <option value="ceticismo_desafio">Ceticismo / Desafio: 'Disseram que isso não funcionava, então resolvi testar'</option>
+                <option value="choque_demonstracao">Demonstração de Choque: Problema irritante vs. Resolução em 1 segundo</option>
+                <option value="alivio_dor">Dor Aguda & Alívio: 'Pare de estragar seus produtos e passar raiva hoje'</option>
+                <option value="segredo_revelado">Polêmico / Segredo Revelado: 'A indústria não quer que você descubra este truque'</option>
+                <option value="prova_social">Prova Social Massiva: 'Por que todo mundo no TikTok só está falando desse produto?'</option>
+                <option value="transformacao_imediata">Transformação Imediata: 'Olha o que aconteceu quando usei isso pela primeira vez'</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="salesHook">Gatilho de Venda (Oferta no Carrinho Amarelo)</label>
+            <label for="salesHook">Gatilho de Venda - Oferta no Carrinho Amarelo (A a Z)</label>
             <select id="salesHook">
                 <option value="Alerta de Estoque Esgotando rapidamente por viralização">Alerta de Estoque Esgotando rapidamente por viralização</option>
+                <option value="Desconto Relâmpago ('Custa menos que um lanche/café')">Desconto Relâmpago ('Custa menos que um lanche/café')</option>
                 <option value="Frete Grátis + Cupom exclusivo de primeira compra no carrinho">Frete Grátis + Cupom exclusivo de primeira compra no carrinho</option>
                 <option value="Garantia blindada e devolução sem burocracia pela plataforma">Garantia blindada e devolução sem burocracia pela plataforma</option>
-                <option value="Preço promocional relâmpago ('Custa menos que um lanche/café')">Preço promocional relâmpago ('Custa menos que um lanche/café')</option>
             </select>
         </div>
     </div>
 
     <div class="row">
         <div class="form-group">
-            <label for="formatStyle">Estilo do Vídeo</label>
+            <label for="formatStyle">Estilo do Vídeo (A a Z)</label>
             <select id="formatStyle">
                 <option value="Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')">Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')</option>
-                <option value="Demonstração Prática de Choque (Antes & Depois Direto)">Demonstração Prática de Choque (Antes & Depois Direto)</option>
-                <option value="Desboxing & Teste ao Vivo de Primeira Impressão">Desboxing & Teste ao Vivo de Primeira Impressão</option>
-                <option value="UGC Autêntico / POV 'Comprei no TikTok Shop e Me Surpreendi'">UGC Autêntico / POV ('Comprei no TikTok Shop e Me Surpreendi')</option>
+                <option value="Antes & Depois / Choque Visual (Problema resolvido ao vivo)">Antes & Depois / Choque Visual (Problema resolvido ao vivo)</option>
+                <option value="Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')">Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')</option>
+                <option value="UGC Autêntico / POV ('Comprei no TikTok Shop e Me Surpreendi')">UGC Autêntico / POV ('Comprei no TikTok Shop e Me Surpreendi')</option>
+                <option value="Unboxing + Teste Honesto de primeira impressão">Unboxing + Teste Honesto de primeira impressão</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="presentationModel">Apresentador do Vídeo</label>
+            <label for="presentationModel">Apresentador do Vídeo (A a Z)</label>
             <select id="presentationModel">
                 <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total)</option>
                 <option value="person_lipsync">🗣️ Pessoa Falando com Sincronia Labial (Criador ou Avatar IA)</option>
@@ -600,7 +624,7 @@
 
         <div class="row" style="margin-top: 16px;">
             <div class="form-group" style="margin-bottom: 0;">
-                <label for="cameraMovement">Cinemática de Câmera no Veo 3</label>
+                <label for="cameraMovement">Cinemática de Câmera no Veo 3 (A a Z)</label>
                 <select id="cameraMovement">
                     <option value="push_in_lento">Aproximação Lenta e Focada (Push-in suave a partir do Frame 0)</option>
                     <option value="estatico_luz">Câmera Fixa com Iluminação Percorrendo a Textura do Produto</option>
@@ -610,7 +634,7 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
-                <label for="productInteraction">Interação Física na Cena</label>
+                <label for="productInteraction">Interação Física na Cena (A a Z)</label>
                 <select id="productInteraction">
                     <option value="maos_bordas">Mãos Apoiando Delicadamente pelas Bordas (Sem Cobrir Detalhes)</option>
                     <option value="acao_funcional">Micro-Ação Funcional (Dedo acionando botão real da foto)</option>
@@ -644,10 +668,10 @@
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
         </div>
 
-        <!-- ABA 2: PROMPTS I2V VEO 3 CENA A CENA -->
+        <!-- ABA 2: PROMPTS I2V VEO 3 CENA A CENA COM LINHAS DE INSTRUÇÃO FLOW -->
         <div class="tab-pane" id="tab-veo">
             <div class="output-header">
-                <label>Prompts Técnicos em Português com Consistência Unificada (Anexe a Mesma Foto no Veo 3):</label>
+                <label>Prompts Técnicos em Português com Consistência Unificada (Use na Geração ou no Flow Extend):</label>
                 <div class="action-btn-group">
                     <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar Todas as Cenas I2V</button>
                 </div>
@@ -660,7 +684,9 @@
                     <span class="scene-badge-frame0">🔒 Trava no Topo</span>
                     <button class="action-btn" onclick="copyText('scenePrompt1')">📋 Copiar Cena 1</button>
                 </div>
-                <div class="help-text" style="margin-bottom: 8px;">No Google Veo 3: anexe a foto do seu produto e cole este comando:</div>
+                <div class="flow-instruction-line">
+                    <span>💡 <strong>No Google Veo 3:</strong> anexe a foto do seu produto e cole este comando para gerar o clipe inicial (Frame 0).</span>
+                </div>
                 <div class="scene-prompt-text" id="scenePrompt1"></div>
             </div>
 
@@ -671,7 +697,9 @@
                     <span class="scene-badge-frame0">🔒 Objeto Rígido</span>
                     <button class="action-btn" onclick="copyText('scenePrompt2')">📋 Copiar Cena 2</button>
                 </div>
-                <div class="help-text" style="margin-bottom: 8px;">No Google Veo 3: anexe a foto do seu produto e cole este comando:</div>
+                <div class="flow-instruction-line">
+                    <span>💡 <strong>No Flow do Veo 3:</strong> clique em "Estender" (Extend) e cole este comando como 1ª extensão contínua (ou anexe a mesma foto para novo clipe).</span>
+                </div>
                 <div class="scene-prompt-text" id="scenePrompt2"></div>
             </div>
 
@@ -682,7 +710,9 @@
                     <span class="scene-badge-frame0">🔒 CTA com Setas 👇</span>
                     <button class="action-btn" onclick="copyText('scenePrompt3')">📋 Copiar Cena 3</button>
                 </div>
-                <div class="help-text" style="margin-bottom: 8px;">No Google Veo 3: anexe a foto do seu produto e cole este comando:</div>
+                <div class="flow-instruction-line">
+                    <span>💡 <strong>No Flow do Veo 3:</strong> clique em "Estender" (Extend) novamente e cole este comando para a extensão final do Carrinho Amarelo.</span>
+                </div>
                 <div class="scene-prompt-text" id="scenePrompt3"></div>
             </div>
         </div>
@@ -690,7 +720,7 @@
         <!-- ABA 3: VISÃO COMPLETA INTEGRADA -->
         <div class="tab-pane" id="tab-completo">
             <div class="output-header">
-                <label>Documento Completo (Roteiro, Prompts do Veo 3 e Dicas de Consistência):</label>
+                <label>Documento Completo (Roteiro, Prompts do Veo 3 e Dicas de Consistência no Flow):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
                     <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
@@ -778,7 +808,7 @@
         const p3 = document.getElementById('scenePrompt3').innerText;
 
         const allScenes = `[PROMPTS TÉCNICOS COM CONSISTÊNCIA UNIFICADA - GOOGLE VEO 3]
-(Anexe a mesma foto original do produto no Veo 3 em todas as tomadas)
+(Anexe a mesma foto original do produto no Veo 3 em todas as tomadas ou use como extensão no Flow)
 
 --- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
 ${p1}
@@ -816,7 +846,7 @@ ${p3}`;
 
         const isHandsOnly = presentationModel === 'hands_only';
 
-        // Ganchos & Textos Implícitos na Tela gerados dinamicamente pela IA
+        // Ganchos & Textos Implícitos na Tela gerados dinamicamente pela IA (ampliados)
         let hookExample = "";
         let hookAudio = "";
         let hookScreenText = "";
@@ -825,18 +855,39 @@ ${p3}`;
             hookExample = "O produto sendo colocado na mesa com destaque para seu custo-benefício incrível.";
             hookAudio = `Esse é literalmente o achadinho mais barato e útil que já encontrei no TikTok Shop! [pausa de 0.4s]`;
             hookScreenText = `ACHADINHO SECRETO DO TIKTOK SHOP 🏷️`;
+        } else if (hookType === 'alerta_erro') {
+            hookExample = "Mostra a forma errada e incômoda que as pessoas fazem no dia a dia, interrompida bruscamente pela solução.";
+            hookAudio = `Você provavelmente está fazendo isso totalmente errado e nem sabia! [pausa de 0.4s]`;
+            hookScreenText = `VOCÊ ESTÁ FAZENDO ISSO ERRADO! ❌`;
         } else if (hookType === 'polemico_curiosidade') {
             hookExample = "O apresentador ou as mãos apontam para o produto com ar de mistério e revelação.";
             hookAudio = `Não compre esse item antes de ver este teste rápido até o final! [pausa de 0.4s]`;
             hookScreenText = `NÃO COMPRE ANTES DE VER ISTO! 🚨`;
+        } else if (hookType === 'ceticismo_desafio') {
+            hookExample = "Expressão ou gesto de dúvida inicial, aplicando o produto e mostrando resultado surpreendente.";
+            hookAudio = `Disseram nos comentários que isso não funcionava, então resolvi testar na prática! [pausa de 0.4s]`;
+            hookScreenText = `TESTEI PRA VER SE É GOLPE OU SE FUNCIONA! 🧐`;
         } else if (hookType === 'choque_demonstracao') {
             hookExample = "Choque direto: a falha imediata sendo corrigida pelo produto em menos de 2 segundos.";
             hookAudio = `Olha a diferença absurda disso antes e depois em apenas um segundo! [pausa de 0.4s]`;
-            hookScreenText = `OLHA A DIFERENÇA DISSO EM 1 SEGUNDO! 😱`;
-        } else {
+            hookScreenText = `OLHA A DIFERENÇA EM 1 SEGUNDO! 😱`;
+        } else if (hookType === 'alivio_dor') {
             hookExample = "Mostra uma situação frustrante com o problema em foco, seguida pela aparição imediata do produto.";
             hookAudio = `Se você ainda perde tempo ou dinheiro com isso, você precisa conhecer isso agora! [pausa de 0.4s]`;
             hookScreenText = `PARE DE PASSAR RAIVA COM ISSO HOJE! ⚠️`;
+        } else if (hookType === 'segredo_revelado') {
+            hookExample = "Enquadramento em tom confidencial, aproximando o produto da câmera como um segredo revelado.";
+            hookAudio = `A indústria nunca quis que você descobrisse esse truque tão fácil! [pausa de 0.4s]`;
+            hookScreenText = `O SEGREDO QUE NUNCA TE CONTARAM 🤫`;
+        } else if (hookType === 'prova_social') {
+            hookExample = "Print rápido ou menção de viralização, seguido do produto em mãos pronto para teste.";
+            hookAudio = `Por que todo mundo no TikTok só está falando desse produto essa semana? [pausa de 0.4s]`;
+            hookScreenText = `POR QUE TODO MUNDO SÓ FALA DISSO? 🔥`;
+        } else {
+            // transformacao_imediata
+            hookExample = "Close-up acelerado mostrando o antes e o exato momento em que o produto atua.";
+            hookAudio = `Olha o que aconteceu quando usei isso pela primeira vez, eu fiquei de queixo caído! [pausa de 0.4s]`;
+            hookScreenText = `FIQUEI DE QUEIXO CAÍDO COM O RESULTADO! 🤯`;
         }
 
         // 1. ROTEIRO TIKTOK SHOP COM SETINHAS E TEXTOS DINÂMICOS NA TELA
@@ -933,7 +984,7 @@ INTERAÇÃO: ${interactionDirective}
 ${sharedStudioDNA}`;
 
         const pVeo2 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok. Demonstração prática e sensorial.
-PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0).
+PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0 ou Extensão do Flow).
 
 CENA 2 - DEMONSTRAÇÃO E RESOLUÇÃO DA DOR (4 a 5 segundos):
 ${photoContextDirective}
@@ -942,7 +993,7 @@ INTERAÇÃO: ${interactionDirective}
 ${sharedStudioDNA}`;
 
         const pVeo3 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok. Conversão direta e apelo ao Carrinho Amarelo.
-PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0).
+PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0 ou Extensão Final do Flow).
 
 CENA 3 - CHAMADA FINAL & CARRINHO AMARELO COM SETAS (3 a 4 segundos):
 ${photoContextDirective}
@@ -969,8 +1020,8 @@ PROMPTS COM CONSISTÊNCIA UNIFICADA PARA O GOOGLE VEO 3 (100% PORTUGUÊS)
 💡 Como Gerar no Google Veo 3 com Consistência Absoluta:
 1. Abra o Google Veo 3;
 2. Anexe a mesma foto original do produto em cada uma das tomadas (Frame 0);
-3. Cole o prompt de cada cena separadamente;
-4. Note que todas as cenas compartilham o mesmo DNA de estúdio e iluminação, garantindo que o produto pareça filmado na mesma mesa;
+3. Cole o prompt de cada cena separadamente (ou use como extensão no Flow);
+4. Todas as cenas compartilham o mesmo DNA de estúdio e iluminação, garantindo que o produto pareça filmado na mesma mesa;
 5. Junte os 3 clipes curtos no CapCut, aplique a narração do roteiro e insira os stickers de setas apontando para o carrinho amarelo no final!
 
 --- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
