@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Prompts para TikTok Shop</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #10b981;
+            --accent-hover: #059669;
+            --tiktok-cyan: #00f2fe;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --badge-bg: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            width: 100%;
+            max-width: 780px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .tag-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            margin-bottom: 6px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
+
+        .help-text {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #0f172a;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #64748b;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        @media (max-width: 640px) {
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        button.primary-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button.primary-btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        button.primary-btn:active {
+            transform: translateY(0);
+        }
+
+        .output-group {
+            margin-top: 25px;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        textarea#output {
+            height: 280px;
+            resize: vertical;
+            line-height: 1.55;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88rem;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            width: auto;
+            padding: 7px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0;
+            background-color: #334155;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background-color: #475569;
+            border-color: #64748b;
+        }
+
+        /* Toast notification without alert() */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #10b981;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.error {
+            background-color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="tag-badge">
+        <span>⚡ TikTok Shop Engine</span>
+    </div>
+    <h1>Gerador de Roteiros TikTok Shop</h1>
+    <p class="subtitle">Selecione a linha de produto e o formato de engajamento para gerar o prompt perfeito de vídeo focado em conversão e carrinho amarelo.</p>
+
+    <!-- Linha de Produto (Nicho) -->
+    <div class="row">
+        <div class="form-group">
+            <label for="productCategory">Linha do Produto (Nicho)</label>
+            <select id="productCategory" onchange="updateProductSuggestions()">
+                <option value="Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)">💄 Beleza & Skincare</option>
+                <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)">🏠 Casa, Cozinha & Hacks</option>
+                <option value="Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)">📱 Tecnologia & Gadgets</option>
+                <option value="Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)">👗 Moda & Acessórios</option>
+                <option value="Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)">💪 Saúde & Fitness</option>
+                <option value="Pet Care & Acessórios para Animais">🐾 Mundo Pet</option>
+                <option value="Infantil, Brinquedos Educativos & Maternidade">🧸 Infantil & Maternidade</option>
+                <option value="Papelaria, Escritório & Produtividade">✏️ Papelaria & Home Office</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="formatStyle">Estilo de Vídeo TikTok</label>
+            <select id="formatStyle">
+                <option value="UGC Autêntico / POV 'Comprei no TikTok Shop e Me Surpreendi'">UGC POV / Review Espontâneo</option>
+                <option value="Demonstração Prática de Choque (Problema Irritante vs. Solução Imediata)">Choque / Antes & Depois</option>
+                <option value="Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')">Achadinho Viral & Custo-benefício</option>
+                <option value="Desboxing & Teste ao Vivo de Primeira Impressão">Unboxing + Teste Honesto</option>
+                <option value="Storytime / Situação Cômica com Resolução pelo Produto">Storytime / Humor com Solução</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Nome do Produto e Diferencial -->
+    <div class="form-group">
+        <label for="productName">Nome do Produto & Função Principal</label>
+        <input type="text" id="productName" placeholder="Ex: Mini Selador Térmico Portátil para Embalagens">
+        <div class="help-text">Dica: Adicione a principal dor que o produto resolve para um gancho magnético.</div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <label for="salesHook">Gatilho de Venda (Oferta TikTok Shop)</label>
+            <select id="salesHook">
+                <option value="Frete Grátis + Cupom exclusivo de primeira compra no carrinho">Frete Grátis + Cupom no Carrinho</option>
+                <option value="Preço promocional relâmpago ('Custa menos que um lanche/café')">Desconto Relâmpago / Custa menos que um lanche</option>
+                <option value="Alerta de Estoque Esgotando rapidamente por viralização">Escassez: Estoque acabando rápido</option>
+                <option value="Garantia blindada e devolução sem burocracia pela plataforma">Garantia & Compra Segura TikTok Shop</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="toneVoice">Tom de Voz do Criador</label>
+            <select id="toneVoice">
+                <option value="Empolgado e Amigável (fala rápida, gírias leves, energia alta)">Empolgado & Dinâmico (Estilo TikTok)</option>
+                <option value="Honesto e 'Sincero Demais' (crítica inicial que vira elogio)">Sincero & Cético no início</option>
+                <option value="Urgente e Curioso (revelando um segredo ou truque)">Curioso / 'Segredo revelado'</option>
+                <option value="Relaxante / Satisfatório (ASMR visual e foco no uso)">Satisfatório / Estético (ASMR & Clean)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Modelo de Apresentação Visual -->
+    <div class="form-group">
+        <label for="presentationModel">Modelo de Apresentação no Vídeo</label>
+        <select id="presentationModel">
+            <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total no Produto)</option>
+            <option value="person_lipsync">🗣️ Pessoa Falando com Lip Sync Perfeito em Português (Criador ou Avatar IA sincronizado)</option>
+        </select>
+        <div class="help-text">Define o tipo de enquadramento, instruções de captação ou sincronia labial para IAs de vídeo.</div>
+    </div>
+
+    <!-- Controle de Fidelidade Estrita à Imagem do Produto -->
+    <div class="form-group" style="background: rgba(16, 185, 129, 0.08); border: 1px dashed rgba(16, 185, 129, 0.4); padding: 14px; border-radius: 8px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 2px;">
+            <input type="checkbox" id="strictImageFidelity" checked style="width: 18px; height: 18px; accent-color: var(--accent-color); cursor: pointer;">
+            <span style="font-weight: 700; color: #fff;">📸 Fidelidade Visual Extrema à Imagem Anexada (Zero Distorção)</span>
+        </label>
+        <div class="help-text" style="color: #cbd5e1; margin-left: 28px; line-height: 1.4;">
+            Instrui a IA a escanear e respeitar 100% dos detalhes da foto do produto: cores, texturas, botões, proporções e acabamentos, sem inventar nada fora da imagem real.
+        </div>
+    </div>
+
+    <button class="primary-btn" onclick="generatePrompt()">
+        <span>✨ Gerar Prompt para Vídeo TikTok Shop</span>
+    </button>
+
+    <!-- Área de Saída -->
+    <div class="output-group" id="outputGroup">
+        <div class="output-header">
+            <label for="output">Comando Gerado (Copie e cole no ChatGPT, Claude ou Gemini):</label>
+            <button class="copy-btn" onclick="copyToClipboard()">📋 Copiar Comando</button>
+        </div>
+        <textarea id="output" readonly></textarea>
+    </div>
+</div>
+
+<div id="toast" class="toast">Comando copiado para a área de transferência!</div>
+
+<script>
+    // Sugestões de exemplo por categoria para inspirar o usuário
+    const productExamples = {
+        "Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)": "",
+        "Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)": "Mini Selador Portátil de Pacotes com Lâmina Embutida",
+        "Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)": "Carregador Magnético 3 em 1 Portátil Dobrável",
+        "Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)": "Body Modelador Anatômico Invisível que afina a cintura",
+        "Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)": "Garrafa Motivacional 2 Litros com Infusor e Marcador de Horas",
+        "Pet Care & Acessórios para Animais": "Escova Removedora de Pelos a Vapor para Gatos e Cães",
+        "Infantil, Brinquedos Educativos & Maternidade": "Prato Giratório 360° Antiderramamento para Bebês",
+        "Papelaria, Escritório & Produtividade": "Suporte Articulado Ergonômico de Alumínio para Notebook"
+    };
+
+    function updateProductSuggestions() {
+        const categorySelect = document.getElementById('productCategory');
+        const productInput = document.getElementById('productName');
+        const selectedCat = categorySelect.value;
+
+        if (!productInput.value || Object.values(productExamples).includes(productInput.value)) {
+            productInput.value = productExamples[selectedCat] || '';
+        }
+    }
+
+    // Inicializa sugestão padrão
+    updateProductSuggestions();
+
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        if (isError) {
+            toast.classList.add('error');
+        } else {
+            toast.classList.remove('error');
+        }
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3200);
+    }
+
+    function generatePrompt() {
+        const category = document.getElementById('productCategory').value;
+        const formatStyle = document.getElementById('formatStyle').value;
+        const productName = document.getElementById('productName').value.trim();
+        const salesHook = document.getElementById('salesHook').value;
+        const toneVoice = document.getElementById('toneVoice').value;
+        const presentationModel = document.getElementById('presentationModel').value;
+        const strictFidelity = document.getElementById('strictImageFidelity') ? document.getElementById('strictImageFidelity').checked : true;
+        const outputGroup = document.getElementById('outputGroup');
+        const outputTextarea = document.getElementById('output');
+
+        if (!productName) {
+            showToast('Por favor, informe o nome do produto ou nicho desejado.', true);
+            document.getElementById('productName').focus();
+            return;
+        }
+
+        const isHandsOnly = presentationModel === 'hands_only';
+        const modelLabel = isHandsOnly 
+            ? 'Apenas as mãos em ação (POV em primeira pessoa / Sem rosto visível / Foco 100% tátil e visual no produto)' 
+            : 'Pessoa/Criador falando diretamente para a câmera com Lip Sync impecável em Português do Brasil';
+
+        const modelInstructions = isHandsOnly 
+            ? `[DIRETRIZES DO FORMATO: APENAS MÃOS (FACELSS / POV)]
+- CÂMERA & VISUAL: NÃO mostre rosto. Use visão POV (primeira pessoa) ou enquadramento de mesa (top-down) e macro/close-ups extremos. As mãos devem interagir ativamente (abrindo embalagem, testando texturas, apertando botões, demonstrando a função do produto com agilidade).
+- ÁUDIO: Narração em voz em off (voiceover) dinâmica e sincera, combinada com sons ambientes do produto em evidência (ASMR suave, cliques, texturas sonoras).`
+            : `[DIRETRIZES DO FORMATO: PESSOA FALANDO COM LIP SYNC PERFEITO EM PORTUGUÊS (BR)]
+- SINCRONIA LABIAL & DICÇÃO: Roteiro otimizado para fala fluida em Português do Brasil, ideal para atores reais ou avatares de IA (Hedra, HeyGen, Kling, Runway, ElevenLabs).
+- ESTRUTURAÇÃO DAS FRASES: Frases curtas e rítmicas, com marcações de pausas respiratórias ([pausa de 0.5s]) para garantir que a movimentação da boca seja milimetricamente orgânica e natural, sem palavras complexas que quebrem o lip sync.
+- EXPRESSÃO & OLHAR: Indicar orientações cênicas para o apresentador (olhar fixo na lente, expressões faciais que variam de dúvida para entusiasmo, segurando e apontando o produto na altura do peito).`;
+
+        const fidelityInstructions = strictFidelity ? `
+[DIRETRIZ CRÍTICA DE ANÁLISE DE IMAGEM & FIDELIDADE VISUAL ABSOLUTA (ZERO ALUCINAÇÃO)]
+⚠️ REGRA MANDATÓRIA DE RENDERIZAÇÃO E CONSISTÊNCIA VISUAL:
+1. ANÁLISE MINUCIOSA DA IMAGEM FORNECIDA: Analise criteriosamente a foto/imagem do produto enviada em anexo. Identifique com exatidão cirúrgica:
+   - Formato geométrico, dimensões e ergonomia exatas;
+   - Cores fiéis (tonalidade, brilho, fosco, degradê ou transparência real);
+   - Materiais e texturas visíveis (plástico, silicone, aço escovado, tecido, vidro);
+   - Todos os detalhes físicos reais: botões, frestas, costuras, conexões/entradas, luzes LED, logotipos e inscrições.
+2. TOLERÂNCIA ZERO PARA DISTORÇÕES OU INVENÇÕES:
+   - É terminantemente PROIBIDO alucinar, inventar ou alterar peças, mecanismos, botões, cores ou funções que NÃO estejam demonstrados ou evidentes na imagem do produto real.
+   - Não adicione componentes imaginários nem mude a escala do produto em relação às mãos ou ao ambiente.
+3. CONSISTÊNCIA MULTI-ÂNGULOS DO OBJETO:
+   - Em todos os closes, cortes e transições de cena, o produto exibido no vídeo DEVE permanecer 100% idêntico e consistente com a imagem de referência fornecida, sem variações visuais entre um segundo e outro.
+4. DESCRIÇÃO VISUAL HIPER-ESPECÍFICA:
+   - Ao detalhar as ações visuais do roteiro e os prompts visuais de cada tomada, use descritores extraídos diretamente da imagem real para que IAs de vídeo (Kling, Runway, Sora, Luma, Minimax) ou editores mantenham a réplica exata do produto em tela.` : '';
+
+        const promptTemplate = `Você é um Estrategista de Conteúdo e Copywriter de Elite especialista em Vendas no TIKTOK SHOP (vídeos curtos virais que convertem em compras diretas pelo carrinho amarelo).
+
+Crie um roteiro de alta conversão estruturado segundo as especificações abaixo:
+
+[DADOS DA CAMPANHA]
+- Linha / Nicho do Produto: ${category}
+- Produto & Diferencial: ${productName}
+- Formato de Vídeo: ${formatStyle}
+- Modelo de Apresentação: ${modelLabel}
+- Oferta / Gatilho de Venda: ${salesHook}
+- Tom de Voz: ${toneVoice}
+- Duração ideal: 35 a 55 segundos (ótimo para retenção e compra rápida no TikTok)
+
+${modelInstructions}
+${fidelityInstructions}
+
+[REQUISITOS OBRIGATÓRIOS DO ROTEIRO]
+Estruture a resposta contendo exatamente:
+
+1. GANCHO DOS PRIMEIROS 3 SEGUNDOS (O Hook Vital):
+   - Forneça 3 opções de ganchos irresistíveis (Ação Visual com o produto idêntico à imagem + Frase falada + Texto na tela em caixa alta).
+   - O gancho DEVE quebrar o padrão do feed logo no primeiro segundo.
+
+2. ROTEIRO DETALHADO CRONOMETRADO:
+   Organize em blocos de tempo com:
+   - [Segundo / Tempo estimado]
+   - [Ação Visual / Enquadramento] (${isHandsOnly ? 'Foco nas mãos, movimentos e close-ups fiéis à imagem' : 'Gestos da pessoa, expressão facial e exibição do produto idêntico à foto'})
+   - [Fala / Roteiro de Áudio em Português] (${isHandsOnly ? 'Narração em off com naturalidade' : 'Texto articulado com pausas [pausa] para Lip Sync perfeito'})
+   - [Texto na Tela / Efeitos Sonoros] (legendas dinâmicas, pop-ups, efeito sonoro sutil)
+
+3. APELO AO CARRINHO AMARELO (CTA TikTok Shop):
+   - Frase exata indicando o botão de compra no canto inferior esquerdo da tela.
+   - Reforço do gatilho (${salesHook}).
+
+4. DICAS DE CAPTAÇÃO E ILUMINAÇÃO (${isHandsOnly ? 'Top-down, luz suave nas mãos, fundo limpo' : 'Luz nos olhos, microfone lapela, enquadramento 9:16 na altura dos olhos'}).
+
+5. HASHTAGS E TRILHA SONORA RECOMENDADA.`;
+
+        outputTextarea.value = promptTemplate;
+        outputGroup.style.display = 'block';
+
+        // Scroll suave até o resultado
+        outputGroup.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyToClipboard() {
+        const outputTextarea = document.getElementById('output');
+        if (!outputTextarea.value) return;
+
+        outputTextarea.select();
+        outputTextarea.setSelectionRange(0, 99999);
+
+        try {
+            document.execCommand('copy');
+            showToast('✅ Comando copiado! Cole no ChatGPT ou Claude.');
+        } catch (err) {
+            showToast('Erro ao copiar. Selecione o texto manualmente.', true);
+        }
+    }
+</script>
+
+</body>
+</html>
