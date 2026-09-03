@@ -351,6 +351,7 @@
         .action-btn-group {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         .action-btn {
@@ -472,20 +473,20 @@
             white-space: pre-wrap;
         }
 
-        /* Card de Título e Hashtags */
+        /* Card de Prompt para IA (Título & Hashtags) */
         .caption-card {
             background: var(--card-inner);
-            border: 1px solid #3b82f6;
+            border: 1px solid #10b981;
             border-radius: 12px;
             padding: 18px;
-            margin-top: 20px;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.12);
+            margin-top: 14px;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.12);
         }
 
         .caption-card-title {
             font-weight: 700;
             font-size: 0.96rem;
-            color: #60a5fa;
+            color: #34d399;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -574,8 +575,8 @@
 
     <div class="form-group">
         <label for="productName">Nome do Produto & Função Principal</label>
-        <input type="text" id="productName" value="" placeholder="Ex: Mini Selador Térmico Portátil de Embalagens">
-        <div class="help-text">Dica: Digite o nome do seu produto ou deixe em branco para usar o exemplo sugerido do nicho.</div>
+        <input type="text" id="productName" value="" placeholder="Digite o nome do produto e a função principal..." autocomplete="off">
+        <div class="help-text">Dica: Digite o nome do seu produto ou deixe em branco para gerar com o produto do nicho.</div>
     </div>
 
     <!-- 2. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP (TODAS AS OPÇÕES RIGOROSAMENTE EM ORDEM ALFABÉTICA A-Z) -->
@@ -677,21 +678,7 @@
     <!-- 4. ÁREA DE RESULTADOS COM ABAS -->
     <div class="output-group" id="outputGroup">
         
-        <!-- CARD DE TÍTULO E HASHTAGS PARA COPIAR E COLAR NO TIKTOK -->
-        <div class="caption-card">
-            <div class="output-header">
-                <div class="caption-card-title">
-                    <span>🏷️ Título da Postagem & Hashtags Prontas para o TikTok:</span>
-                </div>
-                <button class="action-btn emerald" onclick="copyText('outputCaptionTags')">📋 Copiar Título + Hashtags</button>
-            </div>
-            <div class="help-text" style="margin-bottom: 10px; color: #94a3b8;">
-                Pronto para copiar e colar na legenda do seu vídeo quando for publicar no TikTok:
-            </div>
-            <textarea id="outputCaptionTags" class="result-box" style="height: 110px; font-family: inherit; font-size: 0.92rem; line-height: 1.5;" readonly></textarea>
-        </div>
-
-        <div class="tabs" style="margin-top: 24px;">
+        <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('tab-roteiro')">📱 Roteiro TikTok Shop</button>
             <button class="tab-btn veo" onclick="switchTab('tab-veo')">🎬 Prompts Videos (Cena a Cena)</button>
             <button class="tab-btn" onclick="switchTab('tab-completo')">📋 Visão Completa (Tudo Integrado)</button>
@@ -703,10 +690,25 @@
                 <label>Roteiro Otimizado para Alta Conversão (Fala + Textos Hipnóticos na Tela + Carrinho Amarelo):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputRoteiro')">📋 Copiar Roteiro</button>
+                    <button class="action-btn emerald" onclick="copyCaptionPromptForAI()">🏷️ Criar Hashtags e Título na IA</button>
                     <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
                 </div>
             </div>
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
+
+            <!-- CARD DE PROMPT PARA IA GERAR TÍTULO E HASHTAGS EM UMA LINHA -->
+            <div class="caption-card">
+                <div class="output-header">
+                    <div class="caption-card-title">
+                        <span>🤖 Prompt Pronto para Gerar Título & Hashtags na IA (Padrão TikTok em 1 Linha):</span>
+                    </div>
+                    <button class="action-btn emerald" onclick="copyCaptionPromptForAI()">📋 Copiar Prompt para IA</button>
+                </div>
+                <div class="help-text" style="margin-bottom: 10px; color: #cbd5e1;">
+                    Clique no botão acima, cole no ChatGPT / Gemini / Claude e a IA vai gerar o <strong>Título e Hashtags em uma única linha</strong> perfeito para colar no TikTok!
+                </div>
+                <textarea id="outputPromptAI" class="result-box" style="height: 140px; font-size: 0.85rem;" readonly></textarea>
+            </div>
         </div>
 
         <!-- ABA 2: PROMPTS I2V CENA A CENA COM LINHAS DE INSTRUÇÃO FLOW -->
@@ -761,7 +763,7 @@
         <!-- ABA 3: VISÃO COMPLETA INTEGRADA -->
         <div class="tab-pane" id="tab-completo">
             <div class="output-header">
-                <label>Documento Completo (Legenda, Hashtags, Roteiro e Prompts com Dicas de Consistência):</label>
+                <label>Documento Completo (Roteiro, Prompts de Vídeo e Prompt para Título e Hashtags):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
                     <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
@@ -775,36 +777,12 @@
 <div id="toast" class="toast">Conteúdo copiado para a área de transferência!</div>
 
 <script>
-    // Sugestões por nicho
-    const productExamples = {
-        "Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)": "Bastão Hidratante Antirrugas com Colágeno e Ácido Hialurônico",
-        "Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)": "Mini Selador Portátil de Pacotes com Lâmina Embutida",
-        "Infantil, Brinquedos Educativos & Maternidade": "Prato Giratório 360° Antiderramamento para Bebês e Crianças",
-        "Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)": "Body Modelador Anatômico Invisível que afina a cintura instantaneamente",
-        "Papelaria, Escritório & Produtividade": "Suporte Articulado Ergonômico de Alumínio para Notebook",
-        "Pet Care & Acessórios para Animais": "Escova Removedora de Pelos a Vapor para Gatos e Cães",
-        "Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)": "Garrafa Motivacional 2 Litros com Infusor e Marcador de Horas",
-        "Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)": "Carregador Magnético 3 em 1 Dobrável para Celular, Fone e Relógio"
-    };
-
-    // Hashtags de alta conversão por nicho
-    const categoryHashtags = {
-        "Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #Beleza #SkincareBrasil #DicasDeBeleza #CabelosSaudaveis #CompreiNoTikTok",
-        "Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #DicasDeCasa #CozinhaPratica #Organizacao #HacksDeCasa #CompreiNoTikTok",
-        "Infantil, Brinquedos Educativos & Maternidade": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #MaternidadeReal #DicasDeMae #BrinquedosEducativos #Maternidade #CompreiNoTikTok",
-        "Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #ModaFeminina #LooksTikTok #Moda #Shapewear #CompreiNoTikTok",
-        "Papelaria, Escritório & Produtividade": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #Papelaria #HomeOffice #Estudos #Produtividade #CompreiNoTikTok",
-        "Pet Care & Acessórios para Animais": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #PetsDoTikTok #Cachorros #Gatos #PetLovers #CompreiNoTikTok",
-        "Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #FitnessBrasil #TreinoEmCasa #VidaSaudavel #Academia #CompreiNoTikTok",
-        "Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)": "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #TechTokBrasil #Gadgets #Tecnologia #AchadosTech #CompreiNoTikTok"
-    };
-
     function updateProductSuggestions() {
-        const categorySelect = document.getElementById('productCategory');
         const productInput = document.getElementById('productName');
-        const selectedCat = categorySelect.value;
-        const example = productExamples[selectedCat] || 'Ex: Mini Selador Térmico Portátil de Embalagens';
-        productInput.placeholder = `Ex: ${example}`;
+        if (productInput) {
+            productInput.value = '';
+            productInput.placeholder = "Digite o nome do produto e a função principal...";
+        }
     }
 
     function switchTab(tabId) {
@@ -853,6 +831,40 @@
         });
     }
 
+    function getCaptionPromptForAI() {
+        const category = document.getElementById('productCategory').value;
+        const productName = document.getElementById('productName').value.trim() || "Produto em Destaque";
+        const hookSelect = document.getElementById('hookType');
+        const hookText = hookSelect.options[hookSelect.selectedIndex].text;
+        const salesHook = document.getElementById('salesHook').value;
+
+        return `Atue como o maior especialista em SEO, Algoritmo e Conversão do TikTok Shop.
+
+Com base neste produto e estratégia de venda:
+📦 PRODUTO: ${productName}
+🎯 NICHO: ${category}
+🧲 GANCHO DO VÍDEO: ${hookText}
+💰 GATILHO DE VENDA NO CARRINHO: ${salesHook}
+
+SUA TAREFA OBRIGATÓRIA (PADRÃO TIKTOK EM UMA ÚNICA LINHA):
+Crie a legenda perfeita configurada para o algoritmo do TikTok Shop indexar nas buscas (SEO) e entregar o vídeo no feed "Para Você" (FYP).
+
+REGRAS RÍGIDAS DE RETENÇÃO E ALGORITMO:
+1. TÍTULO/LEGENDA: Frase inicial ultra-curta e hipnótica que desperte curiosidade imediata, conectando com uma chamada clara para clicar no link do carrinho amarelo com emojis (👇🛒).
+2. PALAVRAS-CHAVE SEO: Inclua os termos exatos que as pessoas pesquisam no TikTok para encontrar esse produto.
+3. HASHTAGS ESTRATÉGICAS: Coloque de 5 a 7 hashtags de alto volume misturando tags oficiais de compra (#TikTokShop, #Achadinhos, #CompreiNoTikTok, #TikTokMadeMeBuyIt) com tags do nicho e da dor.
+4. FORMATO: Devolva OBRIGATORIAMENTE em UMA ÚNICA LINHA, pronta apenas para eu copiar e colar no TikTok. Não inclua introduções, explicações, quebras de linha nem aspas.`;
+    }
+
+    function copyCaptionPromptForAI() {
+        const promptText = getCaptionPromptForAI();
+        navigator.clipboard.writeText(promptText).then(() => {
+            showToast('✅ Prompt de Título & Hashtags copiado! Cole na sua IA (Gemini/ChatGPT).');
+        }).catch(() => {
+            showToast('Erro ao copiar automaticamente.', true);
+        });
+    }
+
     function copyAllVeoScenes() {
         const p1 = document.getElementById('scenePrompt1').innerText;
         const p2 = document.getElementById('scenePrompt2').innerText;
@@ -882,9 +894,9 @@ ${p3}`;
         const photoType = document.getElementById('photoType').value;
         let productName = document.getElementById('productName').value.trim();
         
-        // Se estiver em branco, utiliza o produto de referência do nicho
+        // Se estiver em branco, utiliza um nome neutro sem forçar nenhum produto fixo
         if (!productName) {
-            productName = productExamples[category] || "Produto Achadinho";
+            productName = "Produto em Destaque";
         }
 
         const hookType = document.getElementById('hookType').value;
@@ -901,58 +913,44 @@ ${p3}`;
         let hookExample = "";
         let hookAudio = "";
         let hookScreenText = "";
-        let postTitle = "";
 
         if (hookType === 'achadinho_economico') {
             hookExample = "O produto sendo colocado na mesa com destaque para seu custo-benefício incrível.";
             hookAudio = `Esse é literalmente o achadinho mais barato e útil que já encontrei no TikTok Shop! [pausa de 0.4s]`;
             hookScreenText = `ACHADINHO SECRETO DO TIKTOK SHOP 🏷️`;
-            postTitle = `O item mais barato e útil do TikTok Shop que você precisa ter! 😱 Clica no carrinho amarelo aqui embaixo antes que acabe 👇🛒`;
         } else if (hookType === 'alerta_erro') {
             hookExample = "Mostra a forma errada e incômoda que as pessoas fazem no dia a dia, interrompida bruscamente pela solução.";
             hookAudio = `Você provavelmente está fazendo isso totalmente errado e nem sabia! [pausa de 0.4s]`;
             hookScreenText = `VOCÊ ESTÁ FAZENDO ISSO ERRADO! ❌`;
-            postTitle = `Você provavelmente está fazendo isso totalmente errado e nem sabia! ❌ Olha a diferença desse ${productName}. Corre no carrinho amarelo 👇🛒`;
         } else if (hookType === 'polemico_curiosidade') {
             hookExample = "O apresentador ou as mãos apontam para o produto com ar de mistério e revelação.";
             hookAudio = `Não compre esse item antes de ver este teste rápido até o final! [pausa de 0.4s]`;
             hookScreenText = `NÃO COMPRE ANTES DE VER ISTO! 🚨`;
-            postTitle = `NÃO COMPRE antes de ver este teste rápido até o final! 🚨 Testei o ${productName} e me surpreendi. Link no carrinho amarelo aqui embaixo 👇🛒`;
         } else if (hookType === 'ceticismo_desafio') {
             hookExample = "Expressão ou gesto de dúvida inicial, aplicando o produto e mostrando resultado surpreendente.";
             hookAudio = `Disseram nos comentários que isso não funcionava, então resolvi testar na prática! [pausa de 0.4s]`;
             hookScreenText = `TESTEI PRA VER SE É GOLPE OU SE FUNCIONA! 🧐`;
-            postTitle = `Disseram nos comentários que isso não funcionava... Então resolvi testar! 🧐 Olha o resultado chocante! Link no carrinho amarelo 👇🛒`;
         } else if (hookType === 'choque_demonstracao') {
             hookExample = "Choque direto: a falha imediata sendo corrigida pelo produto em menos de 2 segundos.";
             hookAudio = `Olha a diferença absurda disso antes e depois em apenas um segundo! [pausa de 0.4s]`;
             hookScreenText = `OLHA A DIFERENÇA EM 1 SEGUNDO! 😱`;
-            postTitle = `Olha a diferença absurda em apenas 1 segundo! 😱 Melhor achado do mês no TikTok Shop. Clica no carrinho amarelo 👇🛒`;
         } else if (hookType === 'alivio_dor') {
             hookExample = "Mostra uma situação frustrante com o problema em foco, seguida pela aparição imediata do produto.";
             hookAudio = `Se você ainda perde tempo ou dinheiro com isso, você precisa conhecer isso agora! [pausa de 0.4s]`;
             hookScreenText = `PARE DE PASSAR RAIVA COM ISSO HOJE! ⚠️`;
-            postTitle = `Chega de passar raiva e perder dinheiro com isso! ⚠️ O ${productName} resolveu tudo. Garanta no carrinho amarelo com ${salesHook.toLowerCase()} 👇🛒`;
         } else if (hookType === 'segredo_revelado') {
             hookExample = "Enquadramento em tom confidencial, aproximando o produto da câmera como um segredo revelado.";
             hookAudio = `A indústria nunca quis que você descobrisse esse truque tão fácil! [pausa de 0.4s]`;
             hookScreenText = `O SEGREDO QUE NUNCA TE CONTARAM 🤫`;
-            postTitle = `O segredo que nunca quiseram te contar sobre isso! 🤫 O ${productName} é surreal de prático. Link no carrinho amarelo 👇🛒`;
         } else if (hookType === 'prova_social') {
             hookExample = "Print rápido ou menção de viralização, seguido do produto em mãos pronto para teste.";
             hookAudio = `Por que todo mundo no TikTok só está falando desse produto essa semana? [pausa de 0.4s]`;
             hookScreenText = `POR QUE TODO MUNDO SÓ FALA DISSO? 🔥`;
-            postTitle = `Por que TODO MUNDO no TikTok só está falando desse produto?! 🔥 Finalmente testei e aprovei! Clica no carrinho amarelo 👇🛒`;
         } else {
             hookExample = "Close-up acelerado mostrando o antes e o exato momento em que o produto atua.";
             hookAudio = `Olha o que aconteceu quando usei isso pela primeira vez, eu fiquei de queixo caído! [pausa de 0.4s]`;
             hookScreenText = `FIQUEI DE QUEIXO CAÍDO COM O RESULTADO! 🤯`;
-            postTitle = `Fiquei de queixo caído quando usei isso pela primeira vez! 🤯 ${productName} aprovadíssimo. Link no carrinho amarelo aqui embaixo 👇🛒`;
         }
-
-        // Hashtags estratégicas
-        const hashtags = categoryHashtags[category] || "#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #CompreiNoTikTok";
-        const captionAndHashtags = `${postTitle}\n\n${hashtags}`;
 
         // 1. ROTEIRO TIKTOK SHOP COM SETINHAS E TEXTOS DINÂMICOS NA TELA
         const scriptContent = `📱 ROTEIRO DE ALTA CONVERSÃO - TIKTOK SHOP (35 A 45 SEGUNDOS)
@@ -992,12 +990,7 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
 👉 Elementos Visuais na Tela: Inserir adesivos/stickers de SETAS ANIMADAS piscando (👇 ↘️) apontando com precisão para o botão do carrinho de compras!
 📝 Texto na Tela: "👉 CLIQUE NO LINK / CARRINHO AMARELO AQUI EMBAIXO! 👇" (com efeito de pulsar)
 🗣️ Fala: "Ele tá com ${salesHook.toLowerCase()}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!"
-🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🏷️ LEGENDA & HASHTAGS RECOMENDADAS PARA A POSTAGEM NO TIKTOK:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${captionAndHashtags}`;
+🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.`;
 
         // 2. DIRETRIZES DE ENTRADA & TRAVA DE FRAME 0
         let photoContextDirective = "";
@@ -1071,6 +1064,8 @@ INTERAÇÃO: O item permanece firme na cena, acompanhado de uma indicação gest
 ELEMENTO VISUAL DE CONVERSÃO: Deixe a área do canto inferior esquerdo desobstruída para inserção de setas animadas de compra.
 ${sharedStudioDNA}`;
 
+        const captionPromptAI = getCaptionPromptForAI();
+
         // DOCUMENTO COMPLETO
         const fullDocument = `══════════════════════════════════════════════════════════════════════
 PLANEJAMENTO COMPLETO DE CONVERSÃO TIKTOK SHOP & PROMPTS DE VÍDEO
@@ -1081,8 +1076,11 @@ Gatilho de Venda: ${salesHook}
 Foto na IA: ${photoType}
 Data: ${new Date().toLocaleDateString('pt-BR')}
 
-🏷️ LEGENDA E HASHTAGS PARA A POSTAGEM NO TIKTOK:
-${captionAndHashtags}
+══════════════════════════════════════════════════════════════════════
+🤖 PROMPT PARA IA GERAR TÍTULO & HASHTAGS EM 1 LINHA (TIKTOK SHOP):
+(Cole este comando no ChatGPT / Gemini para obter a legenda perfeita)
+══════════════════════════════════════════════════════════════════════
+${captionPromptAI}
 
 ══════════════════════════════════════════════════════════════════════
 ROTEIRO DE ALTA CONVERSÃO:
@@ -1117,8 +1115,8 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 ══════════════════════════════════════════════════════════════════════`;
 
         // Preenche campos
-        document.getElementById('outputCaptionTags').value = captionAndHashtags;
         document.getElementById('outputRoteiro').value = scriptContent;
+        document.getElementById('outputPromptAI').value = captionPromptAI;
         document.getElementById('scenePrompt1').innerText = pVeo1;
         document.getElementById('scenePrompt2').innerText = pVeo2;
         document.getElementById('scenePrompt3').innerText = pVeo3;
@@ -1129,7 +1127,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         outputGroup.style.display = 'block';
         outputGroup.scrollIntoView({ behavior: 'smooth' });
 
-        showToast('✨ Roteiro, Prompts, Título e Hashtags gerados com sucesso!');
+        showToast('✨ Roteiro, Prompts e Prompt de Hashtags gerados com sucesso!');
     }
 
     function downloadTxt() {
@@ -1151,8 +1149,14 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         showToast('📥 Arquivo baixado com sucesso!');
     }
 
-    // Inicialização apenas com o placeholder sugerido (sem preencher o valor do input)
-    updateProductSuggestions();
+    // Inicialização: garante que o campo do produto esteja 100% vazio e sem resíduos
+    window.addEventListener('DOMContentLoaded', () => {
+        const productInput = document.getElementById('productName');
+        if (productInput) {
+            productInput.value = '';
+            productInput.placeholder = "Digite o nome do produto e a função principal...";
+        }
+    });
 </script>
 
 </body>

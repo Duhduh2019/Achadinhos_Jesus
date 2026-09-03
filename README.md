@@ -1,57 +1,38 @@
 # Gerador TikTok Shop & Prompts Videos ⚡🎬
 
-Aplicação web estática e responsiva para criação de roteiros de alta conversão para o **TikTok Shop** e geração de prompts técnicos **Image-to-Video (I2V)** para IAs de vídeo (como **Google Veo 3**), com suporte a fluxo contínuo (Flow), DNA unificado de consistência entre cenas, orientações de conversão com **setas dinâmicas para o Carrinho Amarelo**, e bloco pronto de **Título da Postagem + Hashtags Virais**, tudo em **100% Português**.
+Aplicação web estática e responsiva para criação de roteiros de alta conversão para o **TikTok Shop**, geração de prompts técnicos **Image-to-Video (I2V)** para IAs de vídeo, e gerador de **Prompts de Alta Performance para IA criar Título + Hashtags em 1 Linha (Padrão TikTok)**.
 
 🔗 **Acesse Online:** [https://duhduh2019.github.io/Achadinhos_Jesus/](https://duhduh2019.github.io/Achadinhos_Jesus/)
 
 ---
 
-## 🚀 Principais Funcionalidades da v1.6.0
+## 🚀 Principais Funcionalidades da v1.7.0
 
-### 1. Campo de Nome do Produto 100% em Branco
-- O campo *"Nome do Produto & Função Principal"* agora inicia limpo, permitindo que você digite livremente sem precisar apagar nada. O placeholder dá exemplos de inspiração de acordo com o nicho selecionado.
+### 1. 🏷️ Botão "Criar Hashtags e Título na IA" (Ao Lado de Copiar Roteiro)
+- Agora, logo ao lado do botão **"Copiar Roteiro"**, você encontra o botão **"🏷️ Criar Hashtags e Título na IA"**.
+- Ao clicar, ele copia um prompt estrategicamente calibrado para os algoritmos de busca (SEO) e feed "Para Você" (FYP) do TikTok Shop.
+- Você só precisa colar esse comando no seu **ChatGPT**, **Gemini** ou **Claude**, e a IA devolverá **em uma única linha pronta**:
+  - Título / Legenda magnética com emojis e chamada para o carrinho amarelo;
+  - As 5 a 7 melhores hashtags indexáveis.
 
-### 2. Card Pronto de Título & Hashtags para o TikTok
-- Gera automaticamente a copy pronta para postar no TikTok:
-  - **Título/Legenda:** Curto, magnético e com chamada para o carrinho amarelo e emojis de alta retenção.
-  - **Hashtags Virais:** Hashtags oficiais do TikTok Shop (`#TikTokShop #TikTokMadeMeBuyIt #Achadinhos #CompreiNoTikTok`) combinadas com as principais tags do nicho do produto.
-  - **Botão Dedicado:** `📋 Copiar Título + Hashtags` para você copiar com 1 clique e colar direto no aplicativo do TikTok!
+### 2. 🧼 Campo de Nome do Produto 100% Vazio
+- O campo *"Nome do Produto & Função Principal"* agora está completamente livre de qualquer texto pré-preenchido ou resíduos de sugestões anteriores. Digite seu produto diretamente ou deixe vazio para usar o padrão.
 
-### 3. Instrução Direta e Genérica da Imagem
-- *💡 Anexe a imagem com alta qualidade do produto na IA e cole o prompt gerado abaixo e deixa rodar.*
-
-### 4. Mais Ganchos Psicológicos Virais (9 Opções em Ordem A a Z)
-1. **Achadinho Barato**: 'O item mais barato do TikTok Shop que realmente funciona'
-2. **Alerta de Erro Comum**: 'Você provavelmente está fazendo isso totalmente errado'
-3. **Anti-Hype / Curiosidade**: 'Não compre isso antes de ver este teste rápido'
-4. **Ceticismo / Desafio**: 'Disseram que isso não funcionava, então resolvi testar'
-5. **Demonstração de Choque**: Problema irritante vs. Resolução em 1 segundo
-6. **Dor Aguda & Alívio**: 'Pare de estragar seus produtos e passar raiva hoje'
-7. **Polêmico / Segredo Revelado**: 'A indústria não quer que você descubra este truque'
-8. **Prova Social Massiva**: 'Por que todo mundo no TikTok só está falando desse produto?'
-9. **Transformação Imediata**: 'Olha o que aconteceu quando usei isso pela primeira vez'
+### 3. 🎬 Prompts de Vídeo com Trava de Frame 0 e Suporte ao Flow
+- Cláusula mandatória no topo do prompt proibindo distorções no objeto.
+- Instruções práticas em cada cena para geração inicial ou extensão contínua no Flow.
 
 ---
 
 ## 📦 Histórico de Versões
 
+- **v1.7.0**:
+  - Remoção total de qualquer referência pré-preenchida no campo do produto.
+  - Inclusão do botão **"🏷️ Criar Hashtags e Título na IA"** ao lado de "Copiar Roteiro".
+  - Prompt ultra-calibrado para IAs de texto entregarem a legenda e as hashtags no padrão TikTok em uma única linha.
 - **v1.6.0**:
-  - Campo do produto limpo (sem texto pré-preenchido).
-  - Adicionado card dedicado de **Título da Postagem & Hashtags do TikTok** com botão de cópia rápida.
+  - Campo do produto limpo.
 - **v1.5.1**:
   - Atualização do título para **Gerador TikTok Shop & Prompts Videos**.
-  - Simplificação da instrução de uso: *"Anexe a imagem com alta qualidade do produto na IA e cole o prompt gerado abaixo e deixa rodar."*
 - **v1.5.0**:
-  - Inclusão de instruções do Flow em cada cena individual.
-  - Ampliação para 9 ganchos psicológicos virais em ordem alfabética.
-  - Alinhamento de todos os seletores de A a Z.
-- **v1.4.0**:
-  - Seletores A-Z e elementos visuais de setas para o carrinho amarelo.
-- **v1.3.0**:
-  - Injeção da trava de Frame 0 no topo de cada prompt.
-- **v1.2.0**:
-  - Módulo Image-to-Video com contexto de fotos.
-- **v1.1.0**:
-  - Motor técnico Veo 3 em 100% português.
-- **v1.0.0**:
-  - Versão inicial com seleção de nichos e estilos TikTok.
+  - Inclusão de instruções do Flow em cada cena e 9 ganchos virais A-Z.
