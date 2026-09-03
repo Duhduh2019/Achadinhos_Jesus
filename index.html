@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Roteiros TikTok Shop & Prompts Google Veo 3</title>
+    <title>Gerador TikTok Shop & Image-to-Video Google Veo 3</title>
     <style>
         :root {
             --bg-color: #0b1120;
@@ -43,7 +43,7 @@
             border-radius: 16px;
             padding: 36px;
             width: 100%;
-            max-width: 860px;
+            max-width: 880px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-color);
             position: relative;
@@ -77,6 +77,12 @@
             border: 1px solid rgba(6, 182, 212, 0.3);
         }
 
+        .tag-badge.purple {
+            background: rgba(168, 85, 247, 0.12);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
         h1 {
             font-size: 1.95rem;
             margin-bottom: 6px;
@@ -95,7 +101,7 @@
             font-size: 1.05rem;
             font-weight: 700;
             color: #e2e8f0;
-            margin: 22px 0 14px 0;
+            margin: 24px 0 14px 0;
             padding-bottom: 6px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
@@ -165,13 +171,158 @@
             }
         }
 
-        /* Caixa de Destaque Veo 3 Anti-Distorção */
+        /* Área de Upload e Prévia da Imagem (I2V) */
+        .image-upload-card {
+            background: var(--card-inner);
+            border: 2px dashed rgba(6, 182, 212, 0.35);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .image-upload-card:hover {
+            border-color: var(--veo-cyan);
+            background: rgba(6, 182, 212, 0.03);
+        }
+
+        .image-upload-card input[type="file"] {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            margin-bottom: 6px;
+        }
+
+        .upload-label-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+
+        .upload-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .preview-container {
+            display: none;
+            margin-top: 14px;
+            position: relative;
+            background: #090e17;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .preview-img {
+            max-height: 90px;
+            max-width: 90px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(6, 182, 212, 0.4);
+        }
+
+        .preview-info {
+            flex: 1;
+        }
+
+        .preview-name {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            word-break: break-all;
+        }
+
+        .preview-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .remove-img-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .remove-img-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Guia Retrátil de Dicas I2V */
+        .tips-accordion {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+        }
+
+        .tips-summary {
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: var(--veo-cyan);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+
+        .tips-content {
+            margin-top: 10px;
+            font-size: 0.82rem;
+            color: #cbd5e1;
+            line-height: 1.55;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .tips-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tip-item {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .tip-item span.icon {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Caixa Veo 3 I2V */
         .veo-box {
             background: rgba(6, 182, 212, 0.05);
             border: 1px solid rgba(6, 182, 212, 0.25);
-            border-radius: 10px;
-            padding: 18px;
-            margin: 20px 0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 22px 0;
         }
 
         .veo-box-header {
@@ -179,6 +330,8 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .veo-box-title {
@@ -213,7 +366,7 @@
 
         button.primary-btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             border: none;
             border-radius: 10px;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -242,7 +395,7 @@
 
         /* Área de Resultados */
         .output-group {
-            margin-top: 30px;
+            margin-top: 32px;
             display: none;
             animation: fadeIn 0.35s ease-in-out;
         }
@@ -355,13 +508,13 @@
             padding: 16px;
         }
 
-        /* Cartões de Cena Veo 3 */
+        /* Cartões de Cena Veo 3 I2V */
         .scene-card {
             background: var(--card-inner);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 16px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .scene-card-header {
@@ -369,6 +522,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .scene-title {
@@ -380,13 +535,22 @@
             gap: 6px;
         }
 
+        .scene-badge-frame0 {
+            font-size: 0.72rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
         .scene-prompt-text {
             background: #090e17;
-            padding: 12px;
+            padding: 14px;
             border-radius: 6px;
             font-family: 'Consolas', 'Courier New', monospace;
             font-size: 0.85rem;
-            line-height: 1.5;
+            line-height: 1.55;
             color: #e2e8f0;
             border: 1px solid #1e293b;
             white-space: pre-wrap;
@@ -426,17 +590,64 @@
 <div class="container">
     <div class="header-badge-row">
         <div class="tag-badge">
-            <span>⚡ TikTok Shop Conversão</span>
+            <span>⚡ TikTok Shop Engine</span>
         </div>
         <div class="tag-badge cyan">
-            <span>🎬 Motor Google Veo 3 (100% Português)</span>
+            <span>🎬 Image-to-Video (I2V) Especialista</span>
+        </div>
+        <div class="tag-badge purple">
+            <span>🔒 Trava de Frame 0 (Veo 3)</span>
         </div>
     </div>
-    <h1>Gerador de Roteiros & Prompts Veo 3</h1>
-    <p class="subtitle">Crie roteiros magnéticos de vendas para o TikTok Shop e gere prompts para o Google Veo 3 com protocolo anti-distorção para a foto anexada do produto.</p>
+    <h1>Gerador TikTok Shop & Image-to-Video Veo 3</h1>
+    <p class="subtitle">Especializado na transição exata de foto real para vídeo. O Google Veo 3 usa a sua foto como o <strong>Primeiro Quadro (Frame 0)</strong> sem redesenhar ou distorcer o produto.</p>
 
-    <!-- 1. DADOS DO PRODUTO & NICHO -->
-    <div class="section-title">📦 1. Produto & Nicho</div>
+    <!-- 1. ENTRADA DA FOTO REAL DO PRODUTO (I2V) -->
+    <div class="section-title">🖼️ 1. Imagem de Referência (Ponto de Partida I2V)</div>
+    
+    <div class="image-upload-card" onclick="document.getElementById('imageFileInput').click()">
+        <input type="file" id="imageFileInput" accept="image/*" onchange="handleImageUpload(event)">
+        <div class="upload-icon">📸</div>
+        <div class="upload-label-title">Clique para selecionar ou arraste a foto do produto aqui</div>
+        <div class="upload-hint">Foto local de apoio visual para conferir o enquadramento do Frame 0 (100% privada no seu navegador)</div>
+        
+        <div class="preview-container" id="previewContainer">
+            <img id="previewImg" class="preview-img" alt="Foto do Produto">
+            <div class="preview-info">
+                <div class="preview-name" id="previewName">foto_produto.jpg</div>
+                <div class="preview-tag">✅ Foto Carregada — Ponto de Partida do Veo 3</div>
+            </div>
+            <button type="button" class="remove-img-btn" onclick="removeImage(event)">Remover</button>
+        </div>
+    </div>
+
+    <!-- Guia Rápido da Foto Perfeita -->
+    <div class="tips-accordion">
+        <div class="tips-summary" onclick="toggleTips()">
+            <span>💡 4 Dicas de Ouro para a Foto Anexada Não Distorcer no Veo 3</span>
+            <span id="tipsArrow">▼</span>
+        </div>
+        <div class="tips-content" id="tipsContent">
+            <div class="tip-item">
+                <span class="icon">✔</span>
+                <span><strong>Enquadramento Completo:</strong> O produto deve caber inteiro na imagem, sem bordas ou pontas cortadas.</span>
+            </div>
+            <div class="tip-item">
+                <span class="icon">✔</span>
+                <span><strong>Ângulo Frontal ou 45°:</strong> Ângulos retos ou levemente inclinados preservam 100% dos botões e formatos.</span>
+            </div>
+            <div class="tip-item">
+                <span class="icon">✔</span>
+                <span><strong>Iluminação Equilibrada:</strong> Evite sombras muito pretas que a IA possa interpretar como partes do produto.</span>
+            </div>
+            <div class="tip-item">
+                <span class="icon">✔</span>
+                <span><strong>Fundo Limpo:</strong> Fundos lisos facilitam que o Veo 3 isole o item e mova a câmera suavemente.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. DADOS DO PRODUTO & TIPO DA FOTO -->
     <div class="row">
         <div class="form-group">
             <label for="productCategory">Linha do Produto (Nicho)</label>
@@ -453,27 +664,38 @@
         </div>
 
         <div class="form-group">
-            <label for="productName">Nome do Produto & Função Principal</label>
-            <input type="text" id="productName" value="Mini Selador Portátil de Pacotes com Lâmina Embutida" placeholder="Ex: Mini Selador Térmico Portátil de Embalagens">
-            <div class="help-text">Dica: Inclua a função prática ou a dor que o produto resolve.</div>
+            <label for="photoType">Tipo da Foto que Você Anexará no Veo 3 (Contexto I2V)</label>
+            <select id="photoType">
+                <option value="fundo_branco">⚪ Foto de Catálogo com Fundo Branco / Neutro (Produto Isolado)</option>
+                <option value="ambiente_real">🏠 Foto em Ambiente Real (Mesa, Cozinha, Bancada)</option>
+                <option value="na_mao">🖐️ Foto do Produto Já Segurado na Mão</option>
+                <option value="close_macro">🔍 Foto Macro / Detalhes em Close-up</option>
+            </select>
+            <div class="help-text">Orienta o Veo 3 sobre como ambientar o cenário ao redor do seu produto.</div>
         </div>
     </div>
 
-    <!-- 2. ESTRATÉGIA DE CONVERSÃO & TIKTOK SHOP -->
+    <div class="form-group">
+        <label for="productName">Nome do Produto & Função Principal</label>
+        <input type="text" id="productName" value="Mini Selador Portátil de Pacotes com Lâmina Embutida" placeholder="Ex: Mini Selador Térmico Portátil de Embalagens">
+        <div class="help-text">Dica: Adicione o diferencial que o produto resolve para o gancho viral.</div>
+    </div>
+
+    <!-- 3. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP -->
     <div class="section-title">🎯 2. Estratégia de Venda no TikTok Shop</div>
     <div class="row">
         <div class="form-group">
-            <label for="hookType">Tipo de Gancho Psicológico (Primeiros 3 segundos)</label>
+            <label for="hookType">Gancho Psicológico dos Primeiros 3 Segundos</label>
             <select id="hookType">
                 <option value="alivio_dor">Dor Aguda & Alívio: 'Pare de estragar seus alimentos hoje'</option>
                 <option value="polemico_curiosidade">Anti-Hype / Curiosidade: 'Não compre isso antes de ver este teste'</option>
                 <option value="achadinho_economico">Achadinho Barato: 'O item mais barato do TikTok Shop que realmente funciona'</option>
-                <option value="choque_demonstracao">Demonstração de Choque: Problema nojento/chato vs. Resolução em 1 segundo</option>
+                <option value="choque_demonstracao">Demonstração de Choque: Problema vs. Resolução em 1 segundo</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="salesHook">Gatilho da Oferta (Carrinho Amarelo)</label>
+            <label for="salesHook">Gatilho de Venda (Oferta TikTok Shop)</label>
             <select id="salesHook">
                 <option value="Frete Grátis + Cupom exclusivo de primeira compra no carrinho">Frete Grátis + Cupom no Carrinho</option>
                 <option value="Preço promocional relâmpago ('Custa menos que um lanche/café')">Preço Relâmpago (Menos que um lanche)</option>
@@ -485,7 +707,7 @@
 
     <div class="row">
         <div class="form-group">
-            <label for="formatStyle">Estilo de Vídeo</label>
+            <label for="formatStyle">Estilo do Vídeo</label>
             <select id="formatStyle">
                 <option value="UGC Autêntico / POV 'Comprei no TikTok Shop e Me Surpreendi'">UGC POV / Review Espontâneo</option>
                 <option value="Demonstração Prática de Choque (Antes & Depois Direto)">Demonstração Prática de Choque</option>
@@ -503,55 +725,53 @@
         </div>
     </div>
 
-    <!-- 3. CONFIGURAÇÕES ANTI-DISTORÇÃO PARA O GOOGLE VEO 3 -->
+    <!-- 4. PROTOCOLO IMAGE-TO-VIDEO VEO 3 (TRAVA DE FRAME 0) -->
     <div class="veo-box">
         <div class="veo-box-header">
             <div class="veo-box-title">
-                <span>🛡️ Protocolo Anti-Distorção para Google Veo 3</span>
+                <span>🛡️ Protocolo Image-to-Video: Trava de Frame 0 & Anti-Distorção</span>
             </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="strictFidelity" checked>
-                <span>Trava Rígida de Geometria (Ativada)</span>
+                <span>Trava de Frame Inicial (Ativada)</span>
             </label>
         </div>
         <div class="help-text" style="margin-bottom: 14px; color: #cbd5e1;">
-            Instrui o Google Veo 3 a respeitar 100% da foto anexada. O produto é mantido como peça sólida imutável, evitando que botões derretam, cores mudem ou a forma se deforme.
+            Obriga o Veo 3 a iniciar a cena <strong>exatamente a partir da foto anexada</strong> (a 0.0s), tratando o produto como um corpo rígido inalterável e movendo apenas a câmera ou iluminação.
         </div>
 
         <div class="row">
             <div class="form-group" style="margin-bottom: 0;">
-                <label for="cameraMovement">Movimento de Câmera Recomendado no Veo 3</label>
+                <label for="cameraMovement">Cinemática de Câmera I2V no Veo 3</label>
                 <select id="cameraMovement">
-                    <option value="push_in_lento">Aproximação Lenta e Focada (Push-in suave - Zero Deformação)</option>
-                    <option value="deslocamento_lateral">Deslizamento Lateral Leve (Pan suave de 5° - Destaque de Textura)</option>
-                    <option value="estatico_luz">Câmera Estática com Iluminação de Estúdio Suave (Foco Puro)</option>
-                    <option value="macro_close">Plano Macro Close-up Fixo (Detalhes de Acabamento e Botões)</option>
+                    <option value="push_in_lento">Aproximação Lenta e Focada (Push-in suave a partir do Frame 0)</option>
+                    <option value="deslocamento_lateral">Deslizamento Lateral Leve (Pan suave de 5° sem perder a forma)</option>
+                    <option value="estatico_luz">Câmera Fixa com Iluminação Percorrendo a Textura do Produto</option>
+                    <option value="macro_close">Plano Macro Fixo (Foco cirúrgico em botões e detalhes reais)</option>
                 </select>
-                <div class="help-text">Evita rotações bruscas de 360° que provocam mutação no modelo 3D do produto.</div>
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
-                <label for="productInteraction">Interação Física na Cena</label>
+                <label for="productInteraction">Interação Física no Vídeo</label>
                 <select id="productInteraction">
-                    <option value="sem_maos">Produto em Mesa de Estúdio Limpa (Sem Mãos / Risco Zero de Deformar)</option>
+                    <option value="sem_maos">Produto em Mesa de Estúdio Limpa (Sem Mãos / Risco Zero)</option>
                     <option value="maos_bordas">Mãos Apoiando Delicadamente pelas Bordas (Sem Cobrir Detalhes)</option>
-                    <option value="acao_funcional">Micro-Ação Funcional (Dedo apertando botão real já existente na foto)</option>
+                    <option value="acao_funcional">Micro-Ação Funcional (Dedo acionando botão real da foto)</option>
                 </select>
-                <div class="help-text">Garante que os dedos não fundam com a carcaça do produto na animação.</div>
             </div>
         </div>
     </div>
 
     <button class="primary-btn" onclick="generateAll()">
-        <span>✨ Gerar Roteiro TikTok & Prompts Veo 3 (100% Português)</span>
+        <span>✨ Gerar Roteiro TikTok & Prompts I2V para Veo 3 (100% Português)</span>
     </button>
 
-    <!-- 4. ÁREA DE SAÍDA COM ABAS -->
+    <!-- 5. ÁREA DE RESULTADOS COM ABAS -->
     <div class="output-group" id="outputGroup">
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('tab-roteiro')">📱 Roteiro TikTok Shop</button>
-            <button class="tab-btn veo" onclick="switchTab('tab-veo')">🎬 Prompts Veo 3 (Cena a Cena)</button>
-            <button class="tab-btn" onclick="switchTab('tab-completo')">📋 Visão Completa (Tudo em Um)</button>
+            <button class="tab-btn veo" onclick="switchTab('tab-veo')">🎬 Prompts I2V Veo 3 (Cena a Cena)</button>
+            <button class="tab-btn" onclick="switchTab('tab-completo')">📋 Visão Completa (Tudo Integrado)</button>
         </div>
 
         <!-- ABA 1: ROTEIRO TIKTOK SHOP -->
@@ -566,42 +786,45 @@
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
         </div>
 
-        <!-- ABA 2: PROMPTS VEO 3 CENA A CENA -->
+        <!-- ABA 2: PROMPTS I2V VEO 3 CENA A CENA -->
         <div class="tab-pane" id="tab-veo">
             <div class="output-header">
-                <label>Prompts Técnicos em Português para o Google Veo 3 (Gere com a Imagem Anexada):</label>
+                <label>Prompts Técnicos Image-to-Video em Português (Trava de Primeiro Quadro no Veo 3):</label>
                 <div class="action-btn-group">
-                    <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar Todas as Cenas</button>
+                    <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar Todas as Cenas I2V</button>
                 </div>
             </div>
 
             <!-- CENA 1 -->
             <div class="scene-card">
                 <div class="scene-card-header">
-                    <div class="scene-title">🎬 Cena 1: Gancho & Impacto Visual (Duração: 3 a 4s)</div>
+                    <div class="scene-title">🎬 Cena 1: Gancho & Primeiro Impacto Visual (3 a 4s)</div>
+                    <span class="scene-badge-frame0">🔒 Frame 0 Travado</span>
                     <button class="action-btn" onclick="copyText('scenePrompt1')">📋 Copiar Cena 1</button>
                 </div>
-                <div class="help-text" style="margin-bottom: 8px;">Anexe a foto do produto no Veo 3 e use este prompt:</div>
+                <div class="help-text" style="margin-bottom: 8px;">Anexe a sua foto no Google Veo 3 como ponto de partida e cole este prompt:</div>
                 <div class="scene-prompt-text" id="scenePrompt1"></div>
             </div>
 
             <!-- CENA 2 -->
             <div class="scene-card">
                 <div class="scene-card-header">
-                    <div class="scene-title">🎬 Cena 2: Demonstração & Solução do Problema (Duração: 4 a 5s)</div>
+                    <div class="scene-title">🎬 Cena 2: Demonstração e Solução do Problema (4 a 5s)</div>
+                    <span class="scene-badge-frame0">🔒 Objeto Rígido</span>
                     <button class="action-btn" onclick="copyText('scenePrompt2')">📋 Copiar Cena 2</button>
                 </div>
-                <div class="help-text" style="margin-bottom: 8px;">Anexe a foto do produto no Veo 3 e use este prompt:</div>
+                <div class="help-text" style="margin-bottom: 8px;">Anexe a sua foto no Google Veo 3 e cole este prompt:</div>
                 <div class="scene-prompt-text" id="scenePrompt2"></div>
             </div>
 
             <!-- CENA 3 -->
             <div class="scene-card">
                 <div class="scene-card-header">
-                    <div class="scene-title">🎬 Cena 3: Chamada Final & Carrinho Amarelo (Duração: 3 a 4s)</div>
+                    <div class="scene-title">🎬 Cena 3: Chamada Final e Carrinho Amarelo (3 a 4s)</div>
+                    <span class="scene-badge-frame0">🔒 CTA Carrinho</span>
                     <button class="action-btn" onclick="copyText('scenePrompt3')">📋 Copiar Cena 3</button>
                 </div>
-                <div class="help-text" style="margin-bottom: 8px;">Anexe a foto do produto no Veo 3 e use este prompt:</div>
+                <div class="help-text" style="margin-bottom: 8px;">Anexe a sua foto no Google Veo 3 e cole este prompt:</div>
                 <div class="scene-prompt-text" id="scenePrompt3"></div>
             </div>
         </div>
@@ -609,7 +832,7 @@
         <!-- ABA 3: VISÃO COMPLETA INTEGRADA -->
         <div class="tab-pane" id="tab-completo">
             <div class="output-header">
-                <label>Documento Completo (Roteiro, Prompts do Veo 3 e Dicas de Edição):</label>
+                <label>Documento Completo (Roteiro, Prompts I2V do Veo 3 e Dicas de Edição):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
                     <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
@@ -623,7 +846,7 @@
 <div id="toast" class="toast">Conteúdo copiado para a área de transferência!</div>
 
 <script>
-    // Exemplos práticos por nicho
+    // Sugestões por nicho
     const productExamples = {
         "Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)": "Bastão Hidratante Antirrugas com Colágeno e Ácido Hialurônico",
         "Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)": "Mini Selador Portátil de Pacotes com Lâmina Embutida",
@@ -645,6 +868,42 @@
         }
     }
 
+    // Toggle para as dicas I2V
+    function toggleTips() {
+        const content = document.getElementById('tipsContent');
+        const arrow = document.getElementById('tipsArrow');
+        if (content.style.display === 'none') {
+            content.style.display = 'grid';
+            arrow.textContent = '▲';
+        } else {
+            content.style.display = 'none';
+            arrow.textContent = '▼';
+        }
+    }
+
+    // Manipulação de Upload e Prévia Local (Image-to-Video)
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('previewImg').src = e.target.result;
+            document.getElementById('previewName').textContent = file.name;
+            document.getElementById('previewContainer').style.display = 'flex';
+            showToast('📸 Foto carregada como referência de Frame 0!');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function removeImage(event) {
+        event.stopPropagation();
+        document.getElementById('imageFileInput').value = '';
+        document.getElementById('previewImg').src = '';
+        document.getElementById('previewContainer').style.display = 'none';
+        showToast('Foto removida da prévia.');
+    }
+
     function switchTab(tabId) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
@@ -652,7 +911,6 @@
         const targetPane = document.getElementById(tabId);
         if (targetPane) targetPane.classList.add('active');
 
-        // Ativa o botão correspondente
         if (tabId === 'tab-roteiro') document.querySelectorAll('.tab-btn')[0].classList.add('active');
         if (tabId === 'tab-veo') document.querySelectorAll('.tab-btn')[1].classList.add('active');
         if (tabId === 'tab-completo') document.querySelectorAll('.tab-btn')[2].classList.add('active');
@@ -688,7 +946,7 @@
         navigator.clipboard.writeText(text).then(() => {
             showToast('✅ Copiado para a área de transferência!');
         }).catch(() => {
-            showToast('Erro ao copiar automaticamente. Selecione e copie manualmente.', true);
+            showToast('Erro ao copiar automaticamente.', true);
         });
     }
 
@@ -697,20 +955,20 @@
         const p2 = document.getElementById('scenePrompt2').innerText;
         const p3 = document.getElementById('scenePrompt3').innerText;
 
-        const allScenes = `[PROMPTS TÉCNICOS PARA O GOOGLE VEO 3 - 100% EM PORTUGUÊS]
-(Anexe a foto do produto e gere cada tomada individualmente para máxima consistência visual)
+        const allScenes = `[PROMPTS TÉCNICOS IMAGE-TO-VIDEO (I2V) - GOOGLE VEO 3]
+(Anexe a foto do produto como Ponto de Partida e gere cada cena com a trava de Primeiro Quadro)
 
 --- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
 ${p1}
 
---- CENA 2: DEMONSTRAÇÃO E RESOLUÇÃO DO PROBLEMA (4 a 5 segundos) ---
+--- CENA 2: DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA (4 a 5 segundos) ---
 ${p2}
 
 --- CENA 3: CHAMADA FINAL & CARRINHO AMARELO (3 a 4 segundos) ---
 ${p3}`;
 
         navigator.clipboard.writeText(allScenes).then(() => {
-            showToast('✅ Todos os prompts do Veo 3 foram copiados!');
+            showToast('✅ Todos os prompts I2V do Veo 3 foram copiados!');
         }).catch(() => {
             showToast('Erro ao copiar.', true);
         });
@@ -718,6 +976,7 @@ ${p3}`;
 
     function generateAll() {
         const category = document.getElementById('productCategory').value;
+        const photoType = document.getElementById('photoType').value;
         const productName = document.getElementById('productName').value.trim();
         const hookType = document.getElementById('hookType').value;
         const salesHook = document.getElementById('salesHook').value;
@@ -735,7 +994,7 @@ ${p3}`;
 
         const isHandsOnly = presentationModel === 'hands_only';
 
-        // Definir descrição do gancho
+        // Gancho
         let hookExample = "";
         let hookAudio = "";
         let hookScreenText = "";
@@ -745,7 +1004,7 @@ ${p3}`;
             hookAudio = `Se você ainda perde tempo ou dinheiro com isso, você precisa conhecer isso agora! [pausa de 0.4s]`;
             hookScreenText = "NÃO PERCA MAIS DINHEIRO COM ISSO ⚠️";
         } else if (hookType === 'polemico_curiosidade') {
-            hookExample = "O apresentador/mãos apontam para o produto com ar de mistério e revelação.";
+            hookExample = "O apresentador ou as mãos apontam para o produto com ar de mistério e revelação.";
             hookAudio = `Não compre esse item antes de ver este teste rápido até o final! [pausa de 0.4s]`;
             hookScreenText = "NÃO COMPRE ANTES DE VER ISTO! 🚨";
         } else if (hookType === 'achadinho_economico') {
@@ -758,7 +1017,7 @@ ${p3}`;
             hookScreenText = "OLHA A DIFERENÇA DISSO! 😱";
         }
 
-        // 1. ROTEIRO TIKTOK SHOP
+        // ROTEIRO TIKTOK SHOP
         const scriptContent = `📱 ROTEIRO DE ALTA CONVERSÃO - TIKTOK SHOP (35 A 45 SEGUNDOS)
 Produto: ${productName}
 Nicho: ${category}
@@ -772,109 +1031,126 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
 🎬 Ação Visual: ${hookExample}
 🗣️ Fala: "${hookAudio}"
 📝 Texto na Tela: ${hookScreenText}
-🎵 Trilha Sonora: Batida rítmica moderna em alta no TikTok (volume médio).
+🎵 Trilha Sonora: Batida moderna em alta no TikTok (volume médio).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [04s - 15s] A DOR REAL & A ENTRADA DO PRODUTO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: O produto é exibido em close-up limpo e nítido. ${isHandsOnly ? 'Mãos seguram o produto pelas bordas sem cobrir detalhes da carcaça.' : 'Apresentador segura o produto na altura do peito, apontando para o diferencial.'}
+🎬 Ação Visual: O produto é exibido em close-up cristalino. ${isHandsOnly ? 'Mãos seguram o produto pelas bordas sem cobrir o acabamento.' : 'Apresentador segura o produto na altura do peito, apontando para o diferencial.'}
 🗣️ Fala: "Eu vivia passando raiva com isso no meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver essa dor sem complicação."
 📝 Texto na Tela: "FINALMENTE UMA SOLUÇÃO QUE FUNCIONA ✅"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [16s - 30s] DEMONSTRAÇÃO PRÁTICA & QUEBRA DE OBJEÇÕES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: Demonstração da função prática em velocidade real, sem cortes falsos. Foco tátil e claro na eficiência do item.
+🎬 Ação Visual: Demonstração da função prática em velocidade real, sem cortes falsos. Foco na eficiência e facilidade do item.
 🗣️ Fala: "Olha como é simples e prático de usar. Funciona na hora, o material é super resistente e não ocupa quase nenhum espaço. [pausa de 0.3s] Mudou totalmente a minha rotina!"
 📝 Texto na Tela: "PRÁTICO, RESISTENTE E FUNCIONA DE VERDADE 🔥"
-🔊 Efeito Sonoro: Efeito suave de clique ou som tátil do produto operando com perfeição.
+🔊 Efeito Sonoro: Som tátil autêntico do produto em funcionamento.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [31s - 45s] CHAMADA DECISIVA PARA O CARRINHO AMARELO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: O produto é colocado em destaque na frente da tela, com uma mão apontando diretamente para o canto inferior esquerdo da tela (onde fica o botão de compra do TikTok Shop).
+🎬 Ação Visual: O produto é posicionado em destaque frontal com uma mão apontando para o canto inferior esquerdo da tela (botão de compra do TikTok Shop).
 🗣️ Fala: "Ele tá com ${salesHook.toLowerCase()}. É só clicar aqui embaixo no carrinho amarelo antes que o lote promocional acabe!"
 📝 Texto na Tela: "👉 CLIQUE NO CARRINHO AMARELO AQUI EMBAIXO!"
-🎯 CTA: Indicação clara com setas apontando para o botão de compra.`;
+🎯 CTA: Indicação gestual com setas apontando para o botão de compra.`;
 
-        // 2. DIRETRIZES ANTI-DISTORÇÃO VEO 3
+        // DIRETRIZES DE ENTRADA IMAGE-TO-VIDEO (I2V)
+        let photoContextDirective = "";
+        if (photoType === 'fundo_branco') {
+            photoContextDirective = "CONTEXTO DA FOTO DE ENTRADA: A imagem anexada é um catálogo isolado em fundo neutro/branco. Preserve a geometria 100% fiel do produto no centro e envolva a base com uma superfície contemporânea e limpa de estúdio fotográfico, mantendo iluminação suave e uniforme.";
+        } else if (photoType === 'ambiente_real') {
+            photoContextDirective = "CONTEXTO DA FOTO DE ENTRADA: A imagem anexada já exibe o produto em seu ambiente real de uso. Mantenha tanto o produto quanto o cenário ao redor exatamente fiéis à foto, animando unicamente a trajetória cinematográfica da câmera.";
+        } else if (photoType === 'na_mao') {
+            photoContextDirective = "CONTEXTO DA FOTO DE ENTRADA: A imagem anexada já possui mãos segurando o produto. Preserve com fidelidade a mão, a pegada e a posição do produto registradas na foto, permitindo apenas micro-movimentos suaves de sustentação sem alteração da pele ou da carcaça.";
+        } else {
+            photoContextDirective = "CONTEXTO DA FOTO DE ENTRADA: A imagem anexada é um enquadramento macro em close-up. Mantenha a profundidade de campo rasa e a alta definição nas texturas, ranhuras e inscrições exatamente como capturado na imagem de entrada.";
+        }
+
         let cameraDirective = "";
         if (cameraMovement === 'push_in_lento') {
-            cameraDirective = "A câmera realiza um movimento muito suave e linear de aproximação frontal lenta (push-in suave), mantendo o foco nítido e estável no produto centralizado.";
+            cameraDirective = "A câmera inicia rigorosamente a partir do enquadramento da foto anexada e executa um movimento linear suave e contínuo de aproximação frontal lenta (push-in suave), sem rotações bruscas.";
         } else if (cameraMovement === 'deslocamento_lateral') {
-            cameraDirective = "A câmera realiza um deslizamento lateral muito lento e contínuo (panorâmica suave de no máximo 5 graus), revelando o produto de forma estável e fluida.";
+            cameraDirective = "A câmera inicia rigorosamente a partir da foto anexada e realiza um deslizamento lateral suave e estável (panorâmica contínua de no máximo 5 graus), mantendo o produto perfeitamente ancorado.";
         } else if (cameraMovement === 'estatico_luz') {
-            cameraDirective = "A câmera permanece 100% estática e fixa. Uma iluminação suave de estúdio percorre sutilmente o acabamento e a textura do produto, destacando seu design.";
+            cameraDirective = "A câmera permanece 100% estática e fixada no enquadramento exato da foto anexada. Uma iluminação suave de estúdio percorre as superfícies do produto, evidenciando seu acabamento autêntico.";
         } else {
-            cameraDirective = "A câmera mantém um enquadramento macro fixo e cristalino, capturando os detalhes finos, botões e acabamentos do produto com foco cirúrgico.";
+            cameraDirective = "A câmera mantém foco macro cirúrgico estático, destacando a nitidez cristalina dos botões e detalhes físicos capturados na imagem de referência.";
         }
 
         let interactionDirective = "";
         if (productInteraction === 'sem_maos') {
-            interactionDirective = "O produto repousa apoiado sobre uma superfície de estúdio limpa, moderna e minimalista. Nenhuma mão ou elemento externo interfere na visão do produto.";
+            interactionDirective = "O produto fica apoiado com estabilidade sobre a superfície. Nenhuma mão ou elemento externo interfere na visualização limpa do item.";
         } else if (productInteraction === 'maos_bordas') {
-            interactionDirective = "Duas mãos humanas seguram o produto delicadamente apenas pelas extremidades e bordas inferiores, deixando 100% da parte frontal, logotipos e botões totalmente desobstruídos e visíveis.";
+            interactionDirective = "Mãos humanas apoiam o produto delicadamente pelas bordas externas e pela base, sem cobrir a parte frontal, logotipos, visores ou botões presentes na foto.";
         } else {
-            interactionDirective = "Uma mão humana realiza uma micro-interação precisa e suave, apenas apoiando ou pressionando levemente um botão real já visível na foto do produto, com movimentos lentos e sem cobrir a carcaça.";
+            interactionDirective = "Uma mão humana executa um micro-movimento sutil e funcional, pressionando delicadamente um botão real já visível na foto original, sem gerar deformações.";
         }
 
-        const strictClause = strictFidelity ? `DIRETRIZ CRÍTICA DE FIDELIDADE GEOMÉTRICA (ANTI-DISTORÇÃO):
-Trate o produto da imagem anexada como uma peça física rígida, sólida e imutável. Não modifique sob hipótese alguma o formato, as cores exatas, a textura, as proporções, os botões, os relevos ou as inscrições presentes na foto original. Proibido esticar, distorcer, derreter, girar bruscamente em 360 graus ou inventar componentes que não existem na imagem anexada.` : '';
+        const strictI2VClause = strictFidelity ? `[PROTOCOLO RIGOROSO DE IMAGE-TO-VIDEO (I2V) - GOOGLE VEO 3]:
+1. REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro (a 0.0s) da tomada. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto no início da cena. A gravação deve continuar diretamente dos pixels da foto.
+2. TRAVA GEOMÉTRICA DE OBJETO RÍGIDO: O produto é uma peça sólida, física e imutável. Mantenha com precisão cirúrgica todas as cores, texturas, botões, proporções, logotipos e contornos da foto.
+3. PROIBIÇÃO ABSOLUTA: Proibido girar o produto em 360 graus, derreter arestas, esticar peças ou criar componentes que não existam na foto anexada.` : '';
 
         // PROMPTS VEO 3 CENA A CENA (100% PORTUGUÊS)
-        const pVeo1 = `Vídeo vertical no formato 9:16 para TikTok. Estilo comercial profissional de estúdio.
-PRODUTO DE REFERÊNCIA: Utilize com fidelidade máxima a imagem do produto anexada (${productName}).
+        const pVeo1 = `Vídeo vertical 9:16 para TikTok. Estilo comercial profissional de produto.
+MODALIDADE: Image-to-Video (I2V) para Google Veo 3 com ancoragem no Primeiro Quadro.
+PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada).
 
-CENA 1 - GANCHO E IMPACTO VISUAL:
-O produto está posicionado no centro do quadro com iluminação suave de estúdio e fundo contemporâneo limpo.
+CENA 1 - GANCHO & IMPACTO VISUAL (3 a 4 segundos):
+${photoContextDirective}
 DIREÇÃO DE CÂMERA: ${cameraDirective}
 INTERAÇÃO: ${interactionDirective}
-ATMOSFERA & QUALIDADE: Imagem hiper-nítida, foco cristalino, cores fiéis à foto anexada, profundidade de campo suave, sem borrões de movimento brusco.
+QUALIDADE VISUAL: Iluminação suave de catálogo, foco cristalino, profundidade de campo suave, cores autênticas à foto de entrada.
 
-${strictClause}`;
+${strictI2VClause}`;
 
-        const pVeo2 = `Vídeo vertical no formato 9:16 para TikTok. Demonstração prática e sensorial.
-PRODUTO DE REFERÊNCIA: Utilize com fidelidade máxima a imagem do produto anexada (${productName}).
+        const pVeo2 = `Vídeo vertical 9:16 para TikTok. Demonstração prática e sensorial.
+MODALIDADE: Image-to-Video (I2V) para Google Veo 3 com ancoragem no Primeiro Quadro.
+PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada).
 
-CENA 2 - DEMONSTRAÇÃO E SOLUÇÃO:
-O produto permanece no centro da cena enquanto a função prática é evidenciada de forma clara e objetiva.
-DIREÇÃO DE CÂMERA: Movimento estável de aproximação linear muito sutil, destacando o funcionamento do produto sem tremuras.
+CENA 2 - DEMONSTRAÇÃO E RESOLUÇÃO DA DOR (4 a 5 segundos):
+${photoContextDirective}
+DIREÇÃO DE CÂMERA: Movimento linear lento e contínuo de aproximação suave, revelando a função prática do produto com clareza.
 INTERAÇÃO: ${interactionDirective}
-ATMOSFERA & QUALIDADE: Iluminação de alta definição, realce nas texturas e acabamentos reais do produto, nitidez absoluta em cada detalhe.
+QUALIDADE VISUAL: Realce nos materiais reais e na textura física do produto, nitidez absoluta, movimentação fluida sem tremuras.
 
-${strictClause}`;
+${strictI2VClause}`;
 
-        const pVeo3 = `Vídeo vertical no formato 9:16 para TikTok. Chamada para ação e conversão.
-PRODUTO DE REFERÊNCIA: Utilize com fidelidade máxima a imagem do produto anexada (${productName}).
+        const pVeo3 = `Vídeo vertical 9:16 para TikTok. Conversão direta e apelo ao Carrinho Amarelo.
+MODALIDADE: Image-to-Video (I2V) para Google Veo 3 com ancoragem no Primeiro Quadro.
+PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada).
 
-CENA 3 - CHAMADA FINAL E CARRINHO:
-Enquadramento frontal nítido do produto. O item é colocado em primeiro plano com clareza total, com uma leve indicação gestual sutil na direção da parte inferior da tela (onde localiza-se o carrinho de compras do TikTok Shop).
-DIREÇÃO DE CÂMERA: Câmera fixa em plano médio com leve recuo suave, mantendo o produto perfeitamente centralizado e nítido.
-INTERAÇÃO: O produto fica apoiado com firmeza, destacado pela luz ambiente acolhedora.
-ATMOSFERA & QUALIDADE: Visual limpo de catálogo profissional, cores autênticas à foto de referência, foco impecável.
+CENA 3 - CHAMADA FINAL & CARRINHO AMARELO (3 a 4 segundos):
+${photoContextDirective}
+DIREÇÃO DE CÂMERA: Enquadramento frontal estável do produto, mantendo-o centralizado com destaque limpo em primeiro plano.
+INTERAÇÃO: O item permanece firme na cena, acompanhado de uma indicação gestual sutil na direção da parte inferior da tela (onde fica o botão de compra).
+QUALIDADE VISUAL: Cores fiéis à imagem anexada, iluminação acolhedora e foco cirúrgico no produto.
 
-${strictClause}`;
+${strictI2VClause}`;
 
-        // 3. DOCUMENTO COMPLETO
+        // DOCUMENTO COMPLETO
         const fullDocument = `══════════════════════════════════════════════════════════════════════
-PLANEJAMENTO COMPLETO DE CONVERSÃO TIKTOK SHOP & GOOGLE VEO 3
+PLANEJAMENTO COMPLETO DE CONVERSÃO TIKTOK SHOP & IMAGE-TO-VIDEO VEO 3
 ══════════════════════════════════════════════════════════════════════
 Produto: ${productName}
 Nicho: ${category}
-Gatilho: ${salesHook}
+Gatilho de Venda: ${salesHook}
+Tipo de Entrada I2V: ${photoType}
 Data: ${new Date().toLocaleDateString('pt-BR')}
 
 ${scriptContent}
 
 ══════════════════════════════════════════════════════════════════════
-PROMPTS TÉCNICOS PARA O GOOGLE VEO 3 (100% EM PORTUGUÊS)
+PROMPTS IMAGE-TO-VIDEO (I2V) PARA O GOOGLE VEO 3 (100% PORTUGUÊS)
 ══════════════════════════════════════════════════════════════════════
-💡 Dica de Ouro para o Veo 3:
+💡 Como Gerar no Google Veo 3 sem Distorcer:
 1. Abra o Google Veo 3;
-2. Anexe a foto real e nítida do seu produto;
-3. Copie e cole o prompt de cada cena individualmente;
-4. Como cada tomada terá de 3 a 5 segundos, o Veo 3 não irá distorcer ou derreter o produto!
-5. Junte as 3 tomadas geradas no CapCut e aplique a narração do roteiro acima.
+2. Anexe a sua foto real como imagem de referência inicial;
+3. Cole o prompt de cada cena separadamente;
+4. O Veo 3 iniciará o vídeo exatamente no Frame 0 da foto sem recriar o produto;
+5. Junte os 3 clipes curtos no CapCut e adicione a narração do roteiro.
 
 --- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
 ${pVeo1}
@@ -886,27 +1162,27 @@ ${pVeo2}
 ${pVeo3}
 
 ══════════════════════════════════════════════════════════════════════
-REGRAS ANTI-DISTORÇÃO APLICADAS AUTOMATICAMENTE:
-- Objeto tratado como sólido rígido e imutável;
-- Movimento exclusivamente gerado pela câmera (aproximação/deslizamento sutil);
-- Sem rotações de 360 graus para evitar alucinação geométrica;
-- Dedos posicionados apenas nas bordas sem tampar detalhes do produto;
+TRAVAS TÉCNICAS I2V APLICADAS:
+- Ancoragem rígida no Primeiro Quadro (Frame 0);
+- O produto é tratado como peça sólida física (zero derretimento ou mutação);
+- Proibição de giros em 360° para evitar alucinação de geometria;
+- Mãos operando apenas nas bordas sem tampar detalhes do produto;
 - Vocabulário técnico 100% em Português perfeitamente interpretado pelo Veo 3.
 ══════════════════════════════════════════════════════════════════════`;
 
-        // Preenche os campos
+        // Preenche campos
         document.getElementById('outputRoteiro').value = scriptContent;
         document.getElementById('scenePrompt1').innerText = pVeo1;
         document.getElementById('scenePrompt2').innerText = pVeo2;
         document.getElementById('scenePrompt3').innerText = pVeo3;
         document.getElementById('outputCompleto').value = fullDocument;
 
-        // Exibe a seção de saída
+        // Exibe resultados
         const outputGroup = document.getElementById('outputGroup');
         outputGroup.style.display = 'block';
         outputGroup.scrollIntoView({ behavior: 'smooth' });
 
-        showToast('✨ Roteiro e Prompts do Veo 3 gerados com sucesso!');
+        showToast('✨ Roteiro e Prompts I2V com Trava de Frame 0 gerados!');
     }
 
     function downloadTxt() {
@@ -920,7 +1196,7 @@ REGRAS ANTI-DISTORÇÃO APLICADAS AUTOMATICAMENTE:
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'Roteiro_TikTokShop_Veo3.txt';
+        link.download = 'Planejamento_TikTokShop_I2V_Veo3.txt';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -928,7 +1204,7 @@ REGRAS ANTI-DISTORÇÃO APLICADAS AUTOMATICAMENTE:
         showToast('📥 Arquivo baixado com sucesso!');
     }
 
-    // Inicializa sugestão padrão ao carregar
+    // Inicialização
     updateProductSuggestions();
 </script>
 
