@@ -531,6 +531,9 @@
         <div class="tag-badge cyan">
             <span>🎬 Image-to-Video Prompts</span>
         </div>
+        <div class="tag-badge emerald" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399;">
+            <span>✨ Você Só Encontra Aqui: Achadinhos de Jesus</span>
+        </div>
     </div>
     <h1>Gerador TikTok Shop & Prompts Videos</h1>
     <p class="subtitle">Gere roteiros de alta conversão para o TikTok Shop e comandos técnicos em português para você <strong>anexar a foto do produto na IA de vídeo</strong> e animá-lo com fidelidade e consistência absoluta.</p>
@@ -641,8 +644,21 @@
         </div>
     </div>
 
-    <!-- 3. CONFIGURAÇÕES IMAGE-TO-VIDEO (EM ORDEM ALFABÉTICA) -->
+    <!-- 3. CONFIGURAÇÕES IMAGE-TO-VIDEO & ASSINATURA DE MARCA (EM ORDEM ALFABÉTICA) -->
     <div class="veo-box">
+        <div class="veo-box-header" style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+            <div class="veo-box-title">
+                <span>✨ Assinatura de Marca "Você Só Encontra Aqui: Achadinhos de Jesus!"</span>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="brandSignature" checked>
+                <span>Inserir Bordão no Final do Roteiro (Ativada)</span>
+            </label>
+        </div>
+        <div class="help-text" style="margin-bottom: 14px; color: #cbd5e1;">
+            Esta opção adiciona o encerramento exclusivo de marca ao final do roteiro (46s-48s) e orienta a IA de legendas a incluir a frase oficial de autoridade: <strong>"Você só encontra aqui: Achadinhos de Jesus! 🙏✨"</strong>
+        </div>
+
         <div class="veo-box-header">
             <div class="veo-box-title">
                 <span>🛡️ Trava de Frame 0 & Diretriz Anti-Distorção</span>
@@ -856,6 +872,8 @@
         const hookText = hookSelect.value === 'none' ? "Gancho Orgânico Viral (IA Livre)" : hookSelect.options[hookSelect.selectedIndex].text;
         const salesHook = document.getElementById('salesHook').value;
         const salesHookText = salesHook === 'none' ? "Oferta Exclusiva / Condição Especial no Carrinho Amarelo" : salesHook;
+        const includeBrand = document.getElementById('brandSignature') ? document.getElementById('brandSignature').checked : true;
+        const brandRule = includeBrand ? `\n5. ASSINATURA DE MARCA OBRIGATÓRIA: Inclua no final da legenda a frase de autoridade: "Você só encontra aqui: Achadinhos de Jesus! 🙏✨"` : '';
 
         return `Atue como o maior especialista em SEO, Algoritmo e Conversão do TikTok Shop.
 
@@ -872,7 +890,7 @@ REGRAS RÍGIDAS DE RETENÇÃO E ALGORITMO:
 1. TÍTULO/LEGENDA: Frase inicial ultra-curta e hipnótica que desperte curiosidade imediata, conectando com uma chamada clara para clicar no link do carrinho amarelo com emojis (👇🛒).
 2. PALAVRAS-CHAVE SEO: Inclua os termos exatos que as pessoas pesquisam no TikTok para encontrar esse produto.
 3. HASHTAGS ESTRATÉGICAS: Coloque de 5 a 7 hashtags de alto volume misturando tags oficiais de compra (#TikTokShop, #Achadinhos, #CompreiNoTikTok, #TikTokMadeMeBuyIt) com tags do nicho e da dor.
-4. FORMATO: Devolva OBRIGATORIAMENTE em UMA ÚNICA LINHA, pronta apenas para eu copiar e colar no TikTok. Não inclua introduções, explicações, quebras de linha nem aspas.`;
+4. FORMATO: Devolva OBRIGATORIAMENTE em UMA ÚNICA LINHA, pronta apenas para eu copiar e colar no TikTok. Não inclua introduções, explicações, quebras de linha nem aspas.${brandRule}`;
     }
 
     function copyCaptionPromptForAI() {
@@ -925,6 +943,7 @@ ${p3}`;
         const cameraMovement = document.getElementById('cameraMovement').value;
         const productInteraction = document.getElementById('productInteraction').value;
         const strictFidelity = document.getElementById('strictFidelity').checked;
+        const includeBrand = document.getElementById('brandSignature') ? document.getElementById('brandSignature').checked : true;
 
         const isHandsOnly = presentationModel === 'hands_only';
         const salesHookText = (salesHook === 'none') ? 'uma condição imperdível e exclusiva no carrinho amarelo' : salesHook.toLowerCase();
@@ -932,6 +951,19 @@ ${p3}`;
         const presentationText = (presentationModel === 'none') 
             ? 'Apresentação livre (Mãos ou Criador)' 
             : (isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visível)' : 'Pessoa/Criador falando com sincronia labial');
+
+        let brandEndingBlock = "";
+        if (includeBrand) {
+            brandEndingBlock = `
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✨ [46s - 48s] VINHETA & ASSINATURA EXCLUSIVA DA MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: O produto permanece em destaque central enquanto surge um selo/letreiro reluzente no centro da tela.
+📝 Texto na Tela: "VOCÊ SÓ ENCONTRA AQUI: ACHADINHOS DE JESUS! 🙏✨" (com efeito de iluminação suave)
+🗣️ Fala: "E lembre-se: esse achadinho exclusivo você só encontra aqui no Achadinhos de Jesus! Já segue o perfil para não perder as próximas indicações!"
+🎯 Marca: Bordão oficial de retenção, engajamento e autoridade no TikTok Shop.`;
+        }
 
         // Ganchos & Textos Implícitos na Tela gerados dinamicamente pela IA
         let hookExample = "";
@@ -1042,7 +1074,7 @@ Formato de Apresentação: ${presentationText}
 👉 Elementos Visuais na Tela: Inserir adesivos/stickers de SETAS ANIMADAS piscando (👇 ↘️) apontando com precisão para o botão do carrinho de compras!
 📝 Texto na Tela: "👉 CLIQUE NO LINK / CARRINHO AMARELO AQUI EMBAIXO! 👇" (com efeito de pulsar)
 🗣️ Fala: "Ele tá com ${salesHookText}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!"
-🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.`;
+🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.${brandEndingBlock}`;
 
         // 2. DIRETRIZES DE ENTRADA & TRAVA DE FRAME 0
         let photoContextDirective = "";
