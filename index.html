@@ -640,6 +640,7 @@
                 <option value="none">-- Nenhum (Formato livre / Mãos ou Criador) --</option>
                 <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total)</option>
                 <option value="person_lipsync">🗣️ Pessoa Falando com Sincronia Labial (Criador ou Avatar IA)</option>
+                <option value="religioso_fe">✝️ Apresentador(a) Cristão(ã) com Viés Religioso & Mensagem de Fé (Linguagem Devocional / Sincronia Labial)</option>
             </select>
         </div>
     </div>
@@ -946,11 +947,20 @@ ${p3}`;
         const includeBrand = document.getElementById('brandSignature') ? document.getElementById('brandSignature').checked : true;
 
         const isHandsOnly = presentationModel === 'hands_only';
+        const isReligiousPresenter = presentationModel === 'religioso_fe';
         const salesHookText = (salesHook === 'none') ? 'uma condição imperdível e exclusiva no carrinho amarelo' : salesHook.toLowerCase();
         const formatStyleText = (formatStyle === 'none') ? 'Demonstração Prática Orgânica' : formatStyle;
-        const presentationText = (presentationModel === 'none') 
-            ? 'Apresentação livre (Mãos ou Criador)' 
-            : (isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visível)' : 'Pessoa/Criador falando com sincronia labial');
+        
+        let presentationText = "";
+        if (presentationModel === 'none') {
+            presentationText = 'Apresentação livre (Mãos ou Criador)';
+        } else if (isHandsOnly) {
+            presentationText = 'Apenas Mãos (POV / Sem rosto visível)';
+        } else if (isReligiousPresenter) {
+            presentationText = 'Apresentador(a) Cristão(ã) com Viés Religioso & Mensagem de Fé (Tom devocional, acolhedor e inspirador)';
+        } else {
+            presentationText = 'Pessoa/Criador falando com sincronia labial';
+        }
 
         let brandEndingBlock = "";
         if (includeBrand) {
@@ -971,9 +981,9 @@ ${p3}`;
         let hookScreenText = "";
 
         if (hookType === 'none') {
-            hookExample = "O produto surge em destaque em um ambiente real, gerando impacto e curiosidade imediata.";
-            hookAudio = `Se você navega no TikTok Shop, você precisa ver esse produto agora mesmo! [pausa de 0.4s]`;
-            hookScreenText = `CONFIRA ESSE ACHADINHO DO TIKTOK SHOP! 🔥`;
+            hookExample = isReligiousPresenter ? "Apresentador(a) segura o item com semblante acolhedor e sereno sob iluminação devocional." : "O produto surge em destaque em um ambiente real, gerando impacto e curiosidade imediata.";
+            hookAudio = isReligiousPresenter ? `Que a paz de Deus esteja com você! Olhe essa bênção de produto que encontrei! [pausa de 0.4s]` : `Se você navega no TikTok Shop, você precisa ver esse produto agora mesmo! [pausa de 0.4s]`;
+            hookScreenText = isReligiousPresenter ? `UMA BÊNÇÃO PARA SEU LAR E SUA VIDA! 🙏✨` : `CONFIRA ESSE ACHADINHO DO TIKTOK SHOP! 🔥`;
         } else if (hookType === 'achadinho_economico') {
             hookExample = "O produto sendo colocado na mesa com destaque para seu custo-benefício incrível.";
             hookAudio = `Esse é literalmente o achadinho mais barato e útil que já encontrei no TikTok Shop! [pausa de 0.4s]`;
@@ -1036,6 +1046,19 @@ ${p3}`;
             hookScreenText = `FIQUEI DE QUEIXO CAÍDO COM O RESULTADO! 🤯`;
         }
 
+        let entryVisual = "";
+        let entrySpeech = "";
+        if (isReligiousPresenter) {
+            entryVisual = "Apresentador(a) com semblante sereno e acolhedor segura o produto na altura do peito, transmitindo paz, respeito e propósito de fé.";
+            entrySpeech = `Eu sempre busco trazer mais paz e bênção para o meu lar, e ter o ${productName} foi uma escolha muito especial. [pausa de 0.4s] É algo feito para enriquecer o seu dia a dia e momentos com Deus.`;
+        } else if (isHandsOnly) {
+            entryVisual = "O produto é exibido em close-up cristalino. Mãos seguram o produto pelas bordas sem cobrir o acabamento.";
+            entrySpeech = `Eu vivia buscando algo prático assim pro meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver isso sem complicação.`;
+        } else {
+            entryVisual = "O produto é exibido em close-up cristalino. Apresentador segura o produto na altura do peito, apontando para o diferencial.";
+            entrySpeech = `Eu vivia passando raiva com isso no meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver essa dor sem complicação.`;
+        }
+
         // 1. ROTEIRO TIKTOK SHOP COM SETINHAS E TEXTOS DINÂMICOS NA TELA
         const scriptContent = `📱 ROTEIRO DE ALTA CONVERSÃO - TIKTOK SHOP (35 A 45 SEGUNDOS)
 Produto: ${productName}
@@ -1050,20 +1073,20 @@ Formato de Apresentação: ${presentationText}
 🎬 Ação Visual: ${hookExample}
 📝 Texto na Tela (Letreiro Chamativo): "${hookScreenText}" (em caixa alta, cores amarelo/branco com contorno preto)
 🗣️ Fala: "${hookAudio}"
-🎵 Trilha Sonora: Batida moderna em alta no TikTok (volume médio).
+🎵 Trilha Sonora: ${isReligiousPresenter ? 'Música instrumental suave e devocional (volume médio).' : 'Batida moderna em alta no TikTok (volume médio).'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [04s - 15s] A DOR REAL & A ENTRADA DO PRODUTO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: O produto é exibido em close-up cristalino. ${isHandsOnly ? 'Mãos seguram o produto pelas bordas sem cobrir o acabamento.' : 'Apresentador segura o produto na altura do peito, apontando para o diferencial.'}
-📝 Texto na Tela: "FINALMENTE UMA SOLUÇÃO QUE FUNCIONA ✅"
-🗣️ Fala: "Eu vivia passando raiva com isso no meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver essa dor sem complicação."
+🎬 Ação Visual: ${entryVisual}
+📝 Texto na Tela: "${isReligiousPresenter ? 'UMA BÊNÇÃO PARA SEU DIA A DIA 🙏✨' : 'FINALMENTE UMA SOLUÇÃO QUE FUNCIONA ✅'}"
+🗣️ Fala: "${entrySpeech}"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [16s - 30s] DEMONSTRAÇÃO PRÁTICA & QUEBRA DE OBJEÇÕES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎬 Ação Visual: Demonstração da função prática em velocidade real, sem cortes falsos. Foco na eficiência e facilidade do item.
-📝 Texto na Tela: "PRÁTICO, RESISTENTE E FUNCIONA NA HORA 🔥"
+📝 Texto na Tela: "${isReligiousPresenter ? 'QUALIDADE, RESPEITO E EDIFICAÇÃO 📖✨' : 'PRÁTICO, RESISTENTE E FUNCIONA NA HORA 🔥'}"
 🗣️ Fala: "Olha como é simples e prático de usar. Funciona na hora, o material é super resistente e não ocupa quase nenhum espaço. [pausa de 0.3s] Mudou totalmente a minha rotina!"
 🔊 Efeito Sonoro: Som tátil autêntico do produto em funcionamento.
 
@@ -1073,7 +1096,7 @@ Formato de Apresentação: ${presentationText}
 🎬 Ação Visual: O produto fica em destaque no centro enquanto a mão do criador aponta repetidamente para o canto inferior esquerdo da tela (onde fica o botão de compra).
 👉 Elementos Visuais na Tela: Inserir adesivos/stickers de SETAS ANIMADAS piscando (👇 ↘️) apontando com precisão para o botão do carrinho de compras!
 📝 Texto na Tela: "👉 CLIQUE NO LINK / CARRINHO AMARELO AQUI EMBAIXO! 👇" (com efeito de pulsar)
-🗣️ Fala: "Ele tá com ${salesHookText}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!"
+🗣️ Fala: "${isReligiousPresenter ? `Ele está disponível no carrinho amarelo com ${salesHookText}. Garanta o seu tocando no link aqui embaixo antes que termine!` : `Ele tá com ${salesHookText}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!`}"
 🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.${brandEndingBlock}`;
 
         // 2. DIRETRIZES DE ENTRADA & TRAVA DE FRAME 0
