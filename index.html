@@ -1046,17 +1046,35 @@ ${p3}`;
             hookScreenText = `FIQUEI DE QUEIXO CAÍDO COM O RESULTADO! 🤯`;
         }
 
+        const isJewelryCategory = category.includes("Acessórios Femininos") || category.includes("Joias");
+        const isReligiousCategory = category.includes("Religiosos") || category.includes("Fé");
+
         let entryVisual = "";
         let entrySpeech = "";
-        if (isReligiousPresenter) {
-            entryVisual = "Apresentador(a) com semblante sereno e acolhedor segura o produto na altura do peito, transmitindo paz, respeito e propósito de fé.";
-            entrySpeech = `Eu sempre busco trazer mais paz e bênção para o meu lar, e ter o ${productName} foi uma escolha muito especial. [pausa de 0.4s] É algo feito para enriquecer o seu dia a dia e momentos com Deus.`;
-        } else if (isHandsOnly) {
-            entryVisual = "O produto é exibido em close-up cristalino. Mãos seguram o produto pelas bordas sem cobrir o acabamento.";
-            entrySpeech = `Eu vivia buscando algo prático assim pro meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver isso sem complicação.`;
+        let entryScreenText = "";
+        let demoScreenText = "";
+        let demoSpeech = "";
+
+        if (isJewelryCategory) {
+            entryVisual = "O produto de joalheria é exibido em close-up reluzente sob iluminação suave de estúdio. Mãos delicadas ou luvas elegantes ajeitam a peça sem cobrir seus detalhes e brilhos.";
+            entryScreenText = "ELEVE QUALQUER LOOK EM SEGUNDOS 💎✨";
+            entrySpeech = `Eu vivia achando meus looks sem graça ou gastando muito com semijoias que escureciam rápido, até que conheci o ${productName}. [pausa] Ele eleva qualquer visual básico em um look de luxo instantaneamente.`;
+            demoScreenText = "BRILHO INTENSO & ACABAMENTO IMPECÁVEL ✨💎";
+            demoSpeech = "Olha esse brilho e a riqueza dos detalhes. O acabamento é impecável, super confortável de usar e combina com tudo. Dá um toque de sofisticação que todo mundo nota na hora!";
+        } else if (isReligiousCategory || isReligiousPresenter) {
+            entryVisual = "Apresentador(a) com postura serena e respeitosa apresenta o artigo de fé em mãos, transmitindo paz, respeito e propósito espiritual.";
+            entryScreenText = "UMA BÊNÇÃO PARA SEU LAR E SUA VIDA 🙏✨";
+            entrySpeech = `Eu sempre busco itens inspiradores para trazer mais paz e abençoar o meu dia a dia e o meu lar, e ter o ${productName} foi uma escolha maravilhosa. [pausa de 0.4s] É uma verdadeira bênção ter um item feito com tanta sabedoria.`;
+            demoScreenText = "QUALIDADE, RESPEITO E EDIFICAÇÃO 📖✨";
+            demoSpeech = "Olha a riqueza dos detalhes e o acabamento feito com todo respeito. Traz uma paz profunda para o ambiente e fortalece os momentos devocionais diários da família.";
         } else {
-            entryVisual = "O produto é exibido em close-up cristalino. Apresentador segura o produto na altura do peito, apontando para o diferencial.";
+            entryVisual = isHandsOnly 
+                ? "O produto é exibido em close-up cristalino. Mãos seguram o produto pelas bordas sem cobrir o acabamento." 
+                : "O produto é exibido em close-up cristalino. Apresentador segura o produto na altura do peito, apontando para o diferencial.";
+            entryScreenText = "FINALMENTE UMA SOLUÇÃO QUE FUNCIONA ✅";
             entrySpeech = `Eu vivia passando raiva com isso no meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver essa dor sem complicação.`;
+            demoScreenText = "PRÁTICO, RESISTENTE E FUNCIONA NA HORA 🔥";
+            demoSpeech = "Olha como é simples e prático de usar. Funciona na hora, o material é super resistente e não ocupa quase nenhum espaço. [pausa de 0.3s] Mudou totalmente a minha rotina!";
         }
 
         // 1. ROTEIRO TIKTOK SHOP COM SETINHAS E TEXTOS DINÂMICOS NA TELA
@@ -1073,22 +1091,22 @@ Formato de Apresentação: ${presentationText}
 🎬 Ação Visual: ${hookExample}
 📝 Texto na Tela (Letreiro Chamativo): "${hookScreenText}" (em caixa alta, cores amarelo/branco com contorno preto)
 🗣️ Fala: "${hookAudio}"
-🎵 Trilha Sonora: ${isReligiousPresenter ? 'Música instrumental suave e devocional (volume médio).' : 'Batida moderna em alta no TikTok (volume médio).'}
+🎵 Trilha Sonora: ${isReligiousPresenter || isReligiousCategory ? 'Música instrumental suave e devocional (volume médio).' : 'Batida moderna em alta no TikTok (volume médio).'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [04s - 15s] A DOR REAL & A ENTRADA DO PRODUTO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎬 Ação Visual: ${entryVisual}
-📝 Texto na Tela: "${isReligiousPresenter ? 'UMA BÊNÇÃO PARA SEU DIA A DIA 🙏✨' : 'FINALMENTE UMA SOLUÇÃO QUE FUNCIONA ✅'}"
+📝 Texto na Tela: "${entryScreenText}"
 🗣️ Fala: "${entrySpeech}"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [16s - 30s] DEMONSTRAÇÃO PRÁTICA & QUEBRA DE OBJEÇÕES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: Demonstração da função prática em velocidade real, sem cortes falsos. Foco na eficiência e facilidade do item.
-📝 Texto na Tela: "${isReligiousPresenter ? 'QUALIDADE, RESPEITO E EDIFICAÇÃO 📖✨' : 'PRÁTICO, RESISTENTE E FUNCIONA NA HORA 🔥'}"
-🗣️ Fala: "Olha como é simples e prático de usar. Funciona na hora, o material é super resistente e não ocupa quase nenhum espaço. [pausa de 0.3s] Mudou totalmente a minha rotina!"
-🔊 Efeito Sonoro: Som tátil autêntico do produto em funcionamento.
+🎬 Ação Visual: Demonstração do uso e detalhes do produto em velocidade real, sem cortes falsos. Foco no acabamento e qualidade do item.
+📝 Texto na Tela: "${demoScreenText}"
+🗣️ Fala: "${demoSpeech}"
+🔊 Efeito Sonoro: Som tátil autêntico do produto em funcionamento ou manuseio.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [31s - 45s] CHAMADA DECISIVA COM SETAS PARA O CARRINHO AMARELO
@@ -1096,7 +1114,7 @@ Formato de Apresentação: ${presentationText}
 🎬 Ação Visual: O produto fica em destaque no centro enquanto a mão do criador aponta repetidamente para o canto inferior esquerdo da tela (onde fica o botão de compra).
 👉 Elementos Visuais na Tela: Inserir adesivos/stickers de SETAS ANIMADAS piscando (👇 ↘️) apontando com precisão para o botão do carrinho de compras!
 📝 Texto na Tela: "👉 CLIQUE NO LINK / CARRINHO AMARELO AQUI EMBAIXO! 👇" (com efeito de pulsar)
-🗣️ Fala: "${isReligiousPresenter ? `Ele está disponível no carrinho amarelo com ${salesHookText}. Garanta o seu tocando no link aqui embaixo antes que termine!` : `Ele tá com ${salesHookText}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!`}"
+🗣️ Fala: "${isReligiousPresenter || isReligiousCategory ? `Ele está disponível no carrinho amarelo com ${salesHookText}. Garanta o seu tocando no link aqui embaixo antes que termine!` : `Ele tá com ${salesHookText}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!`}"
 🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.${brandEndingBlock}`;
 
         // 2. DIRETRIZES DE ENTRADA & TRAVA DE FRAME 0
@@ -1143,11 +1161,15 @@ Formato de Apresentação: ${presentationText}
             interactionDirective = "O produto fica apoiado com estabilidade sobre a superfície. Nenhuma mão ou elemento externo interfere na visualização limpa do item.";
         }
 
+        const jewelryLock = isJewelryCategory 
+            ? `\n4. TRAVA DE JOALHERIA & METAL RÍGIDO (FOTO FRAME 0): O produto é uma peça metálica/joia sólida com aros, texturas e contornos originais imutáveis. É terminantemente PROIBIDO fundir o metal com a pele, deformar a estrutura dos aros do bracelete/anel/colar ou derreter o banho de ouro. A iluminação deve apenas deslizar pelos reflexos metálicos preservando a geometria 100% autêntica da foto anexada.` 
+            : '';
+
         // CLÁUSULA MANDATÓRIA POSICIONADA NO TOPO
         const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO]:
 1. REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da tomada. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto no início da cena. A gravação deve continuar diretamente dos pixels da foto.
 2. TRAVA GEOMÉTRICA DE OBJETO RÍGIDO: O produto é uma peça sólida, física e imutável. Mantenha com precisão cirúrgica todas as cores, texturas, botões, proporções, logotipos e contornos da foto anexada.
-3. PROIBIÇÃO ABSOLUTA: Proibido girar o produto em 360 graus, derreter arestas, esticar peças ou criar componentes que não existam na foto anexada.
+3. PROIBIÇÃO ABSOLUTA: Proibido girar o produto em 360 graus, derreter arestas, esticar peças ou criar componentes que não existam na foto anexada.${jewelryLock}
 
 ` : '';
 
