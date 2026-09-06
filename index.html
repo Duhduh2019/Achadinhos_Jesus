@@ -550,8 +550,10 @@
         <div class="form-group">
             <label for="productCategory">Linha do Produto (Nicho)</label>
             <select id="productCategory" onchange="updateProductSuggestions()">
+                <option value="💎 Acessórios Femininos, Joias & Semijoias (Brincos, Colares, Braceletes, Anéis)">💎 Acessórios Femininos & Joias</option>
+                <option value="✝️ Artigos Religiosos, Livros & Fé (Bíblias, Quadros Sagrados, Livros, Terços)" selected>✝️ Artigos Religiosos, Livros & Fé</option>
                 <option value="Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)">💄 Beleza & Skincare</option>
-                <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)" selected>🏠 Casa, Cozinha & Hacks</option>
+                <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)">🏠 Casa, Cozinha & Hacks</option>
                 <option value="Infantil, Brinquedos Educativos & Maternidade">🧸 Infantil & Maternidade</option>
                 <option value="Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)">👗 Moda & Acessórios</option>
                 <option value="Papelaria, Escritório & Produtividade">✏️ Papelaria & Home Office</option>
@@ -585,14 +587,21 @@
         <div class="form-group">
             <label for="hookType">Gancho Psicológico dos Primeiros 3 Segundos (A a Z)</label>
             <select id="hookType">
+                <option value="none">-- Nenhum (Livre / IA escolhe o melhor gancho) --</option>
                 <option value="achadinho_economico">Achadinho Barato: 'O item mais barato do TikTok Shop que realmente funciona'</option>
                 <option value="alerta_erro">Alerta de Erro Comum: 'Você provavelmente está fazendo isso totalmente errado'</option>
                 <option value="polemico_curiosidade">Anti-Hype / Curiosidade: 'Não compre isso antes de ver este teste rápido'</option>
                 <option value="ceticismo_desafio">Ceticismo / Desafio: 'Disseram que isso não funcionava, então resolvi testar'</option>
                 <option value="choque_demonstracao">Demonstração de Choque: Problema irritante vs. Resolução em 1 segundo</option>
                 <option value="alivio_dor">Dor Aguda & Alívio: 'Pare de estragar seus produtos e passar raiva hoje'</option>
+                <option value="elegancia_look">Elegância & Look (Acessórios): 'O detalhe no meu look que faz todo mundo perguntar onde comprei'</option>
+                <option value="devocional_oracao">Fé & Devocional (Religioso): 'Esse item mudou completamente o meu momento de oração'</option>
+                <option value="quadro_ambiente">Harmonia & Fé na Casa (Quadros): 'Como esse quadro sagrado mudou a atmosfera da minha casa'</option>
+                <option value="livro_transformacao">Leitura Transformadora (Livros/Bíblias): 'O livro/bíblia que todo mundo deveria ler ao menos uma vez'</option>
                 <option value="segredo_revelado">Polêmico / Segredo Revelado: 'A indústria não quer que você descubra este truque'</option>
+                <option value="presente_abencoador">Presente de Fé & Significado: 'O presente mais abençoado e especial para quem você ama'</option>
                 <option value="prova_social">Prova Social Massiva: 'Por que todo mundo no TikTok só está falando desse produto?'</option>
+                <option value="teste_durabilidade">Teste de Qualidade (Joias/Semijoias): 'Testei na água pra ver se esse acessório desbota ou escurece'</option>
                 <option value="transformacao_imediata">Transformação Imediata: 'Olha o que aconteceu quando usei isso pela primeira vez'</option>
             </select>
         </div>
@@ -600,6 +609,7 @@
         <div class="form-group">
             <label for="salesHook">Gatilho de Venda - Oferta no Carrinho Amarelo (A a Z)</label>
             <select id="salesHook">
+                <option value="none">-- Nenhum (Sem oferta fixa / Foco total no produto) --</option>
                 <option value="Alerta de Estoque Esgotando rapidamente por viralização">Alerta de Estoque Esgotando rapidamente por viralização</option>
                 <option value="Desconto Relâmpago ('Custa menos que um lanche/café')">Desconto Relâmpago ('Custa menos que um lanche/café')</option>
                 <option value="Frete Grátis + Cupom exclusivo de primeira compra no carrinho">Frete Grátis + Cupom exclusivo de primeira compra no carrinho</option>
@@ -612,6 +622,7 @@
         <div class="form-group">
             <label for="formatStyle">Estilo do Vídeo (A a Z)</label>
             <select id="formatStyle">
+                <option value="none">-- Nenhum (Estilo livre / Apresentação orgânica) --</option>
                 <option value="Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')">Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')</option>
                 <option value="Antes & Depois / Choque Visual (Problema resolvido ao vivo)">Antes & Depois / Choque Visual (Problema resolvido ao vivo)</option>
                 <option value="Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')">Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')</option>
@@ -623,6 +634,7 @@
         <div class="form-group">
             <label for="presentationModel">Apresentador do Vídeo (A a Z)</label>
             <select id="presentationModel">
+                <option value="none">-- Nenhum (Formato livre / Mãos ou Criador) --</option>
                 <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total)</option>
                 <option value="person_lipsync">🗣️ Pessoa Falando com Sincronia Labial (Criador ou Avatar IA)</option>
             </select>
@@ -653,6 +665,7 @@
             <div class="form-group" style="margin-bottom: 0;">
                 <label for="cameraMovement">Cinemática de Câmera (A a Z)</label>
                 <select id="cameraMovement">
+                    <option value="none">-- Nenhum (Movimento livre da câmera) --</option>
                     <option value="push_in_lento">Aproximação Lenta e Focada (Push-in suave a partir do Frame 0)</option>
                     <option value="estatico_luz">Câmera Fixa com Iluminação Percorrendo a Textura do Produto</option>
                     <option value="deslocamento_lateral">Deslizamento Lateral Leve (Pan suave de 5° sem perder a forma)</option>
@@ -663,9 +676,14 @@
             <div class="form-group" style="margin-bottom: 0;">
                 <label for="productInteraction">Interação Física na Cena (A a Z)</label>
                 <select id="productInteraction">
-                    <option value="maos_bordas">Mãos Apoiando Delicadamente pelas Bordas (Sem Cobrir Detalhes)</option>
-                    <option value="acao_funcional">Micro-Ação Funcional (Dedo acionando botão real da foto)</option>
-                    <option value="sem_maos">Produto em Mesa de Estúdio Limpa (Sem Mãos / Risco Zero)</option>
+                    <option value="none">-- Nenhum (Interação natural / Livre) --</option>
+                    <option value="maos_femininas_delicadas">💅 Mãos Femininas Delicadas (Unhas feitas / Foco em joias e elegância)</option>
+                    <option value="maos_luvas_negras">🧤 Mãos Femininas com Luvas Negras / Estilo Luxo (Visual sofisticado / Presentes)</option>
+                    <option value="maos_masculinas_firmes">🖐️ Mãos Masculinas Firmes (Demonstração prática / Pegada segura)</option>
+                    <option value="personagem_interagindo">👤 Personagem / Criador Interagindo com o Produto (Usando, vestindo ou segurando)</option>
+                    <option value="maos_bordas">🤲 Mãos Segurando Delicadamente pelas Bordas (Sem Cobrir Detalhes)</option>
+                    <option value="acao_funcional">👆 Micro-Ação Funcional (Dedo acionando botão, fecho ou detalhe real)</option>
+                    <option value="sem_maos">✨ Produto em Mesa de Estúdio Limpa (Sem Mãos / Foco total no item)</option>
                 </select>
             </div>
         </div>
@@ -835,8 +853,9 @@
         const category = document.getElementById('productCategory').value;
         const productName = document.getElementById('productName').value.trim() || "Produto em Destaque";
         const hookSelect = document.getElementById('hookType');
-        const hookText = hookSelect.options[hookSelect.selectedIndex].text;
+        const hookText = hookSelect.value === 'none' ? "Gancho Orgânico Viral (IA Livre)" : hookSelect.options[hookSelect.selectedIndex].text;
         const salesHook = document.getElementById('salesHook').value;
+        const salesHookText = salesHook === 'none' ? "Oferta Exclusiva / Condição Especial no Carrinho Amarelo" : salesHook;
 
         return `Atue como o maior especialista em SEO, Algoritmo e Conversão do TikTok Shop.
 
@@ -844,7 +863,7 @@ Com base neste produto e estratégia de venda:
 📦 PRODUTO: ${productName}
 🎯 NICHO: ${category}
 🧲 GANCHO DO VÍDEO: ${hookText}
-💰 GATILHO DE VENDA NO CARRINHO: ${salesHook}
+💰 GATILHO DE VENDA NO CARRINHO: ${salesHookText}
 
 SUA TAREFA OBRIGATÓRIA (PADRÃO TIKTOK EM UMA ÚNICA LINHA):
 Crie a legenda perfeita configurada para o algoritmo do TikTok Shop indexar nas buscas (SEO) e entregar o vídeo no feed "Para Você" (FYP).
@@ -908,13 +927,22 @@ ${p3}`;
         const strictFidelity = document.getElementById('strictFidelity').checked;
 
         const isHandsOnly = presentationModel === 'hands_only';
+        const salesHookText = (salesHook === 'none') ? 'uma condição imperdível e exclusiva no carrinho amarelo' : salesHook.toLowerCase();
+        const formatStyleText = (formatStyle === 'none') ? 'Demonstração Prática Orgânica' : formatStyle;
+        const presentationText = (presentationModel === 'none') 
+            ? 'Apresentação livre (Mãos ou Criador)' 
+            : (isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visível)' : 'Pessoa/Criador falando com sincronia labial');
 
         // Ganchos & Textos Implícitos na Tela gerados dinamicamente pela IA
         let hookExample = "";
         let hookAudio = "";
         let hookScreenText = "";
 
-        if (hookType === 'achadinho_economico') {
+        if (hookType === 'none') {
+            hookExample = "O produto surge em destaque em um ambiente real, gerando impacto e curiosidade imediata.";
+            hookAudio = `Se você navega no TikTok Shop, você precisa ver esse produto agora mesmo! [pausa de 0.4s]`;
+            hookScreenText = `CONFIRA ESSE ACHADINHO DO TIKTOK SHOP! 🔥`;
+        } else if (hookType === 'achadinho_economico') {
             hookExample = "O produto sendo colocado na mesa com destaque para seu custo-benefício incrível.";
             hookAudio = `Esse é literalmente o achadinho mais barato e útil que já encontrei no TikTok Shop! [pausa de 0.4s]`;
             hookScreenText = `ACHADINHO SECRETO DO TIKTOK SHOP 🏷️`;
@@ -938,6 +966,30 @@ ${p3}`;
             hookExample = "Mostra uma situação frustrante com o problema em foco, seguida pela aparição imediata do produto.";
             hookAudio = `Se você ainda perde tempo ou dinheiro com isso, você precisa conhecer isso agora! [pausa de 0.4s]`;
             hookScreenText = `PARE DE PASSAR RAIVA COM ISSO HOJE! ⚠️`;
+        } else if (hookType === 'elegancia_look') {
+            hookExample = "Mãos ajeitando delicadamente o brinco, corrente ou bracelete no corpo, com brilho e iluminação destacando a peça em close.";
+            hookAudio = `Esse é o único detalhe no meu look que faz todo mundo me parar na rua pra perguntar onde comprei! [pausa de 0.4s]`;
+            hookScreenText = `O DETALHE QUE VALORIZA QUALQUER LOOK! 💎✨`;
+        } else if (hookType === 'devocional_oracao') {
+            hookExample = "Abertura suave de livro/bíblia ou toque em artigo de fé sobre a mesa de devocional com iluminação acolhedora.";
+            hookAudio = `Esse item transformou completamente o meu momento diário de oração e conexão com Deus! [pausa de 0.4s]`;
+            hookScreenText = `MUDOU TOTALMENTE MEU MOMENTO COM DEUS! 🙏📖`;
+        } else if (hookType === 'quadro_ambiente') {
+            hookExample = "Câmera afastando suavemente mostrando o quadro religioso na parede, renovando a decoração e a atmosfera do ambiente.";
+            hookAudio = `Olha como a energia e a paz desse ambiente mudaram depois que coloquei esse quadro religioso! [pausa de 0.4s]`;
+            hookScreenText = `TRANSFORMOU A PAZ DA MINHA CASA! 🖼️✨`;
+        } else if (hookType === 'livro_transformacao') {
+            hookExample = "Folheando as páginas do livro/bíblia em tomada macro destacando trechos marcantes e acabamento impecável.";
+            hookAudio = `Esse é o tipo de livro que todo mundo deveria ler pelo menos uma vez na vida! [pausa de 0.4s]`;
+            hookScreenText = `TODO MUNDO DEVERIA LER ESTE LIVRO! 📚🔥`;
+        } else if (hookType === 'presente_abencoador') {
+            hookExample = "Embalagem sendo aberta com cuidado revelando o presente religioso com grande valor sentimental.";
+            hookAudio = `Se você quer dar um presente verdadeiramente especial e abençoado para quem você ama, veja isso! [pausa de 0.4s]`;
+            hookScreenText = `O PRESENTE MAIS ABENÇOADO QUE VOCÊ PODE DAR! 🎁✝️`;
+        } else if (hookType === 'teste_durabilidade') {
+            hookExample = "Acessório/joia sendo colocado sob jorro de água limpa ou em teste tátil mostrando que não escurece nem perde o brilho.";
+            hookAudio = `Resolvi fazer o teste da água ao vivo pra ver se esse acessório realmente não escurece nem perde o brilho! [pausa de 0.4s]`;
+            hookScreenText = `TESTEI NA ÁGUA! SERÁ QUE ESCURECE? 💦💎`;
         } else if (hookType === 'segredo_revelado') {
             hookExample = "Enquadramento em tom confidencial, aproximando o produto da câmera como um segredo revelado.";
             hookAudio = `A indústria nunca quis que você descobrisse esse truque tão fácil! [pausa de 0.4s]`;
@@ -956,9 +1008,9 @@ ${p3}`;
         const scriptContent = `📱 ROTEIRO DE ALTA CONVERSÃO - TIKTOK SHOP (35 A 45 SEGUNDOS)
 Produto: ${productName}
 Nicho: ${category}
-Gatilho de Venda: ${salesHook}
-Estilo: ${formatStyle}
-Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visível)' : 'Pessoa/Criador falando com sincronia labial'}
+Gatilho de Venda: ${salesHook === 'none' ? 'Sem oferta fixa (Foco no Produto)' : salesHook}
+Estilo: ${formatStyleText}
+Formato de Apresentação: ${presentationText}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [00s - 03s] GANCHO DE IMPACTO (O Hook Vital)
@@ -989,7 +1041,7 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
 🎬 Ação Visual: O produto fica em destaque no centro enquanto a mão do criador aponta repetidamente para o canto inferior esquerdo da tela (onde fica o botão de compra).
 👉 Elementos Visuais na Tela: Inserir adesivos/stickers de SETAS ANIMADAS piscando (👇 ↘️) apontando com precisão para o botão do carrinho de compras!
 📝 Texto na Tela: "👉 CLIQUE NO LINK / CARRINHO AMARELO AQUI EMBAIXO! 👇" (com efeito de pulsar)
-🗣️ Fala: "Ele tá com ${salesHook.toLowerCase()}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!"
+🗣️ Fala: "Ele tá com ${salesHookText}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!"
 🎯 CTA: Setas animadas piscando diretamente em cima do carrinho de compras.`;
 
         // 2. DIRETRIZES DE ENTRADA & TRAVA DE FRAME 0
@@ -1005,7 +1057,9 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
         }
 
         let cameraDirective = "";
-        if (cameraMovement === 'push_in_lento') {
+        if (cameraMovement === 'none') {
+            cameraDirective = "A câmera inicia a partir da foto anexada e realiza um enquadramento fluido e natural adaptado ao produto.";
+        } else if (cameraMovement === 'push_in_lento') {
             cameraDirective = "A câmera inicia rigorosamente a partir do enquadramento da foto anexada e executa um movimento linear suave e contínuo de aproximação frontal lenta (push-in suave), sem rotações bruscas.";
         } else if (cameraMovement === 'estatico_luz') {
             cameraDirective = "A câmera permanece 100% estática e fixada no enquadramento exato da foto anexada. Uma iluminação suave de estúdio percorre as superfícies do produto, evidenciando seu acabamento autêntico.";
@@ -1016,10 +1070,20 @@ Formato de Apresentação: ${isHandsOnly ? 'Apenas Mãos (POV / Sem rosto visív
         }
 
         let interactionDirective = "";
-        if (productInteraction === 'maos_bordas') {
+        if (productInteraction === 'none') {
+            interactionDirective = "O produto é exibido na cena com interação natural e orgânica, mantendo todos os seus detalhes visíveis.";
+        } else if (productInteraction === 'maos_femininas_delicadas') {
+            interactionDirective = "Mãos femininas bem cuidadas e elegantes apoiam e ajeitam suavemente o produto na cena, valorizando os detalhes táticos, o brilho e o acabamento sem cobrir a peça.";
+        } else if (productInteraction === 'maos_luvas_negras') {
+            interactionDirective = "Mãos femininas vestindo elegantes luvas pretas de joalheria de luxo apresentam o produto com extrema sofisticação e apelo visual sobre a cena.";
+        } else if (productInteraction === 'maos_masculinas_firmes') {
+            interactionDirective = "Mãos masculinas limpas e seguras seguram o produto com firmeza e praticidade, destacando sua utilidade real e construção de qualidade.";
+        } else if (productInteraction === 'personagem_interagindo') {
+            interactionDirective = "Uma personagem/criador(a) interage diretamente com o produto na cena, usando, vestindo ou demonstrando o item de forma autêntica e altamente persuasiva.";
+        } else if (productInteraction === 'maos_bordas') {
             interactionDirective = "Mãos humanas apoiam o produto delicadamente pelas bordas externas e pela base, sem cobrir a parte frontal, logotipos, visores ou botões presentes na foto.";
         } else if (productInteraction === 'acao_funcional') {
-            interactionDirective = "Uma mão humana executa um micro-movimento sutil e funcional, pressionando delicadamente um botão real já visível na foto original, sem gerar deformações.";
+            interactionDirective = "Uma mão humana executa um micro-movimento sutil e funcional, acionando um botão, ajustando o fecho ou folheando com cuidado, sem deformar a peça.";
         } else {
             interactionDirective = "O produto fica apoiado com estabilidade sobre a superfície. Nenhuma mão ou elemento externo interfere na visualização limpa do item.";
         }

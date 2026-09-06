@@ -6,26 +6,28 @@ Aplicação web estática e responsiva para criação de roteiros de alta conver
 
 ---
 
-## 🚀 Principais Funcionalidades da v1.7.0
+## 🚀 Principais Funcionalidades da v1.8.0
 
-### 1. 🏷️ Botão "Criar Hashtags e Título na IA" (Ao Lado de Copiar Roteiro)
-- Agora, logo ao lado do botão **"Copiar Roteiro"**, você encontra o botão **"🏷️ Criar Hashtags e Título na IA"**.
-- Ao clicar, ele copia um prompt estrategicamente calibrado para os algoritmos de busca (SEO) e feed "Para Você" (FYP) do TikTok Shop.
-- Você só precisa colar esse comando no seu **ChatGPT**, **Gemini** ou **Claude**, e a IA devolverá **em uma única linha pronta**:
-  - Título / Legenda magnética com emojis e chamada para o carrinho amarelo;
-  - As 5 a 7 melhores hashtags indexáveis.
+### 1. 🔘 Opção "-- Nenhum (Livre / Padrão) --" em Todos os Selects
+- Permite gerar roteiros de forma totalmente livre e desengessada sem forçar nenhum gancho, estilo ou gatilho fixo.
 
-### 2. 🧼 Campo de Nome do Produto 100% Vazio
-- O campo *"Nome do Produto & Função Principal"* agora está completamente livre de qualquer texto pré-preenchido ou resíduos de sugestões anteriores. Digite seu produto diretamente ou deixe vazio para usar o padrão.
+### 2. 💎 Nicho de Acessórios Femininos, Joias & Semijoias
+- Ganchos específicos sobre valorização do look, teste de durabilidade na água e presentes chiques.
 
-### 3. 🎬 Prompts de Vídeo com Trava de Frame 0 e Suporte ao Flow
-- Cláusula mandatória no topo do prompt proibindo distorções no objeto.
-- Instruções práticas em cada cena para geração inicial ou extensão contínua no Flow.
+### 3. ✝️ Nicho de Artigos Religiosos, Bíblias, Quadros & Livros
+- Ganchos sobre momento devocional com Deus, decoração sagrada e livros que transformam a vida.
+
+### 4. 🧤 Interação Física Diversificada (Luvas Negras de Luxo, Mãos Femininas & Personagens)
+- Prompts I2V atualizados para gerar cenas de alta joalheria com luvas pretas de luxo, mãos femininas delicadas ou criadores vestindo/usando a peça em cena.
 
 ---
 
 ## 📦 Histórico de Versões
 
+- **v1.8.0**:
+  - Inclusão da opção `-- Nenhum --` em todos os dropdowns das Seções 2 e 3.
+  - Adição das categorias **Acessórios Femininos & Joias** e **Artigos Religiosos, Livros & Fé**.
+  - Expansão das interações físicas com Luvas Negras de Luxo, Mãos Femininas, Mãos Masculinas e Personagem em cena.
 - **v1.7.0**:
   - Remoção total de qualquer referência pré-preenchida no campo do produto.
   - Inclusão do botão **"🏷️ Criar Hashtags e Título na IA"** ao lado de "Copiar Roteiro".
