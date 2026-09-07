@@ -546,6 +546,12 @@
         </div>
     </div>
 
+    <div class="form-group" style="margin-bottom: 20px;">
+        <label for="productName" style="font-size: 1.02rem; font-weight: 700; color: #ffffff;">Nome do Produto & Função Principal</label>
+        <input type="text" id="productName" value="" placeholder="Digite o nome do produto e a função principal..." autocomplete="off">
+        <div class="help-text">Dica: Digite o nome do seu produto ou deixe em branco para gerar com o produto do nicho.</div>
+    </div>
+
     <!-- 1. DADOS DO PRODUTO & TIPO DA FOTO (EM ORDEM ALFABÉTICA) -->
     <div class="section-title">📦 1. Produto & Como é a Foto que Você vai Anexar na IA</div>
     
@@ -576,12 +582,6 @@
             </select>
             <div class="help-text">Orienta a IA de vídeo sobre como ambientar o cenário ao redor do produto anexado.</div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <label for="productName">Nome do Produto & Função Principal</label>
-        <input type="text" id="productName" value="" placeholder="Digite o nome do produto e a função principal..." autocomplete="off">
-        <div class="help-text">Dica: Digite o nome do seu produto ou deixe em branco para gerar com o produto do nicho.</div>
     </div>
 
     <!-- 2. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP (TODAS AS OPÇÕES RIGOROSAMENTE EM ORDEM ALFABÉTICA A-Z) -->
@@ -720,7 +720,8 @@
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputRoteiro')">📋 Copiar Roteiro</button>
                     <button class="action-btn emerald" onclick="copyCaptionPromptForAI()">🏷️ Criar Hashtags e Título na IA</button>
-                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 Copiar prompt UGC</button>
+                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 1. Copiar Prompt UGC</button>
+                    <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyUGCVideoPrompt()">🎬 2. Copiar Prompt de Vídeo</button>
                 </div>
             </div>
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
@@ -795,7 +796,8 @@
                 <label>Documento Completo (Roteiro, Prompts de Vídeo e Prompt para Título e Hashtags):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
-                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 Copiar prompt UGC</button>
+                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 1. Copiar Prompt UGC</button>
+                    <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyUGCVideoPrompt()">🎬 2. Copiar Prompt de Vídeo</button>
                 </div>
             </div>
             <textarea id="outputCompleto" class="result-box" readonly></textarea>
@@ -1272,9 +1274,26 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         promptText += ".";
 
         navigator.clipboard.writeText(promptText).then(() => {
-            showToast('📋 Prompt UGC copiado para a área de transferência!');
+            showToast('📋 Prompt 1 ("Com base na imagem anexo criei um story board UGC") copiado!');
         }).catch(() => {
-            showToast('Erro ao copiar o prompt UGC.', true);
+            showToast('Erro ao copiar o prompt 1.', true);
+        });
+    }
+
+    function copyUGCVideoPrompt() {
+        const productName = document.getElementById('productName').value.trim();
+        let promptText = "Crie um vídeo baseado neste story board";
+        
+        if (productName) {
+            promptText += ` para o produto "${productName}"`;
+        }
+        
+        promptText += ".";
+
+        navigator.clipboard.writeText(promptText).then(() => {
+            showToast('🎬 Prompt 2 ("Crie um vídeo baseado neste story board") copiado!');
+        }).catch(() => {
+            showToast('Erro ao copiar o prompt 2.', true);
         });
     }
 
