@@ -674,17 +674,6 @@
 
         <div class="row" style="margin-top: 16px;">
             <div class="form-group" style="margin-bottom: 0;">
-                <label for="cameraMovement">Cinemática de Câmera (A a Z)</label>
-                <select id="cameraMovement">
-                    <option value="none">-- Nenhum (Movimento livre da câmera) --</option>
-                    <option value="push_in_lento">Aproximação Lenta e Focada (Push-in suave a partir do Frame 0)</option>
-                    <option value="estatico_luz">Câmera Fixa com Iluminação Percorrendo a Textura do Produto</option>
-                    <option value="deslocamento_lateral">Deslizamento Lateral Leve (Pan suave de 5° sem perder a forma)</option>
-                    <option value="macro_close">Plano Macro Fixo (Foco cirúrgico em botões e detalhes reais)</option>
-                </select>
-            </div>
-
-            <div class="form-group" style="margin-bottom: 0;">
                 <label for="productInteraction">Interação Física na Cena (A a Z)</label>
                 <select id="productInteraction">
                     <option value="none">-- Nenhum (Interação natural / Máximo 2 Mãos) --</option>
@@ -936,7 +925,7 @@ ${p3}`;
         const salesHook = document.getElementById('salesHook').value;
         const formatStyle = document.getElementById('formatStyle').value;
         const presentationModel = document.getElementById('presentationModel').value;
-        const cameraMovement = document.getElementById('cameraMovement').value;
+        const cameraMovement = 'none';
         const productInteraction = document.getElementById('productInteraction').value;
         const strictFidelity = document.getElementById('strictFidelity').checked;
         const includeBrand = document.getElementById('brandSignature') ? document.getElementById('brandSignature').checked : true;
