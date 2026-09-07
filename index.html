@@ -746,80 +746,50 @@
             </div>
         </div>
 
-        <!-- ABA 2: PROMPTS I2V ESTRUTURADOS PARA FLOW DE 30 SEGUNDOS (2 BLOSCOS DE 15s OU CENAS CURTAS) -->
+        <!-- ABA 2: PROMPTS I2V ESTRUTURADOS EM SEQUÊNCIA FLOW EXTEND (PROMPT 1 ➔ EXTEND PROMPT 2 ➔ EXTEND PROMPT 3) -->
         <div class="tab-pane" id="tab-veo">
             <div class="output-header">
-                <label>Prompts de Alta Consistência no Flow (Vídeo de 30s em 2 Blocos de 15s ou Cenas Curtas):</label>
+                <label>Sequência de 3 Prompts no Flow Extend (Prompt 1 Gancho Devocional ➔ Extend 10s ➔ Extend 20s + Carrinho Amarelo):</label>
                 <div class="action-btn-group">
-                    <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar Todos os Prompts I2V</button>
+                    <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar os 3 Prompts do Flow</button>
                 </div>
             </div>
 
-            <!-- ESTRUTURA FLOW 30s - BLOCO 1 (00s - 15s) -->
+            <!-- PROMPT 1: GERAÇÃO INICIAL COM GANCHO RELIGIOSO/DEVOCIONAL (00s - 10s) -->
             <div class="scene-card" style="border: 1px solid var(--veo-cyan); background: rgba(6, 182, 212, 0.05); margin-bottom: 20px;">
                 <div class="scene-card-header">
-                    <div class="scene-title" style="color: var(--veo-cyan); font-weight: 700;">🎬 FLOW 30s - BLOCO 1: Geração Inicial (00s a 15s)</div>
-                    <span class="scene-badge-frame0" style="background: rgba(6, 182, 212, 0.2); color: var(--veo-cyan); border-color: var(--veo-cyan);">🔒 Frame 0 Original (15s)</span>
-                    <button class="action-btn cyan" onclick="copyText('flowBlock1')">📋 Copiar Bloco 1 (15s)</button>
+                    <div class="scene-title" style="color: var(--veo-cyan); font-weight: 700;">🎬 PROMPT 1: Geração Inicial + Gancho Devocional (00s a 10s)</div>
+                    <span class="scene-badge-frame0" style="background: rgba(6, 182, 212, 0.2); color: var(--veo-cyan); border-color: var(--veo-cyan);">🔒 Frame 0 Original (0s-10s)</span>
+                    <button class="action-btn cyan" onclick="copyText('scenePrompt1')">📋 Copiar Prompt 1 (0-10s)</button>
                 </div>
                 <div class="flow-instruction-line" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3);">
-                    <span>💡 <strong>1. Na sua IA de Vídeo (Runway, Kling, Veo, Luma):</strong> anexe a foto original do produto como <strong>Frame 0</strong>, defina a duração em 15s e cole este comando para os primeiros 15 segundos (Gancho + Apresentação).</span>
-                </div>
-                <div class="scene-prompt-text" id="flowBlock1"></div>
-            </div>
-
-            <!-- ESTRUTURA FLOW 30s - BLOCO 2 (15s - 30s - EXTEND) -->
-            <div class="scene-card" style="border: 1px solid var(--accent-color); background: rgba(16, 185, 129, 0.05); margin-bottom: 24px;">
-                <div class="scene-card-header">
-                    <div class="scene-title" style="color: var(--accent-color); font-weight: 700;">🔄 FLOW 30s - BLOCO 2: Extensão de Flow Continue (15s a 30s)</div>
-                    <span class="scene-badge-frame0" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: var(--accent-color);">🔒 Continuidade de Flow (15s Extend)</span>
-                    <button class="action-btn emerald" onclick="copyText('flowBlock2')">📋 Copiar Bloco 2 (Extend 15s)</button>
-                </div>
-                <div class="flow-instruction-line" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">
-                    <span>💡 <strong>2. No final dos 15s na sua IA de Vídeo:</strong> clique em <strong>"EXTENDER" / "EXTEND (FLOW)"</strong> a partir de 15.0s e cole este comando para gerar os 15s finais com consistência 100% perfeita.</span>
-                </div>
-                <div class="scene-prompt-text" id="flowBlock2"></div>
-            </div>
-
-            <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; color: var(--text-muted);">
-                📌 Opção Alternativa: Cenas Curtas Individuais (para clipes de 3s a 5s cada):
-            </div>
-
-            <!-- CENA 1 -->
-            <div class="scene-card">
-                <div class="scene-card-header">
-                    <div class="scene-title">🎬 Cena 1: Gancho & Impacto Visual (3 a 4s)</div>
-                    <span class="scene-badge-frame0">🔒 Trava no Topo</span>
-                    <button class="action-btn" onclick="copyText('scenePrompt1')">📋 Copiar Cena 1</button>
-                </div>
-                <div class="flow-instruction-line">
-                    <span>💡 <strong>Na IA de Vídeo:</strong> anexe a foto de alta qualidade do seu produto e cole este comando para gerar o clipe inicial (Frame 0).</span>
+                    <span>💡 <strong>1. GERAÇÃO INICIAL:</strong> Anexe a foto de alta qualidade do seu produto como <strong>Frame 0</strong> na IA de vídeo (Runway, Kling, Veo, Luma) e cole este comando para iniciar o vídeo com o gancho devocional/religioso (0s a 10s).</span>
                 </div>
                 <div class="scene-prompt-text" id="scenePrompt1"></div>
             </div>
 
-            <!-- CENA 2 -->
-            <div class="scene-card">
+            <!-- PROMPT 2: 1ª EXTENSÃO FLOW EXTEND (10s - 20s) -->
+            <div class="scene-card" style="border: 1px solid #a855f7; background: rgba(168, 85, 247, 0.05); margin-bottom: 20px;">
                 <div class="scene-card-header">
-                    <div class="scene-title">🎬 Cena 2: Demonstração e Solução do Problema (4 a 5s)</div>
-                    <span class="scene-badge-frame0">🔒 Objeto Rígido</span>
-                    <button class="action-btn" onclick="copyText('scenePrompt2')">📋 Copiar Cena 2</button>
+                    <div class="scene-title" style="color: #c084fc; font-weight: 700;">🔄 PROMPT 2: 1ª Extensão no Flow (Extend 10.0s ➔ 10s a 20s)</div>
+                    <span class="scene-badge-frame0" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: #a855f7;">🔒 1ª Extensão de Flow (10s-20s)</span>
+                    <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyText('scenePrompt2')">📋 Copiar Prompt 2 (Extend 10s)</button>
                 </div>
-                <div class="flow-instruction-line">
-                    <span>💡 <strong>No Flow da IA:</strong> clique em "Estender" (Extend) e cole este comando como 1ª extensão contínua (ou anexe a mesma foto para novo clipe).</span>
+                <div class="flow-instruction-line" style="background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3);">
+                    <span>💡 <strong>2. 1ª EXTENSÃO (EXTEND):</strong> Na sua IA de vídeo, clique no botão <strong>"EXTENDER" / "EXTEND (FLOW)"</strong> a partir dos 10.0s do Prompt 1 e cole este comando para demonstrar os detalhes do produto mantendo a consistência 100% contínua (10s a 20s).</span>
                 </div>
                 <div class="scene-prompt-text" id="scenePrompt2"></div>
             </div>
 
-            <!-- CENA 3 -->
-            <div class="scene-card">
+            <!-- PROMPT 3: 2ª EXTENSÃO FLOW EXTEND + CARRINHO AMARELO (20s - 30s) -->
+            <div class="scene-card" style="border: 1px solid var(--accent-color); background: rgba(16, 185, 129, 0.05); margin-bottom: 24px;">
                 <div class="scene-card-header">
-                    <div class="scene-title">🎬 Cena 3: Chamada Final & Carrinho Amarelo com Setas (3 a 4s)</div>
-                    <span class="scene-badge-frame0">🔒 CTA com Setas 👇</span>
-                    <button class="action-btn" onclick="copyText('scenePrompt3')">📋 Copiar Cena 3</button>
+                    <div class="scene-title" style="color: var(--accent-color); font-weight: 700;">🛒 PROMPT 3: 2ª Extensão no Flow + Clique no Carrinho Amarelo (Extend 20.0s ➔ 20s a 30s)</div>
+                    <span class="scene-badge-frame0" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: var(--accent-color);">🔒 2ª Extensão + CTA Carrinho 👇</span>
+                    <button class="action-btn emerald" onclick="copyText('scenePrompt3')">📋 Copiar Prompt 3 (Extend 20s)</button>
                 </div>
-                <div class="flow-instruction-line">
-                    <span>💡 <strong>No Flow da IA:</strong> clique em "Estender" (Extend) novamente e cole este comando para a extensão final do Carrinho Amarelo.</span>
+                <div class="flow-instruction-line" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">
+                    <span>💡 <strong>3. 2ª EXTENSÃO (EXTEND):</strong> Na sua IA de vídeo, clique no botão <strong>"EXTENDER" / "EXTEND (FLOW)"</strong> a partir dos 20.0s do Prompt 2 e cole este comando para o fechamento de conversão com clique e setas apontando para o <strong>Carrinho Amarelo</strong> (20s a 30s).</span>
                 </div>
                 <div class="scene-prompt-text" id="scenePrompt3"></div>
             </div>
@@ -934,35 +904,23 @@ REGRAS RÍGIDAS DE RETENÇÃO E ALGORITMO:
     }
 
     function copyAllVeoScenes() {
-        const f1 = document.getElementById('flowBlock1').innerText;
-        const f2 = document.getElementById('flowBlock2').innerText;
         const p1 = document.getElementById('scenePrompt1').innerText;
         const p2 = document.getElementById('scenePrompt2').innerText;
         const p3 = document.getElementById('scenePrompt3').innerText;
 
-        const allScenes = `[PROMPTS TÉCNICOS ESTRUTURADOS EM FLOW DE 30 SEGUNDOS (2 BLOSCOS DE 15s)]
+        const allScenes = `[PROMPTS TÉCNICOS ESTRUTURADOS EM SEQUÊNCIA FLOW EXTEND (30 SEGUNDOS)]
 
-=== BLOCO 1: GERAÇÃO INICIAL COM FRAME 0 (00s a 15s) ===
-${f1}
-
-=== BLOCO 2: EXTENSÃO DE FLOW CONTINUE (15s a 30s EXTEND) ===
-${f2}
-
-══════════════════════════════════════════════════════════════════════
-📌 CENAS CURTAS INDIVIDUAIS (PARA CLIPES DE 3s A 5s):
-══════════════════════════════════════════════════════════════════════
-
---- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
+=== PROMPT 1: GERAÇÃO INICIAL & GANCHO DEVOCIONAL/RELIGIOSO (00s a 10s) ===
 ${p1}
 
---- CENA 2: DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA (4 a 5 segundos) ---
+=== PROMPT 2: 1ª EXTENSÃO CONTINUA DE FLOW (10s a 20s EXTEND 10.0s) ===
 ${p2}
 
---- CENA 3: CHAMADA FINAL & CARRINHO AMARELO COM SETAS (3 a 4 segundos) ---
+=== PROMPT 3: 2ª EXTENSÃO DE FLOW + CLIQUE NO CARRINHO AMARELO (20s a 30s EXTEND 20.0s) ===
 ${p3}`;
 
         navigator.clipboard.writeText(allScenes).then(() => {
-            showToast('✅ Todos os prompts foram copiados!');
+            showToast('✅ Os 3 Prompts do Flow Extend foram copiados!');
         }).catch(() => {
             showToast('Erro ao copiar.', true);
         });
@@ -1217,52 +1175,34 @@ Formato de Apresentação: ${presentationText}
         // DNA DE CONSISTÊNCIA VISUAL COMPARTILHADO ENTRE CENAS
         const sharedStudioDNA = "ATMOSFERA & DNA VISUAL PADRONIZADO: Mesma iluminação suave e difusa de estúdio comercial a 45°, foco cristalino, profundidade de campo suave, cores e materiais 100% autênticos à foto de referência em todas as tomadas para máxima continuidade cinematográfica.";
 
-        // PROMPTS ESTRUTURADOS EM FLOW DE 30 SEGUNDOS (2 BLOCOS DE 15s)
-        const pFlow1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok no padrão FLOW (00s a 15s - Bloco 1 Inicial).
+        // PROMPTS ESTRUTURADOS EM SEQUÊNCIA FLOW EXTEND (30 SEGUNDOS - 3 PROMPTS ENCADEADOS)
+        const pVeo1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok no padrão FLOW EXTEND (00s a 10s - Prompt 1 Inicial).
 PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0 original).
 
-[BLOCO 1 - GANCHO DE IMPACTO & APRESENTAÇÃO DO PRODUTO (00s a 15s)]:
+[PROMPT 1 - GERAÇÃO INICIAL & GANCHO DEVOCIONAL/RELIGIOSO (00s a 10s)]:
 ${photoContextDirective}
 DIREÇÃO DE CÂMERA: ${cameraDirective}
+INTERAÇÃO FÍSICA & APRESENTAÇÃO: ${interactionDirective}
+NARRATIVA & GANCHO DEVOCIONAL: ${hookExample}
+${sharedStudioDNA}`;
+
+        const pVeo2 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 2 (10s a 20s EXTEND 10.0s)]:
+1. REGRA DE EXTENSÃO DE FLOW: Na sua IA de vídeo, clique em "Estender / Extend (Flow)" a partir dos 10.0s do Prompt 1. É terminantemente PROIBIDO alterar o cenário, a iluminação de estúdio ou a estrutura física do produto. Mantenha 100% de continuidade fluida sem saltos visuais.
+2. DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA: O produto é demonstrado em velocidade real com riqueza de detalhes, evidenciando o acabamento autêntico e a qualidade do item.
+
+PRODUTO DE REFERÊNCIA: ${productName} (Extensão de Flow a partir dos 10.0s do Prompt 1).
+DIREÇÃO DE CÂMERA: Movimento linear lento e contínuo de aproximação suave e enquadramento frontal estável.
 INTERAÇÃO FÍSICA: ${interactionDirective}
 ${sharedStudioDNA}`;
 
-        const pFlow2 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - BLOCO 2 (15s a 30s EXTEND)]:
-1. REGRA DE EXTENSÃO DE FLOW: Clique em "Estender / Extend (Flow)" a partir do segundo 15.0s do Bloco 1. É terminantemente PROIBIDO alterar o cenário, a iluminação de estúdio ou a estrutura física do produto. Mantenha 100% de continuidade fluida sem saltos visuais.
-2. DEMONSTRAÇÃO E CARRINHO AMARELO: O produto é demonstrado em velocidade real e mantido em destaque central, abrindo espaço limpo no canto inferior esquerdo da tela para inserção de setas animadas de compra.
+        const pVeo3 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 3 (20s a 30s EXTEND 20.0s + CARRINHO AMARELO)]:
+1. REGRA DE EXTENSÃO DE FLOW FINAL: Na sua IA de vídeo, clique em "Estender / Extend (Flow)" a partir dos 20.0s do Prompt 2. Mantenha 100% de continuidade da cena anterior.
+2. CHAMADA DECISIVA COM CLIQUE NO CARRINHO AMARELO: O apresentador ou as mãos executam um gesto claro apontando e clicando em direção ao canto inferior esquerdo da tela (botão de compra do TikTok Shop).
+3. ELEMENTO VISUAL DE CONVERSÃO: Deixe a área do canto inferior esquerdo desobstruída para exibição de setas animadas piscando (👇 ↘️) diretamente sobre o carrinho amarelo.
 
-PRODUTO DE REFERÊNCIA: ${productName} (Extensão de Flow a partir do segundo 15.0s).
-DIREÇÃO DE CÂMERA: Movimento linear lento e contínuo de enquadramento frontal estável.
-INTERAÇÃO FÍSICA: ${interactionDirective}
-${sharedStudioDNA}`;
-
-        // PROMPTS INDIVIDUAIS DE CENAS CURTAS
-        const pVeo1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok. Estilo comercial profissional de produto.
-PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0).
-
-CENA 1 - GANCHO & IMPACTO VISUAL (3 a 4 segundos):
-${photoContextDirective}
-DIREÇÃO DE CÂMERA: ${cameraDirective}
-INTERAÇÃO: ${interactionDirective}
-${sharedStudioDNA}`;
-
-        const pVeo2 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok. Demonstração prática e sensorial.
-PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0 ou Extensão do Flow).
-
-CENA 2 - DEMONSTRAÇÃO E RESOLUÇÃO DA DOR (4 a 5 segundos):
-${photoContextDirective}
-DIREÇÃO DE CÂMERA: Movimento linear lento e contínuo de aproximação suave, revelando a função prática do produto com clareza.
-INTERAÇÃO: ${interactionDirective}
-${sharedStudioDNA}`;
-
-        const pVeo3 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok. Conversão direta e apelo ao Carrinho Amarelo.
-PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0 ou Extensão Final do Flow).
-
-CENA 3 - CHAMADA FINAL & CARRINHO AMARELO COM SETAS (3 a 4 segundos):
-${photoContextDirective}
-DIREÇÃO DE CÂMERA: Enquadramento frontal estável do produto, mantendo-o centralizado com destaque limpo em primeiro plano.
-INTERAÇÃO: O item permanece firme na cena, acompanhado de uma indicação gestual sutil na direção do canto inferior esquerdo da tela (onde localiza-se o botão do carrinho do TikTok Shop).
-ELEMENTO VISUAL DE CONVERSÃO: Deixe a área do canto inferior esquerdo desobstruída para inserção de setas animadas de compra.
+PRODUTO DE REFERÊNCIA: ${productName} (Extensão Final de Flow a partir dos 20.0s do Prompt 2).
+DIREÇÃO DE CÂMERA: Enquadramento frontal estável do produto centralizado com destaque limpo no momento do clique no carrinho amarelo.
+INTERAÇÃO FÍSICA & GESTO DE CLIQUE: ${interactionDirective} com gesto contínuo apontando e clicando na direção do carrinho amarelo no canto inferior esquerdo.
 ${sharedStudioDNA}`;
 
         const captionPromptAI = getCaptionPromptForAI();
@@ -1289,26 +1229,16 @@ ROTEIRO DE ALTA CONVERSÃO:
 ${scriptContent}
 
 ══════════════════════════════════════════════════════════════════════
-🎬 PROMPTS DE VÍDEO NO PADRÃO FLOW DE 30 SEGUNDOS (2 BLOCOS DE 15s):
+🎬 PROMPTS DE VÍDEO ENCADEADOS EM FLOW EXTEND (30 SEGUNDOS):
 ══════════════════════════════════════════════════════════════════════
 
---- BLOCO 1: GERAÇÃO INICIAL (00s a 15s) ---
-${pFlow1}
-
---- BLOCO 2: EXTENSÃO DE FLOW CONTINUE (15s a 30s EXTEND) ---
-${pFlow2}
-
-══════════════════════════════════════════════════════════════════════
-📌 CENAS CURTAS INDIVIDUAIS (PARA CLIPES DE 3s A 5s):
-══════════════════════════════════════════════════════════════════════
-
---- CENA 1: GANCHO & IMPACTO VISUAL (3 a 4 segundos) ---
+--- PROMPT 1: GERAÇÃO INICIAL & GANCHO DEVOCIONAL/RELIGIOSO (00s a 10s) ---
 ${pVeo1}
 
---- CENA 2: DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA (4 a 5 segundos) ---
+--- PROMPT 2: 1ª EXTENSÃO CONTINUA DE FLOW (10s a 20s EXTEND 10.0s) ---
 ${pVeo2}
 
---- CENA 3: CHAMADA FINAL & CARRINHO AMARELO COM SETAS (3 a 4 segundos) ---
+--- PROMPT 3: 2ª EXTENSÃO DE FLOW + CLIQUE NO CARRINHO AMARELO (20s a 30s EXTEND 20.0s) ---
 ${pVeo3}
 
 ══════════════════════════════════════════════════════════════════════
@@ -1316,14 +1246,12 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 - Ancoragem rígida no Primeiro Quadro (Frame 0 a 0.0s);
 - Objeto tratado como sólido físico imutável (zero deformação ou alucinação);
 - DNA compartilhado de iluminação e estúdio para eliminar variações de cor entre tomadas;
-- Setas e elementos visuais de conversão sincronizados com o botão do TikTok Shop.
+- Chamada final com clique e setas direcionadas ao Carrinho Amarelo (canto inferior esquerdo).
 ══════════════════════════════════════════════════════════════════════`;
 
         // Preenche campos
         document.getElementById('outputRoteiro').value = scriptContent;
         document.getElementById('outputPromptAI').value = captionPromptAI;
-        document.getElementById('flowBlock1').innerText = pFlow1;
-        document.getElementById('flowBlock2').innerText = pFlow2;
         document.getElementById('scenePrompt1').innerText = pVeo1;
         document.getElementById('scenePrompt2').innerText = pVeo2;
         document.getElementById('scenePrompt3').innerText = pVeo3;
