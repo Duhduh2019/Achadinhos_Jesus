@@ -693,14 +693,14 @@
             <div class="form-group" style="margin-bottom: 0;">
                 <label for="productInteraction">Interação Física na Cena (A a Z)</label>
                 <select id="productInteraction">
-                    <option value="none">-- Nenhum (Interação natural / Livre) --</option>
-                    <option value="maos_femininas_delicadas">💅 Mãos Femininas Delicadas (Unhas feitas / Foco em joias e elegância)</option>
-                    <option value="maos_luvas_negras">🧤 Mãos Femininas com Luvas Negras / Estilo Luxo (Visual sofisticado / Presentes)</option>
-                    <option value="maos_masculinas_firmes">🖐️ Mãos Masculinas Firmes (Demonstração prática / Pegada segura)</option>
-                    <option value="personagem_interagindo">👤 Personagem / Criador Interagindo com o Produto (Usando, vestindo ou segurando)</option>
-                    <option value="maos_bordas">🤲 Mãos Segurando Delicadamente pelas Bordas (Sem Cobrir Detalhes)</option>
-                    <option value="acao_funcional">👆 Micro-Ação Funcional (Dedo acionando botão, fecho ou detalhe real)</option>
-                    <option value="sem_maos">✨ Produto em Mesa de Estúdio Limpa (Sem Mãos / Foco total no item)</option>
+                    <option value="none">-- Nenhum (Interação natural / Máximo 2 Mãos) --</option>
+                    <option value="maos_femininas_delicadas">💅 Mãos Femininas Delicadas (Máximo 2 Mãos / Unhas feitas / Foco em joias)</option>
+                    <option value="maos_luvas_negras">🧤 Mãos Femininas com Luvas Negras (Máximo 2 Mãos / Estilo Luxo / Presentes)</option>
+                    <option value="maos_masculinas_firmes">🖐️ Mãos Masculinas Firmes (Máximo 2 Mãos / Pegada segura)</option>
+                    <option value="personagem_interagindo">👤 Personagem / Criador Interagindo (Máximo 2 Mãos / Sem 3ª Mão)</option>
+                    <option value="maos_bordas">🤲 Mãos Segurando pelas Bordas (Máximo 2 Mãos / Sem Cobrir Detalhes)</option>
+                    <option value="acao_funcional">👆 Micro-Ação Funcional (Máximo 2 Mãos / Dedo em botão ou fecho)</option>
+                    <option value="sem_maos">✨ Produto em Mesa de Estúdio Limpa (Sem Mãos / Zero Mãos)</option>
                 </select>
             </div>
         </div>
@@ -1055,21 +1055,21 @@ ${p3}`;
         let demoSpeech = "";
 
         if (isJewelryCategory) {
-            entryVisual = "O produto de joalheria é exibido em close-up reluzente sob iluminação suave de estúdio. Mãos delicadas ou luvas elegantes ajeitam a peça sem cobrir seus detalhes e brilhos.";
+            entryVisual = "O produto de joalheria é exibido em close-up reluzente sob iluminação suave de estúdio. Um único par de mãos delicadas (máximo 2 mãos humanas na cena) ou luvas elegantes ajeitam a peça sem cobrir seus detalhes e brilhos.";
             entryScreenText = "ELEVE QUALQUER LOOK EM SEGUNDOS 💎✨";
             entrySpeech = `Eu vivia achando meus looks sem graça ou gastando muito com semijoias que escureciam rápido, até que conheci o ${productName}. [pausa] Ele eleva qualquer visual básico em um look de luxo instantaneamente.`;
             demoScreenText = "BRILHO INTENSO & ACABAMENTO IMPECÁVEL ✨💎";
             demoSpeech = "Olha esse brilho e a riqueza dos detalhes. O acabamento é impecável, super confortável de usar e combina com tudo. Dá um toque de sofisticação que todo mundo nota na hora!";
         } else if (isReligiousCategory || isReligiousPresenter) {
-            entryVisual = "Apresentador(a) com postura serena e respeitosa apresenta o artigo de fé em mãos, transmitindo paz, respeito e propósito espiritual.";
+            entryVisual = "Apresentador(a) com postura serena e respeitosa apresenta o artigo de fé em mãos (máximo 2 mãos humanas visíveis), transmitindo paz, respeito e propósito espiritual.";
             entryScreenText = "UMA BÊNÇÃO PARA SEU LAR E SUA VIDA 🙏✨";
             entrySpeech = `Eu sempre busco itens inspiradores para trazer mais paz e abençoar o meu dia a dia e o meu lar, e ter o ${productName} foi uma escolha maravilhosa. [pausa de 0.4s] É uma verdadeira bênção ter um item feito com tanta sabedoria.`;
             demoScreenText = "QUALIDADE, RESPEITO E EDIFICAÇÃO 📖✨";
             demoSpeech = "Olha a riqueza dos detalhes e o acabamento feito com todo respeito. Traz uma paz profunda para o ambiente e fortalece os momentos devocionais diários da família.";
         } else {
             entryVisual = isHandsOnly 
-                ? "O produto é exibido em close-up cristalino. Mãos seguram o produto pelas bordas sem cobrir o acabamento." 
-                : "O produto é exibido em close-up cristalino. Apresentador segura o produto na altura do peito, apontando para o diferencial.";
+                ? "O produto é exibido em close-up cristalino. Um único par de mãos humanas seguram o produto pelas bordas (estritamente máximo 2 mãos na cena) sem cobrir o acabamento." 
+                : "O produto é exibido em close-up cristalino. Apresentador segura o produto na altura do peito, apontando para o diferencial (respeitando o limite de no máximo 2 mãos).";
             entryScreenText = "FINALMENTE UMA SOLUÇÃO QUE FUNCIONA ✅";
             entrySpeech = `Eu vivia passando raiva com isso no meu dia a dia, até que resolvi testar o ${productName}. [pausa] Ele foi feito exatamente para resolver essa dor sem complicação.`;
             demoScreenText = "PRÁTICO, RESISTENTE E FUNCIONA NA HORA 🔥";
@@ -1102,7 +1102,7 @@ Formato de Apresentação: ${presentationText}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [16s - 30s] DEMONSTRAÇÃO PRÁTICA & QUEBRA DE OBJEÇÕES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: Demonstração do uso e detalhes do produto em velocidade real, sem cortes falsos. Foco no acabamento e qualidade do item.
+🎬 Ação Visual: Demonstração do uso e detalhes do produto em velocidade real, sem cortes falsos. Foco no acabamento e qualidade do item (respeitando máximo 2 mãos humanas).
 📝 Texto na Tela: "${demoScreenText}"
 🗣️ Fala: "${demoSpeech}"
 🔊 Efeito Sonoro: Som tátil autêntico do produto em funcionamento ou manuseio.
@@ -1110,7 +1110,7 @@ Formato de Apresentação: ${presentationText}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ [31s - 45s] CHAMADA DECISIVA COM SETAS PARA O CARRINHO AMARELO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: O produto fica em destaque no centro enquanto a mão do criador aponta repetidamente para o canto inferior esquerdo da tela (onde fica o botão de compra).
+🎬 Ação Visual: O produto fica em destaque no centro enquanto a mão do criador (máximo 2 mãos humanas na tela) aponta repetidamente para o canto inferior esquerdo da tela (onde fica o botão de compra).
 👉 Elementos Visuais na Tela: Inserir adesivos/stickers de SETAS ANIMADAS piscando (👇 ↘️) apontando com precisão para o botão do carrinho de compras!
 📝 Texto na Tela: "👉 CLIQUE NO LINK / CARRINHO AMARELO AQUI EMBAIXO! 👇" (com efeito de pulsar)
 🗣️ Fala: "${isReligiousPresenter || isReligiousCategory ? `Ele está disponível no carrinho amarelo com ${salesHookText}. Garanta o seu tocando no link aqui embaixo antes que termine!` : `Ele tá com ${salesHookText}. É só clicar agora mesmo no link do carrinho amarelo aqui embaixo antes que esgote o lote promocional!`}"
@@ -1125,7 +1125,7 @@ Formato de Apresentação: ${presentationText}
         } else if (photoType === 'close_macro') {
             photoContextDirective = "CONTEXTO DA FOTO ANEXADA: A imagem de entrada é um enquadramento macro em close-up. Mantenha a profundidade de campo rasa e a alta definição nas texturas, ranhuras e inscrições exatamente como capturado na imagem de entrada.";
         } else {
-            photoContextDirective = "CONTEXTO DA FOTO ANEXADA: A imagem de entrada já possui mãos segurando o produto. Preserve com fidelidade a mão, a pegada e a posição do produto registradas na foto, permitindo apenas micro-movimentos suaves de sustentação sem alteração da pele ou da carcaça.";
+            photoContextDirective = "CONTEXTO DA FOTO ANEXADA: A imagem de entrada já possui mãos segurando o produto. Preserve com fidelidade a mão, a pegada e a posição do produto registradas na foto (mantendo a trava estrita de no máximo 2 mãos humanas na cena), permitindo apenas micro-movimentos suaves de sustentação sem alteração da pele ou da carcaça.";
         }
 
         let cameraDirective = "";
@@ -1143,37 +1143,38 @@ Formato de Apresentação: ${presentationText}
 
         let interactionDirective = "";
         if (productInteraction === 'none') {
-            interactionDirective = "O produto é exibido na cena com interação natural e orgânica, mantendo todos os seus detalhes visíveis.";
+            interactionDirective = "O produto é exibido na cena com interação natural e orgânica (ESTRITAMENTE NO MÁXIMO 2 MÃOS HUMANAS NA CENA, PROIBIDO 3 MÃOS OU MÃOS EXTRAS), mantendo todos os seus detalhes visíveis.";
         } else if (productInteraction === 'maos_femininas_delicadas') {
-            interactionDirective = "Mãos femininas bem cuidadas e elegantes apoiam e ajeitam suavemente o produto na cena, valorizando os detalhes táticos, o brilho e o acabamento sem cobrir a peça.";
+            interactionDirective = "Um único par de mãos femininas bem cuidadas e elegantes (EXATAMENTE NO MÁXIMO 2 MÃOS HUMANAS NA CENA - PROIBIDO 3ª MÃO OU BRAÇO EXTRA) apoiam e ajeitam suavemente o produto na cena, valorizando os detalhes táticos, o brilho e o acabamento sem cobrir a peça.";
         } else if (productInteraction === 'maos_luvas_negras') {
-            interactionDirective = "Mãos femininas vestindo elegantes luvas pretas de joalheria de luxo apresentam o produto com extrema sofisticação e apelo visual sobre a cena.";
+            interactionDirective = "Um único par de mãos femininas vestindo elegantes luvas pretas de joalheria de luxo (EXATAMENTE NO MÁXIMO 2 MÃOS NA CENA - PROIBIDO 3 MÃOS OU MÃOS EXTRAS) apresentam o produto com extrema sofisticação e apelo visual sobre a cena.";
         } else if (productInteraction === 'maos_masculinas_firmes') {
-            interactionDirective = "Mãos masculinas limpas e seguras seguram o produto com firmeza e praticidade, destacando sua utilidade real e construção de qualidade.";
+            interactionDirective = "Um único par de mãos masculinas limpas e seguras (EXATAMENTE NO MÁXIMO 2 MÃOS HUMANAS NA CENA - PROIBIDO 3ª MÃO OU BRAÇO FLUTUANTE) seguram o produto com firmeza e praticidade, destacando sua utilidade real e construção de qualidade.";
         } else if (productInteraction === 'personagem_interagindo') {
-            interactionDirective = "Uma personagem/criador(a) interage diretamente com o produto na cena, usando, vestindo ou demonstrando o item de forma autêntica e altamente persuasiva.";
+            interactionDirective = "Uma única personagem/criador(a) (EXATAMENTE NO MÁXIMO 2 MÃOS HUMANAS NA CENA - PROIBIDO 3 MÃOS OU MEMBROS EXTRAS) interage diretamente com o produto na cena, usando, vestindo ou demonstrando o item de forma autêntica e altamente persuasiva.";
         } else if (productInteraction === 'maos_bordas') {
-            interactionDirective = "Mãos humanas apoiam o produto delicadamente pelas bordas externas e pela base, sem cobrir a parte frontal, logotipos, visores ou botões presentes na foto.";
+            interactionDirective = "Um único par de mãos humanas (EXATAMENTE 2 MÃOS NO MÁXIMO: 1 MÃO ESQUERDA E 1 MÃO DIREITA - TERMINANTEMENTE PROIBIDO EXIBIR 3 MÃOS NA TELA) apoiam o produto delicadamente pelas bordas externas e pela base, sem cobrir a parte frontal, logotipos, visores ou botões presentes na foto.";
         } else if (productInteraction === 'acao_funcional') {
-            interactionDirective = "Uma mão humana executa um micro-movimento sutil e funcional, acionando um botão, ajustando o fecho ou folheando com cuidado, sem deformar a peça.";
+            interactionDirective = "Uma única mão humana individual ou no máximo um par de 2 mãos (ESTRITAMENTE NO MÁXIMO 2 MÃOS NA CENA - ZERO MÃOS EXTRAS) executa um micro-movimento sutil e funcional, acionando um botão, ajustando o fecho ou folheando com cuidado, sem deformar a peça.";
         } else {
-            interactionDirective = "O produto fica apoiado com estabilidade sobre a superfície. Nenhuma mão ou elemento externo interfere na visualização limpa do item.";
+            interactionDirective = "O produto fica apoiado com estabilidade sobre a superfície. Nenhuma mão ou elemento externo interfere na visualização limpa do item (ZERO MÃOS NA CENA).";
         }
 
         const jewelryLock = isJewelryCategory 
             ? `\n4. TRAVA DE JOALHERIA & METAL RÍGIDO (FOTO FRAME 0): O produto é uma peça metálica/joia sólida com aros, texturas e contornos originais imutáveis. É terminantemente PROIBIDO fundir o metal com a pele, deformar a estrutura dos aros do bracelete/anel/colar ou derreter o banho de ouro. A iluminação deve apenas deslizar pelos reflexos metálicos preservando a geometria 100% autêntica da foto anexada.` 
             : '';
 
-        // CLÁUSULA MANDATÓRIA POSICIONADA NO TOPO
-        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO]:
+        // CLÁUSULA MANDATÓRIA POSICIONADA NO TOPO (INCLUI A TRAVA RIGIDA DE NO MÁXIMO 2 MÃOS)
+        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO & ANATOMIA HUMANA]:
 1. REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da tomada. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto no início da cena. A gravação deve continuar diretamente dos pixels da foto.
 2. TRAVA GEOMÉTRICA DE OBJETO RÍGIDO: O produto é uma peça sólida, física e imutável. Mantenha com precisão cirúrgica todas as cores, texturas, botões, proporções, logotipos e contornos da foto anexada.
-3. PROIBIÇÃO ABSOLUTA: Proibido girar o produto em 360 graus, derreter arestas, esticar peças ou criar componentes que não existam na foto anexada.${jewelryLock}
+3. PROIBIÇÃO ABSOLUTA: Proibido girar o produto em 360 graus, derreter arestas, esticar peças ou criar componentes que não existam na foto anexada.
+4. TRAVA MANDATÓRIA DE ANATOMIA HUMANA (MÁXIMO DE 2 MÃOS / ZERO 3ª MÃO): É TERMINANTEMENTE PROIBIDO GERAR 3 MÃOS, MÃOS FLUTUANTES, BRAÇOS ADICIONAIS OU DEDOS CLONADOS. A cena deve conter NO MÁXIMO UM ÚNICO PAR DE MÃOS HUMANAS (exatamente até 2 mãos reais: 1 esquerda e 1 direita). Nenhuma terceira mão pode aparecer em hipótese alguma.${jewelryLock}
 
-` : '';
+` : `[TRAVA MANDATÓRIA ANTI-ALUCINAÇÃO DE MÃOS]: A cena deve conter ESTRITAMENTE NO MÁXIMO 2 MÃOS HUMANAS (1 único par de mãos). É terminantemente PROIBIDO alucinar 3 mãos ou membros adicionais.\n\n`;
 
         // DNA DE CONSISTÊNCIA VISUAL COMPARTILHADO ENTRE CENAS
-        const sharedStudioDNA = "ATMOSFERA & DNA VISUAL PADRONIZADO: Mesma iluminação suave e difusa de estúdio comercial a 45°, foco cristalino, profundidade de campo suave, cores e materiais 100% autênticos à foto de referência em todas as tomadas para máxima continuidade cinematográfica.";
+        const sharedStudioDNA = "ATMOSFERA & DNA VISUAL PADRONIZADO: Mesma iluminação suave e difusa de estúdio comercial a 45°, foco cristalino, profundidade de campo suave, cores e materiais 100% autênticos à foto de referência em todas as tomadas para máxima continuidade cinematográfica. TRAVA ANATÔMICA: No máximo 2 mãos humanas visíveis (zero alucinação de 3ª mão).";
 
         // PROMPTS ESTRUTURADOS EM SEQUÊNCIA FLOW EXTEND (30 SEGUNDOS - 3 PROMPTS ENCADEADOS)
         const pVeo1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok no padrão FLOW EXTEND (00s a 10s - Prompt 1 Inicial).
@@ -1188,7 +1189,7 @@ ${sharedStudioDNA}`;
 
         const pVeo2 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 2 (10s a 20s EXTEND 10.0s)]:
 1. REGRA DE EXTENSÃO DE FLOW: Na sua IA de vídeo, clique em "Estender / Extend (Flow)" a partir dos 10.0s do Prompt 1. É terminantemente PROIBIDO alterar o cenário, a iluminação de estúdio ou a estrutura física do produto. Mantenha 100% de continuidade fluida sem saltos visuais.
-2. DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA: O produto é demonstrado em velocidade real com riqueza de detalhes, evidenciando o acabamento autêntico e a qualidade do item.
+2. DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA: O produto é demonstrado em velocidade real com riqueza de detalhes, evidenciando o acabamento autêntico e a qualidade do item (respeitando o limite estrito de no máximo 2 mãos humanas na cena).
 
 PRODUTO DE REFERÊNCIA: ${productName} (Extensão de Flow a partir dos 10.0s do Prompt 1).
 DIREÇÃO DE CÂMERA: Movimento linear lento e contínuo de aproximação suave e enquadramento frontal estável.
@@ -1197,12 +1198,12 @@ ${sharedStudioDNA}`;
 
         const pVeo3 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 3 (20s a 30s EXTEND 20.0s + CARRINHO AMARELO)]:
 1. REGRA DE EXTENSÃO DE FLOW FINAL: Na sua IA de vídeo, clique em "Estender / Extend (Flow)" a partir dos 20.0s do Prompt 2. Mantenha 100% de continuidade da cena anterior.
-2. CHAMADA DECISIVA COM CLIQUE NO CARRINHO AMARELO: O apresentador ou as mãos executam um gesto claro apontando e clicando em direção ao canto inferior esquerdo da tela (botão de compra do TikTok Shop).
+2. CHAMADA DECISIVA COM CLIQUE NO CARRINHO AMARELO: O apresentador ou as mãos (máximo 2 mãos humanas na tela) executam um gesto claro apontando e clicando em direção ao canto inferior esquerdo da tela (botão de compra do TikTok Shop).
 3. ELEMENTO VISUAL DE CONVERSÃO: Deixe a área do canto inferior esquerdo desobstruída para exibição de setas animadas piscando (👇 ↘️) diretamente sobre o carrinho amarelo.
 
 PRODUTO DE REFERÊNCIA: ${productName} (Extensão Final de Flow a partir dos 20.0s do Prompt 2).
 DIREÇÃO DE CÂMERA: Enquadramento frontal estável do produto centralizado com destaque limpo no momento do clique no carrinho amarelo.
-INTERAÇÃO FÍSICA & GESTO DE CLIQUE: ${interactionDirective} com gesto contínuo apontando e clicando na direção do carrinho amarelo no canto inferior esquerdo.
+INTERAÇÃO FÍSICA & GESTO DE CLIQUE: ${interactionDirective} com gesto contínuo de um único par de mãos (estritamente máximo 2 mãos na cena, proibido 3ª mão) apontando e clicando na direção do carrinho amarelo no canto inferior esquerdo.
 ${sharedStudioDNA}`;
 
         const captionPromptAI = getCaptionPromptForAI();
@@ -1245,6 +1246,7 @@ ${pVeo3}
 TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 - Ancoragem rígida no Primeiro Quadro (Frame 0 a 0.0s);
 - Objeto tratado como sólido físico imutável (zero deformação ou alucinação);
+- Trava Anatômica Anti-Alucinação: NO MÁXIMO 2 MÃOS HUMANAS na tela (proibido 3ª mão ou braços extras);
 - DNA compartilhado de iluminação e estúdio para eliminar variações de cor entre tomadas;
 - Chamada final com clique e setas direcionadas ao Carrinho Amarelo (canto inferior esquerdo).
 ══════════════════════════════════════════════════════════════════════`;
