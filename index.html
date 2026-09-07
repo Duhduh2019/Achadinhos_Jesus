@@ -726,7 +726,7 @@
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputRoteiro')">📋 Copiar Roteiro</button>
                     <button class="action-btn emerald" onclick="copyCaptionPromptForAI()">🏷️ Criar Hashtags e Título na IA</button>
-                    <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
+                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 Copiar prompt UGC</button>
                 </div>
             </div>
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
@@ -801,7 +801,7 @@
                 <label>Documento Completo (Roteiro, Prompts de Vídeo e Prompt para Título e Hashtags):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
-                    <button class="action-btn" onclick="downloadTxt()">📥 Baixar .txt</button>
+                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 Copiar prompt UGC</button>
                 </div>
             </div>
             <textarea id="outputCompleto" class="result-box" readonly></textarea>
@@ -1267,23 +1267,21 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         showToast('✨ Roteiro, Prompts e Prompt de Hashtags gerados com sucesso!');
     }
 
-    function downloadTxt() {
-        const content = document.getElementById('outputCompleto').value;
-        if (!content) {
-            showToast('Gere o conteúdo primeiro antes de baixar.', true);
-            return;
+    function copyUGCStoryboardPrompt() {
+        const productName = document.getElementById('productName').value.trim();
+        let promptText = "Com base na imagem anexo criei um story board UGC";
+        
+        if (productName) {
+            promptText += ` para o produto "${productName}"`;
         }
+        
+        promptText += ".";
 
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'Planejamento_TikTokShop_Videos.txt';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-        showToast('📥 Arquivo baixado com sucesso!');
+        navigator.clipboard.writeText(promptText).then(() => {
+            showToast('📋 Prompt UGC copiado para a área de transferência!');
+        }).catch(() => {
+            showToast('Erro ao copiar o prompt UGC.', true);
+        });
     }
 
     // Inicialização: garante que o campo do produto esteja 100% vazio e sem resíduos
