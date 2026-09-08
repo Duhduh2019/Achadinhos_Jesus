@@ -689,6 +689,43 @@
         </div>
     </div>
 
+    <!-- PROMPTS FIXOS DE APOIO EM 2 PASSOS (POSICIONADOS ACIMA DO BOTÃO DE GERAR ROTEIRO) -->
+    <div class="veo-box" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(6, 182, 212, 0.4); margin-bottom: 24px;">
+        <div class="veo-box-header" style="margin-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+            <div class="veo-box-title" style="color: var(--veo-cyan); font-weight: 700; font-size: 1.02rem;">
+                ⚡ Prompts Fixos de Apoio (Workflow Profissional em 2 Passos)
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- PROMPT 1: CHATGPT / GEMINI / CLAUDE -->
+            <div class="form-group" style="margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <label style="font-weight: 700; color: var(--veo-cyan); margin-bottom: 0; font-size: 0.88rem;">
+                        🤖 1. Cole no ChatGPT / Gemini (Gera o Storyboard UGC)
+                    </label>
+                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()" style="padding: 6px 14px; font-size: 0.82rem;">
+                        📋 1. Copiar Prompt UGC
+                    </button>
+                </div>
+                <input type="text" id="fixedPrompt1Text" class="result-box" style="height: 38px; padding: 8px 12px; font-size: 0.85rem; background: #090e17; color: #38bdf8; border: 1px solid #1e293b;" readonly value="Com base na imagem anexo criei um story board UGC.">
+            </div>
+
+            <!-- PROMPT 2: GEMINI / GERADORES DE VÍDEO -->
+            <div class="form-group" style="margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <label style="font-weight: 700; color: var(--veo-cyan); margin-bottom: 0; font-size: 0.88rem;">
+                        🎬 2. Cole no Gemini / IA de Vídeo (Gera o Vídeo POV)
+                    </label>
+                    <button class="action-btn cyan" onclick="copyUGCVideoPrompt()" style="padding: 6px 14px; font-size: 0.82rem;">
+                        📋 2. Copiar Prompt de Vídeo
+                    </button>
+                </div>
+                <input type="text" id="fixedPrompt2Text" class="result-box" style="height: 38px; padding: 8px 12px; font-size: 0.85rem; background: #090e17; color: #38bdf8; border: 1px solid #1e293b;" readonly value="Crie um vídeo baseado neste story board estilo POV.">
+            </div>
+        </div>
+    </div>
+
     <button class="primary-btn" onclick="generateAll()">
         <span>✨ Gerar Roteiro TikTok & Prompts Videos com Trava de Imagem</span>
     </button>
@@ -709,8 +746,6 @@
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputRoteiro')">📋 Copiar Roteiro</button>
                     <button class="action-btn emerald" onclick="copyCaptionPromptForAI()">🏷️ Criar Hashtags e Título na IA</button>
-                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 1. Copiar Prompt UGC</button>
-                    <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyUGCVideoPrompt()">🎬 2. Copiar Prompt de Vídeo</button>
                 </div>
             </div>
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
@@ -785,8 +820,6 @@
                 <label>Documento Completo (Roteiro, Prompts de Vídeo e Prompt para Título e Hashtags):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputCompleto')">📋 Copiar Tudo</button>
-                    <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()">📋 1. Copiar Prompt UGC</button>
-                    <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyUGCVideoPrompt()">🎬 2. Copiar Prompt de Vídeo</button>
                 </div>
             </div>
             <textarea id="outputCompleto" class="result-box" readonly></textarea>
@@ -1252,15 +1285,20 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         showToast('✨ Roteiro, Prompts e Prompt de Hashtags gerados com sucesso!');
     }
 
+    function updateFixedPromptsPreview() {
+        const productName = document.getElementById('productName') ? document.getElementById('productName').value.trim() : '';
+        const p1 = productName ? `Com base na imagem anexo criei um story board UGC para o produto "${productName}".` : `Com base na imagem anexo criei um story board UGC.`;
+        const p2 = productName ? `Crie um vídeo baseado neste story board estilo POV para o produto "${productName}".` : `Crie um vídeo baseado neste story board estilo POV.`;
+
+        const preview1 = document.getElementById('fixedPrompt1Text');
+        const preview2 = document.getElementById('fixedPrompt2Text');
+        if (preview1) preview1.value = p1;
+        if (preview2) preview2.value = p2;
+    }
+
     function copyUGCStoryboardPrompt() {
-        const productName = document.getElementById('productName').value.trim();
-        let promptText = "Com base na imagem anexo criei um story board UGC";
-        
-        if (productName) {
-            promptText += ` para o produto "${productName}"`;
-        }
-        
-        promptText += ".";
+        updateFixedPromptsPreview();
+        const promptText = document.getElementById('fixedPrompt1Text').value;
 
         navigator.clipboard.writeText(promptText).then(() => {
             showToast('📋 Prompt 1 ("Com base na imagem anexo criei um story board UGC") copiado!');
@@ -1270,14 +1308,8 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
     }
 
     function copyUGCVideoPrompt() {
-        const productName = document.getElementById('productName').value.trim();
-        let promptText = "Crie um vídeo baseado neste story board estilo POV";
-        
-        if (productName) {
-            promptText += ` para o produto "${productName}"`;
-        }
-        
-        promptText += ".";
+        updateFixedPromptsPreview();
+        const promptText = document.getElementById('fixedPrompt2Text').value;
 
         navigator.clipboard.writeText(promptText).then(() => {
             showToast('🎬 Prompt 2 ("Crie um vídeo baseado neste story board estilo POV") copiado!');
@@ -1292,7 +1324,9 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         if (productInput) {
             productInput.value = '';
             productInput.placeholder = "Digite o nome do produto e a função principal...";
+            productInput.addEventListener('input', updateFixedPromptsPreview);
         }
+        updateFixedPromptsPreview();
     });
 </script>
 
