@@ -702,13 +702,13 @@
             <div class="form-group" style="margin-bottom: 10px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                     <label style="font-weight: 700; color: var(--veo-cyan); margin-bottom: 0; font-size: 0.88rem;">
-                        🤖 1. Cole no ChatGPT / Gemini (Gera o Storyboard UGC)
+                        🤖 1. Cole no ChatGPT / Gemini (Gera o Storyboard UGC Completo & Estratégico)
                     </label>
                     <button class="action-btn cyan" onclick="copyUGCStoryboardPrompt()" style="padding: 6px 14px; font-size: 0.82rem;">
                         📋 1. Copiar Prompt UGC
                     </button>
                 </div>
-                <input type="text" id="fixedPrompt1Text" class="result-box" style="height: 38px; padding: 8px 12px; font-size: 0.85rem; background: #090e17; color: #38bdf8; border: 1px solid #1e293b;" readonly value="Com base na imagem anexo criei um story board UGC.">
+                <textarea id="fixedPrompt1Text" class="result-box" style="height: 110px; padding: 10px 12px; font-size: 0.82rem; background: #090e17; color: #38bdf8; border: 1px solid #1e293b; line-height: 1.45; resize: vertical;" readonly></textarea>
             </div>
 
             <!-- PROMPT 2: GEMINI / GERADORES DE VÍDEO -->
@@ -1287,7 +1287,163 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 
     function updateFixedPromptsPreview() {
         const productName = document.getElementById('productName') ? document.getElementById('productName').value.trim() : '';
-        const p1 = productName ? `Com base na imagem anexo criei um story board UGC para o produto "${productName}".` : `Com base na imagem anexo criei um story board UGC.`;
+        const category = document.getElementById('productCategory') ? document.getElementById('productCategory').value : '';
+        
+        const productHeader = productName ? `PRODUTO DE REFERÊNCIA: "${productName}" (${category})\n\n` : '';
+
+        const p1 = `${productHeader}Com base na imagem do produto anexada, crie um STORYBOARD UGC completo, estratégico e visualmente detalhado para um vídeo de venda.
+
+IMPORTANTE: Analise primeiro o produto presente na imagem e identifique automaticamente suas principais características, benefícios, público-alvo, contexto de uso e possíveis gatilhos emocionais.
+
+O STORYBOARD deve ser pensado para gerar um vídeo UGC autêntico, moderno, emocional e com alto potencial de conversão.
+
+✝️ REGRA DE ADAPTAÇÃO PARA O PÚBLICO CRISTÃO:
+
+1. Se o produto possuir características religiosas ou cristãs:
+Explore diretamente elementos como fé, Deus, oração, proteção, propósito, espiritualidade, família, gratidão, esperança e conexão com Deus.
+
+2. Se o produto NÃO for religioso:
+Crie automaticamente uma conexão NATURAL e NÃO FORÇADA com valores que agradam ao público cristão.
+
+Busque relacionar o produto, quando fizer sentido, com conceitos como:
+- Fé e propósito
+- Família e pessoas queridas
+- Gratidão
+- Amor e cuidado
+- Presentear alguém especial
+- Elegância e discrição
+- Valores cristãos
+- Bem-estar e autocuidado
+- Momentos especiais
+- Organização e cuidado com o lar
+- Beleza com propósito
+- Simplicidade e sofisticação
+- Um presente para alguém que você ama
+
+IMPORTANTE:
+NUNCA invente características religiosas falsas sobre o produto.
+
+Em vez disso, encontre uma abordagem criativa que conecte o PRODUTO aos VALORES, EMOÇÕES e MOMENTOS importantes para o público cristão.
+
+Exemplo:
+Um acessório comum pode ser apresentado como:
+"Um presente delicado para alguém especial que Deus colocou na sua vida."
+
+Um produto para casa pode ser apresentado como:
+"Pequenos detalhes que tornam nosso lar ainda mais especial."
+
+Um item de beleza pode ser apresentado como:
+"Se cuidar também é uma forma de agradecer pela pessoa que Deus criou."
+
+Um presente pode ser apresentado como:
+"Para demonstrar carinho por aquela pessoa especial que Deus colocou no seu caminho."
+
+🎬 ESTRUTURA OBRIGATÓRIA DO STORYBOARD:
+
+Crie o Storyboard dividido em cenas.
+
+Para CADA CENA apresente:
+
+CENA X — [Tempo estimado]
+
+📸 IMAGEM/CENA:
+Descreva exatamente o que aparece visualmente.
+
+🎥 ENQUADRAMENTO:
+Exemplo:
+- Close no produto
+- Pessoa segurando o produto
+- POV
+- Selfie UGC
+- Close nas mãos (máximo 2 mãos humanas)
+- Produto sendo utilizado
+- Cena lifestyle
+
+🎭 AÇÃO:
+Descreva exatamente o que a pessoa está fazendo.
+
+🗣️ FALA/NARRAÇÃO:
+Crie uma fala natural, emocional e persuasiva no estilo UGC.
+
+💬 TEXTO NA TELA:
+Crie uma frase curta e impactante.
+
+🎯 OBJETIVO DA CENA:
+Explique qual é a função da cena:
+- Gancho
+- Curiosidade
+- Conexão emocional
+- Demonstração
+- Benefício
+- Prova social
+- Desejo
+- Conversão
+- CTA
+
+🔥 ESTRUTURA ESTRATÉGICA:
+
+Cena 1:
+GANCHO FORTE nos primeiros segundos.
+
+Cena 2:
+Apresentação natural do produto.
+
+Cena 3:
+Demonstração visual ou benefício principal.
+
+Cena 4:
+Conexão emocional com o público.
+
+Cena 5:
+Mostrar detalhes que aumentem o desejo.
+
+Cena 6:
+Criar sensação de descoberta ou recomendação pessoal.
+
+Cena Final:
+CTA natural e persuasivo.
+
+📱 ESTILO DO VÍDEO:
+
+- Formato vertical 9:16
+- Estilo TikTok Shop
+- UGC realista
+- Pessoa falando naturalmente para a câmera
+- Nada com aparência de propaganda tradicional
+- Linguagem simples e próxima
+- Cenário realista
+- Boa iluminação
+- Expressões naturais
+- Produto sempre visualmente valorizado
+- Ritmo dinâmico
+- Alternância entre selfie, POV, close e lifestyle
+
+🧠 IMPORTANTE:
+
+O Storyboard deve parecer uma experiência real de alguém que descobriu e gostou do produto.
+
+Evite frases genéricas como:
+"Compre agora"
+"Esse produto é incrível"
+
+Prefira frases naturais como:
+"Eu não estava esperando gostar tanto disso..."
+"Olha esse detalhe..."
+"Foi uma daquelas coisas que eu comprei sem muita expectativa..."
+"Isso aqui seria perfeito para presentear alguém especial..."
+"Na hora que eu vi, já pensei em uma pessoa..."
+"Tem coisas simples que fazem toda diferença..."
+
+⚡ OBJETIVO FINAL:
+
+Criar um STORYBOARD UGC altamente visual, detalhado e pronto para ser utilizado na geração de imagens e vídeos de cada cena.
+
+Cada cena deve manter consistência visual com o produto original da imagem anexada.
+
+O produto deve ser o protagonista da história.
+
+Quando possível, criar uma conexão emocional com o público cristão de forma natural, respeitosa e estratégica, sem inventar características religiosas que o produto não possui.`;
+
         const p2 = productName ? `Crie um vídeo baseado neste story board estilo POV para o produto "${productName}".` : `Crie um vídeo baseado neste story board estilo POV.`;
 
         const preview1 = document.getElementById('fixedPrompt1Text');
