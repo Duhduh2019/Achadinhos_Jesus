@@ -1271,7 +1271,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 
     function copyUGCVideoPrompt() {
         const productName = document.getElementById('productName').value.trim();
-        let promptText = "Crie um vídeo baseado neste story board";
+        let promptText = "Crie um vídeo baseado neste story board estilo POV";
         
         if (productName) {
             promptText += ` para o produto "${productName}"`;
@@ -1280,7 +1280,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         promptText += ".";
 
         navigator.clipboard.writeText(promptText).then(() => {
-            showToast('🎬 Prompt 2 ("Crie um vídeo baseado neste story board") copiado!');
+            showToast('🎬 Prompt 2 ("Crie um vídeo baseado neste story board estilo POV") copiado!');
         }).catch(() => {
             showToast('Erro ao copiar o prompt 2.', true);
         });
