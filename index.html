@@ -957,10 +957,9 @@
         <!-- ABA 1: ROTEIRO TIKTOK SHOP -->
         <div class="tab-pane active" id="tab-roteiro">
             <div class="output-header">
-                <label>Roteiro Otimizado para Alta Conversão (Fala + Textos Hipnóticos na Tela + Carrinho Amarelo):</label>
+                <label id="roteiroHeaderLabel">Roteiro Otimizado para Alta Conversão (Fala + Textos Hipnóticos na Tela + Carrinho Amarelo):</label>
                 <div class="action-btn-group">
                     <button class="action-btn" onclick="copyText('outputRoteiro')">📋 Copiar Roteiro</button>
-                    <button class="action-btn emerald" onclick="copyCaptionPromptForAI()">🏷️ Criar Hashtags e Título na IA</button>
                 </div>
             </div>
             <textarea id="outputRoteiro" class="result-box" readonly></textarea>
@@ -969,7 +968,7 @@
             <div class="caption-card">
                 <div class="output-header">
                     <div class="caption-card-title">
-                        <span>🤖 Prompt Pronto para Gerar Título & Hashtags na IA (Padrão TikTok em 1 Linha):</span>
+                        <span id="captionCardTitleText">🤖 Prompt Pronto para Gerar Título & Hashtags na IA (Padrão TikTok em 1 Linha):</span>
                     </div>
                     <button class="action-btn emerald" onclick="copyCaptionPromptForAI()">📋 Copiar Prompt para IA</button>
                 </div>
