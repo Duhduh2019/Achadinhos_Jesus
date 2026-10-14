@@ -10,10 +10,10 @@ Aplicação web estática e responsiva para criação de roteiros de alta conver
 
 ### 1. 🛍️ Modo Product Compilation (Top 3 Achadinhos do TikTok Shop)
 - **Alternador de Modos:** Permite alternar instantaneamente entre o **Modo 1 (Produto Único)** e o **Modo 2 (Product Compilation - Top 3)**.
-- **Roteiro de Alta Retenção (Listicle):** Estruturado no formato viral de 30-32s (00s-03s Gancho de Abertura, 03s-10s Item 1, 10s-18s Item 2, 18s-25s Item 3, 25s-30s Fechamento Coletivo no Carrinho Alaranjado + Bordão de Marca).
-- **Prompts I2V para Cada Produto da Lista:** Gera comandos individuais com Cláusula Frame 0 e Trava Anti-Alucinação para você anexar a foto de cada um dos 3 itens na IA de vídeo, além da cena final de chamada para a sacola.
-- **Prompt para IA de Título & Hashtags em 1 Linha (Multi-Produtos):** Copy ultra-calibrada para o algoritmo do TikTok Shop indexar a lista e estimular comentários.
-- **Prompts Fixos em 2 Passos Adaptativos:** O Storyboard UGC para o ChatGPT/Gemini adapta-se automaticamente para criar o planejamento visual dos 3 produtos de uma só vez.
+- **Roteiro de Alta Retenção (Listicle):** Estruturado no formato viral de 30-32s (00s-03s Gancho de Abertura, 03s-10s Item 1, 10s-18s Item 2, 18s-25s Item 3, 25s-30s Fechamento Coletivo direcionando para a **Vitrine do TikTok Shop** + Bordão de Marca).
+- **Prompts I2V para Cada Produto da Lista:** Gera comandos individuais com Cláusula Frame 0 e Trava Anti-Alucinação para você anexar a foto de cada um dos 3 itens na IA de vídeo, além da cena final de direcionamento e destaque para a Vitrine.
+- **Prompt para IA de Título & Hashtags em 1 Linha (Multi-Produtos):** Copy ultra-calibrada para o algoritmo do TikTok Shop indexar a lista, informando que os achadinhos estão disponíveis na Vitrine do perfil (sem pedir cliques em links/carrinho individual).
+- **Prompts Fixos em 2 Passos Adaptativos:** O Storyboard UGC para o ChatGPT/Gemini adapta-se automaticamente para criar o planejamento visual dos 3 produtos de uma só vez com fechamento na Vitrine.
 
 ---
 

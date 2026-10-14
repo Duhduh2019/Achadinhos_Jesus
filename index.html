@@ -800,7 +800,7 @@
                     <input type="text" id="compProd1Name" value="" placeholder="Nome do Produto 1 (ex: Quadro em Acrílico Salmo 91)..." oninput="updateFixedPromptsPreview()">
                 </div>
                 <div class="form-group" style="margin-bottom: 0;">
-                    <input type="text" id="compProd1Detail" value="" placeholder="Destaque ou Preço (ex: Apenas R$ 29,39 no carrinho)...">
+                    <input type="text" id="compProd1Detail" value="" placeholder="Destaque ou Preço (ex: Apenas R$ 29,39 na vitrine)...">
                 </div>
             </div>
         </div>
@@ -841,12 +841,12 @@
         <div class="section-title">🎯 3. Estratégia de Fechamento da Lista no TikTok Shop</div>
         <div class="row">
             <div class="form-group">
-                <label for="compSalesHook">Gatilho de Venda Coletivo no Carrinho</label>
+                <label for="compSalesHook">Gatilho de Venda Coletivo na Vitrine</label>
                 <select id="compSalesHook">
-                    <option value="frete_gratis">Frete Grátis em Todos + Cupom de Primeira Compra</option>
-                    <option value="estoque_baixo">Alerta de Estoque Esgotando em Todos os Itens</option>
-                    <option value="menos_que_lanche">Todos Custam Menos que um Lanche / Super Baratinhos</option>
-                    <option value="promocao_conjunto">Compre os 3 e Ganhe Desconto Progressivo no Frete</option>
+                    <option value="frete_gratis">Frete Grátis em Todos na Vitrine + Cupom de Primeira Compra</option>
+                    <option value="estoque_baixo">Alerta de Estoque Esgotando em Todos os Itens na Vitrine</option>
+                    <option value="menos_que_lanche">Todos na Vitrine Custam Menos que um Lanche / Baratinhos</option>
+                    <option value="promocao_conjunto">Compre os 3 na Vitrine com Super Desconto Especial</option>
                 </select>
             </div>
             <div class="form-group">
@@ -1071,15 +1071,15 @@
                     <div class="scene-prompt-text" id="sceneCompPrompt3"></div>
                 </div>
 
-                <!-- PROMPT COMPILATION 4: FECHAMENTO NO CARRINHO -->
+                <!-- PROMPT COMPILATION 4: FECHAMENTO NA VITRINE -->
                 <div class="scene-card" style="border: 1px solid #f59e0b; background: rgba(245, 158, 11, 0.05); margin-bottom: 24px;">
                     <div class="scene-card-header">
-                        <div class="scene-title" style="color: #fbbf24; font-weight: 700;">🛒 PROMPT I2V 4: Fechamento & Carrinho Alaranjado TikTok Shop (24s a 30s)</div>
-                        <span class="scene-badge-frame0" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🔒 CTA Carrinho 👇</span>
+                        <div class="scene-title" style="color: #fbbf24; font-weight: 700;">🛍️ PROMPT I2V 4: Fechamento & Direcionamento para a Vitrine (24s a 30s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🔒 CTA Vitrine 🛍️</span>
                         <button class="action-btn" style="background: #d97706; color: white;" onclick="copyText('sceneCompPrompt4')">📋 Copiar Prompt Fechamento</button>
                     </div>
                     <div class="flow-instruction-line" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3);">
-                        <span>💡 <strong>CENA 4 (CTA):</strong> Utilize este prompt para a cena de fechamento com os itens reunidos e a mão/gesto apontando para a sacola de compras com frete grátis.</span>
+                        <span>💡 <strong>CENA 4 (CTA):</strong> Utilize este prompt para a cena de fechamento com os itens reunidos, direcionando a audiência para encontrar os 3 produtos disponíveis diretamente na sua Vitrine do perfil com frete grátis.</span>
                     </div>
                     <div class="scene-prompt-text" id="sceneCompPrompt4"></div>
                 </div>
@@ -1133,8 +1133,8 @@
             if (veoSingle) veoSingle.style.display = 'none';
             if (veoComp) veoComp.style.display = 'block';
             if (mainBtn) mainBtn.innerHTML = '<span>🛍️ Gerar Roteiro Compilation (Top 3) & Prompts I2V</span>';
-            if (roteiroHeaderLabel) roteiroHeaderLabel.textContent = 'Roteiro de Compilação TikTok Shop (Top 3 Achadinhos + Chamada para o Carrinho):';
-            if (veoHeaderLabel) veoHeaderLabel.textContent = 'Prompts I2V para Cada Produto da Compilação + Fechamento Carrinho:';
+            if (roteiroHeaderLabel) roteiroHeaderLabel.textContent = 'Roteiro de Compilação TikTok Shop (Top 3 Achadinhos + Direcionamento para a Vitrine):';
+            if (veoHeaderLabel) veoHeaderLabel.textContent = 'Prompts I2V para Cada Produto da Compilação + Fechamento Vitrine:';
             if (captionTitle) captionTitle.textContent = '🤖 Prompt para Gerar Título & Hashtags da Compilação na IA (1 Linha):';
         } else {
             compBtn.classList.remove('active');
@@ -1247,13 +1247,13 @@ Com base nesta COMPILAÇÃO DE PRODUTOS (VÍDEO DE LISTA / TOP 3 ACHADINHOS):
 1. ${p1}
 2. ${p2}
 3. ${p3}
-💰 CHAMADA: Link e frete grátis para todos os produtos no carrinho alaranjado.
+💰 CHAMADA: Você vai encontrar todos os 3 produtos disponíveis na Vitrine do perfil com frete grátis e cupom de primeira compra.
 
 SUA TAREFA OBRIGATÓRIA (PADRÃO TIKTOK EM UMA ÚNICA LINHA):
 Crie a legenda perfeita configurada para o algoritmo do TikTok Shop indexar nas buscas (SEO) e entregar o vídeo no feed "Para Você" (FYP).
 
 REGRAS RÍGIDAS DE RETENÇÃO E ALGORITMO:
-1. TÍTULO/LEGENDA: Frase inicial ultra-curta e hipnótica anunciando o Top 3 / Lista com emojis (ex: "Top 3 achadinhos que você precisa ter..."), perguntando qual foi o favorito do público e chamando para clicar no link do carrinho amarelo com emojis (👇🛒).
+1. TÍTULO/LEGENDA: Frase inicial ultra-curta e hipnótica anunciando o Top 3 / Lista com emojis (ex: "Top 3 achadinhos que você precisa ter..."), perguntando qual foi o favorito do público e avisando que você vai encontrar todos os 3 diretamente na Vitrine do perfil com emojis (🛍️✨). Não mande clicar em links ou carrinho; informe que encontra tudo na Vitrine!
 2. PALAVRAS-CHAVE SEO: Inclua os termos exatos que as pessoas pesquisam no TikTok para achar achadinhos desse nicho.
 3. HASHTAGS ESTRATÉGICAS: Coloque de 5 a 7 hashtags de alto volume misturando tags de compra (#TikTokShop, #Achadinhos, #Top3, #CompreiNoTikTok, #TikTokMadeMeBuyIt) com tags do nicho.
 4. FORMATO: Devolva OBRIGATORIAMENTE em UMA ÚNICA LINHA, pronta apenas para eu copiar e colar no TikTok. Não inclua introduções, explicações, quebras de linha nem aspas.${brandRule}`;
@@ -1711,17 +1711,17 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         let salesText = "";
         let salesAudio = "";
         if (salesHook === 'frete_gratis') {
-            salesText = "Frete Grátis em todos os itens + Cupom de primeira compra";
-            salesAudio = "Todos os 3 produtos estão no carrinho alaranjado aqui embaixo com frete grátis e cupom de primeira compra!";
+            salesText = "Frete Grátis em todos os itens na Vitrine + Cupom de primeira compra";
+            salesAudio = "Todos os 3 produtos você encontra na minha Vitrine aqui do TikTok Shop com frete grátis e cupom de primeira compra!";
         } else if (salesHook === 'estoque_baixo') {
-            salesText = "Alerta de Estoque Esgotando em todos os itens";
-            salesAudio = "Todos eles estão com estoque baixíssimo no carrinho alaranjado por causa da viralização, então corre antes que zere!";
+            salesText = "Alerta de Estoque Esgotando em todos os itens na Vitrine";
+            salesAudio = "Todos eles estão com estoque baixíssimo na minha Vitrine por causa da viralização, então corre conferir na Vitrine antes que zere!";
         } else if (salesHook === 'menos_que_lanche') {
-            salesText = "Preço super baratinho (Menos que um lanche)";
-            salesAudio = "Cada um desses achadinhos custa menos que um lanche no carrinho alaranjado!";
+            salesText = "Preço super baratinho na Vitrine (Menos que um lanche)";
+            salesAudio = "Cada um desses achadinhos você encontra na minha Vitrine custando menos que um lanche!";
         } else {
-            salesText = "Desconto progressivo no frete para a lista completa";
-            salesAudio = "E se você levar os itens juntos, garante desconto especial no frete no carrinho alaranjado!";
+            salesText = "Super desconto na Vitrine para a lista completa";
+            salesAudio = "E se você quiser garantir a lista completa, você encontra tudo na minha Vitrine com super desconto especial!";
         }
 
         const isReligious = category.includes('Religiosos') || category.includes('Fé') || presenter === 'religioso_fe';
@@ -1752,7 +1752,7 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 🎯 Tema da Compilação: ${theme}
 📦 Nicho: ${category}
 ⏱️ Duração Estimada: 30 a 32 segundos (Ritmo Dinâmico & Alta Retenção)
-🛒 Estratégia de Carrinho: ${salesText}
+🛍️ Estratégia de Fechamento: ${salesText}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🧲 [00s - 03s] GANCHO DE ABERTURA HIPNÓTICO (STOP SCROLL)
@@ -1787,12 +1787,12 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 💡 Efeito: Clímax de desejo acumulado antes da chamada de compra.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🛒 [25s - 30s] FECHAMENTO & CONVERSÃO COLETIVA NO CARRINHO
+🛍️ [25s - 30s] FECHAMENTO & CONVERSÃO COLETIVA NA VITRINE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Ação Visual: Câmera afasta mostrando os 3 produtos reunidos na bancada. Dedo indicador aponta com firmeza para o canto inferior esquerdo onde fica a sacola/carrinho alaranjado do TikTok Shop, com setas pulsantes.
-📝 Texto na Tela: "TODOS NO CARRINHO ALARANJADO 👇🛒 FRETE GRÁTIS!"
-🗣️ Fala: "${salesAudio} Qual desses 3 foi o seu favorito? Clica no carrinho aqui embaixo e comenta aqui!"
-💡 Gatilho de Compra: Converte tanto quem gostou do produto 1, do 2 ou do 3.${brandEndingBlock}`;
+🎬 Ação Visual: Câmera afasta mostrando os 3 produtos reunidos na bancada com acabamento impecável. Gesto elegante e acolhedor indicando a Vitrine do perfil / Showcase do TikTok Shop.
+📝 Texto na Tela: "ENCONTRE TODOS NA MINHA VITRINE! 🛍️✨ FRETE GRÁTIS!"
+🗣️ Fala: "${salesAudio} Qual desses 3 foi o seu favorito? Você encontra todos eles organizados na minha Vitrine do perfil, comenta aqui qual mais gostou!"
+💡 Gatilho de Compra: Direciona o público para encontrar os 3 itens na Vitrine do criador ao invés de buscar links individuais.${brandEndingBlock}`;
 
         // 2. PROMPT DE LEGENDA & HASHTAGS PARA IA
         const captionPromptAI = getCaptionPromptForAI();
@@ -1833,9 +1833,9 @@ MOVIMENTO DE CÂMERA: Movimento de câmera dinâmico com enquadramento frontal p
 ATMOSFERA VISUAL: Iluminação elegante de estúdio, nitidez cristalina e fidelidade absoluta à foto anexada.`;
 
         const pComp4 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 4 de 4 - Fechamento: 24s a 30s).
-CENÁRIO: Bancada elegante de estúdio com os 3 produtos (${p1Name}, ${p2Name}, ${p3Name}) dispostos harmoniosamente.
-AÇÃO VISUAL: Uma mão com gesto claro e persuasivo aponta com firmeza para o canto inferior esquerdo da tela (onde localiza-se o carrinho alaranjado do TikTok Shop).
-ELEMENTOS NA TELA: Setas luminosas sutis indicando o carrinho de compras.
+CENÁRIO: Bancada elegante de estúdio com os 3 produtos (${p1Name}, ${p2Name}, ${p3Name}) dispostos harmoniosamente sob iluminação suave.
+AÇÃO VISUAL: Apresentador(a) ou mãos (máximo 2 mãos humanas) com gesto elegante, convidativo e acolhedor apresentando os itens reunidos, direcionando o público para a Vitrine (Showcase) do perfil.
+ELEMENTOS NA TELA: Destaque visual sutil e harmonioso convidando a conferir os itens na Vitrine da loja.
 ATMOSFERA VISUAL: Iluminação acolhedora e convidativa de fechamento de alta conversão.`;
 
         const fullDocument = `══════════════════════════════════════════════════════════════════════
@@ -1871,14 +1871,14 @@ ${pComp2}
 --- CENA 3: 3º PRODUTO + CLÍMAX DA LISTA (16s a 24s) ---
 ${pComp3}
 
---- CENA 4: FECHAMENTO & CARRINHO ALARANJADO (24s a 30s) ---
+--- CENA 4: FECHAMENTO & DIRECIONAMENTO PARA A VITRINE (24s a 30s) ---
 ${pComp4}
 
 ══════════════════════════════════════════════════════════════════════
 TRAVAS TÉCNICAS E DIRETRIZES:
 - Ancoragem rígida de Frame 0 para cada foto anexada;
 - Trava Anatômica: Estritamente no máximo 2 mãos humanas por cena (zero 3ª mão);
-- Chamada enfática para os múltiplos produtos linkados no carrinho alaranjado.
+- Chamada enfática informando que todos os produtos estão disponíveis na Vitrine do perfil.
 ══════════════════════════════════════════════════════════════════════`;
 
         // Preenche campos da interface
@@ -1932,7 +1932,7 @@ O STORYBOARD deve seguir um ritmo rápido e envolvente (30 a 32 segundos no tota
 - Cena 2: 1º ACHADINHO (${p1Text}) - Revelação e destaque de benefício rápido (03s-10s);
 - Cena 3: 2º ACHADINHO (${p2Text}) - O favorito da lista / quebra de padrão (10s-18s);
 - Cena 4: 3º ACHADINHO (${p3Text}) - O mais surpreendente / clímax do vídeo (18s-25s);
-- Cena Final: FECHAMENTO & CTA COLETIVO (25s-30s) apontando para o carrinho alaranjado com frete grátis em todos os itens.
+- Cena Final: FECHAMENTO & CTA COLETIVO NA VITRINE (25s-30s) informando que você encontra todos os 3 produtos disponíveis na Vitrine do perfil com frete grátis.
 
 ✝️ REGRA DE CONEXÃO COM O PÚBLICO:
 Destaque o valor prático, a beleza e a bênção de ter esses itens no lar ou presentear quem se ama.
