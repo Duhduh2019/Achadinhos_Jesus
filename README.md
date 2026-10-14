@@ -6,24 +6,24 @@ Aplicação web estática e responsiva para criação de roteiros de alta conver
 
 ---
 
-## 🚀 Principais Funcionalidades da v1.8.0
+## 🚀 Principais Funcionalidades da v1.9.0
 
-### 1. 🔘 Opção "-- Nenhum (Livre / Padrão) --" em Todos os Selects
-- Permite gerar roteiros de forma totalmente livre e desengessada sem forçar nenhum gancho, estilo ou gatilho fixo.
-
-### 2. 💎 Nicho de Acessórios Femininos, Joias & Semijoias
-- Ganchos específicos sobre valorização do look, teste de durabilidade na água e presentes chiques.
-
-### 3. ✝️ Nicho de Artigos Religiosos, Bíblias, Quadros & Livros
-- Ganchos sobre momento devocional com Deus, decoração sagrada e livros que transformam a vida.
-
-### 4. 🧤 Interação Física Diversificada (Luvas Negras de Luxo, Mãos Femininas & Personagens)
-- Prompts I2V atualizados para gerar cenas de alta joalheria com luvas pretas de luxo, mãos femininas delicadas ou criadores vestindo/usando a peça em cena.
+### 1. 🛍️ Modo Product Compilation (Top 3 Achadinhos do TikTok Shop)
+- **Alternador de Modos:** Permite alternar instantaneamente entre o **Modo 1 (Produto Único)** e o **Modo 2 (Product Compilation - Top 3)**.
+- **Roteiro de Alta Retenção (Listicle):** Estruturado no formato viral de 30-32s (00s-03s Gancho de Abertura, 03s-10s Item 1, 10s-18s Item 2, 18s-25s Item 3, 25s-30s Fechamento Coletivo no Carrinho Alaranjado + Bordão de Marca).
+- **Prompts I2V para Cada Produto da Lista:** Gera comandos individuais com Cláusula Frame 0 e Trava Anti-Alucinação para você anexar a foto de cada um dos 3 itens na IA de vídeo, além da cena final de chamada para a sacola.
+- **Prompt para IA de Título & Hashtags em 1 Linha (Multi-Produtos):** Copy ultra-calibrada para o algoritmo do TikTok Shop indexar a lista e estimular comentários.
+- **Prompts Fixos em 2 Passos Adaptativos:** O Storyboard UGC para o ChatGPT/Gemini adapta-se automaticamente para criar o planejamento visual dos 3 produtos de uma só vez.
 
 ---
 
 ## 📦 Histórico de Versões
 
+- **v1.9.0**:
+  - Implementação completa do **Modo Product Compilation (Multi-Produtos / Top 3)**.
+  - Seletor de Modo no topo da interface.
+  - Prompts técnicos de vídeo individuais para cada produto da lista + cena de conversão.
+  - Roteiro e SEO em 1 linha adaptados para compilações.
 - **v1.8.0**:
   - Inclusão da opção `-- Nenhum --` em todos os dropdowns das Seções 2 e 3.
   - Adição das categorias **Acessórios Femininos & Joias** e **Artigos Religiosos, Livros & Fé**.

@@ -519,6 +519,89 @@
         .toast.error {
             background-color: #ef4444;
         }
+
+        /* Alternador de Modo: Produto Único vs Product Compilation */
+        .mode-selector-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 8px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 640px) {
+            .mode-selector-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mode-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #1e293b;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn:hover {
+            background: #334155;
+            color: #ffffff;
+        }
+
+        .mode-btn.active {
+            background: rgba(16, 185, 129, 0.16);
+            border-color: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+        }
+
+        .mode-btn.compilation.active {
+            background: rgba(6, 182, 212, 0.16);
+            border-color: var(--veo-cyan);
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25);
+        }
+
+        .mode-icon {
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .mode-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .mode-text strong {
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+
+        .mode-text small {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        .comp-product-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 14px;
+            transition: all 0.2s;
+        }
+
+        .comp-product-card:hover {
+            border-color: var(--border-highlight);
+        }
     </style>
 </head>
 <body>
@@ -546,102 +629,234 @@
         </div>
     </div>
 
-    <div class="form-group" style="margin-bottom: 20px;">
-        <label for="productName" style="font-size: 1.02rem; font-weight: 700; color: #ffffff;">Nome do Produto & Função Principal</label>
-        <input type="text" id="productName" value="" placeholder="Digite o nome do produto e a função principal..." autocomplete="off">
-        <div class="help-text">Dica: Digite o nome do seu produto ou deixe em branco para gerar com o produto do nicho.</div>
+    <!-- SELETOR DE MODO: PRODUTO ÚNICO VS COMPILATION -->
+    <div class="mode-selector-container">
+        <button type="button" class="mode-btn active" id="modeSingleBtn" onclick="setAppMode('single')">
+            <span class="mode-icon">📦</span>
+            <span class="mode-text">
+                <strong>Modo 1: Produto Único</strong>
+                <small>Roteiro focado (30s - 45s) com 1 produto</small>
+            </span>
+        </button>
+        <button type="button" class="mode-btn compilation" id="modeCompilationBtn" onclick="setAppMode('compilation')">
+            <span class="mode-icon">🛍️</span>
+            <span class="mode-text">
+                <strong>Modo 2: Product Compilation (Top 3)</strong>
+                <small>Lista rápida multi-produtos de alta retenção</small>
+            </span>
+        </button>
     </div>
 
-    <!-- 1. DADOS DO PRODUTO & TIPO DA FOTO (EM ORDEM ALFABÉTICA) -->
-    <div class="section-title">📦 1. Produto & Como é a Foto que Você vai Anexar na IA</div>
-    
-    <div class="row">
-        <div class="form-group">
-            <label for="productCategory">Linha do Produto (Nicho)</label>
-            <select id="productCategory" onchange="updateProductSuggestions()">
-                <option value="💎 Acessórios Femininos, Joias & Semijoias (Brincos, Colares, Braceletes, Anéis)">💎 Acessórios Femininos & Joias</option>
-                <option value="✝️ Artigos Religiosos, Livros & Fé (Bíblias, Quadros Sagrados, Livros, Terços)" selected>✝️ Artigos Religiosos, Livros & Fé</option>
-                <option value="Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)">💄 Beleza & Skincare</option>
-                <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)">🏠 Casa, Cozinha & Hacks</option>
-                <option value="Infantil, Brinquedos Educativos & Maternidade">🧸 Infantil & Maternidade</option>
-                <option value="Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)">👗 Moda & Acessórios</option>
-                <option value="Papelaria, Escritório & Produtividade">✏️ Papelaria & Home Office</option>
-                <option value="Pet Care & Acessórios para Animais">🐾 Mundo Pet</option>
-                <option value="Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)">💪 Saúde & Fitness</option>
-                <option value="Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)">📱 Tecnologia & Gadgets</option>
-            </select>
+    <!-- FORMULÁRIO MODO 1: PRODUTO ÚNICO -->
+    <div id="singleProductForm">
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="productName" style="font-size: 1.02rem; font-weight: 700; color: #ffffff;">Nome do Produto & Função Principal</label>
+            <input type="text" id="productName" value="" placeholder="Digite o nome do produto e a função principal..." autocomplete="off">
+            <div class="help-text">Dica: Digite o nome do seu produto ou deixe em branco para gerar com o produto do nicho.</div>
         </div>
 
-        <div class="form-group">
-            <label for="photoType">Como é a Foto que Você vai Anexar na IA?</label>
-            <select id="photoType">
-                <option value="ambiente_real">🏠 No Ambiente Real de Uso (Cozinha, Mesa, Bancada)</option>
-                <option value="fundo_branco">⚪ Catálogo com Fundo Branco / Neutro (Produto Isolado)</option>
-                <option value="close_macro">🔍 Foto em Close-up / Macro (Foco nos detalhes e botões)</option>
-                <option value="na_mao">🖐️ Segurado na Mão (Mãos já aparecem na foto)</option>
-            </select>
-            <div class="help-text">Orienta a IA de vídeo sobre como ambientar o cenário ao redor do produto anexado.</div>
+        <!-- 1. DADOS DO PRODUTO & TIPO DA FOTO (EM ORDEM ALFABÉTICA) -->
+        <div class="section-title">📦 1. Produto & Como é a Foto que Você vai Anexar na IA</div>
+        
+        <div class="row">
+            <div class="form-group">
+                <label for="productCategory">Linha do Produto (Nicho)</label>
+                <select id="productCategory" onchange="updateProductSuggestions()">
+                    <option value="💎 Acessórios Femininos, Joias & Semijoias (Brincos, Colares, Braceletes, Anéis)">💎 Acessórios Femininos & Joias</option>
+                    <option value="✝️ Artigos Religiosos, Livros & Fé (Bíblias, Quadros Sagrados, Livros, Terços)" selected>✝️ Artigos Religiosos, Livros & Fé</option>
+                    <option value="Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)">💄 Beleza & Skincare</option>
+                    <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)">🏠 Casa, Cozinha & Hacks</option>
+                    <option value="Infantil, Brinquedos Educativos & Maternidade">🧸 Infantil & Maternidade</option>
+                    <option value="Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)">👗 Moda & Acessórios</option>
+                    <option value="Papelaria, Escritório & Produtividade">✏️ Papelaria & Home Office</option>
+                    <option value="Pet Care & Acessórios para Animais">🐾 Mundo Pet</option>
+                    <option value="Saúde, Fitness & Suplementos (Treino, Garrafas Térmicas, Corretores)">💪 Saúde & Fitness</option>
+                    <option value="Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)">📱 Tecnologia & Gadgets</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="photoType">Como é a Foto que Você vai Anexar na IA?</label>
+                <select id="photoType">
+                    <option value="ambiente_real">🏠 No Ambiente Real de Uso (Cozinha, Mesa, Bancada)</option>
+                    <option value="fundo_branco">⚪ Catálogo com Fundo Branco / Neutro (Produto Isolado)</option>
+                    <option value="close_macro">🔍 Foto em Close-up / Macro (Foco nos detalhes e botões)</option>
+                    <option value="na_mao">🖐️ Segurado na Mão (Mãos já aparecem na foto)</option>
+                </select>
+                <div class="help-text">Orienta a IA de vídeo sobre como ambientar o cenário ao redor do produto anexado.</div>
+            </div>
+        </div>
+
+        <!-- 2. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP (TODAS AS OPÇÕES RIGOROSAMENTE EM ORDEM ALFABÉTICA A-Z) -->
+        <div class="section-title">🎯 2. Estratégia de Venda no TikTok Shop (Ordem Alfabética A a Z)</div>
+        <div class="row">
+            <div class="form-group">
+                <label for="hookType">Gancho Psicológico dos Primeiros 3 Segundos (A a Z)</label>
+                <select id="hookType">
+                    <option value="none">-- Nenhum (Livre / IA escolhe o melhor gancho) --</option>
+                    <option value="achadinho_economico">Achadinho Barato: 'O item mais barato do TikTok Shop que realmente funciona'</option>
+                    <option value="alerta_erro">Alerta de Erro Comum: 'Você provavelmente está fazendo isso totalmente errado'</option>
+                    <option value="polemico_curiosidade">Anti-Hype / Curiosidade: 'Não compre isso antes de ver este teste rápido'</option>
+                    <option value="ceticismo_desafio">Ceticismo / Desafio: 'Disseram que isso não funcionava, então resolvi testar'</option>
+                    <option value="choque_demonstracao">Demonstração de Choque: Problema irritante vs. Resolução em 1 segundo</option>
+                    <option value="alivio_dor">Dor Aguda & Alívio: 'Pare de estragar seus produtos e passar raiva hoje'</option>
+                    <option value="elegancia_look">Elegância & Look (Acessórios): 'O detalhe no meu look que faz todo mundo perguntar onde comprei'</option>
+                    <option value="devocional_oracao">Fé & Devocional (Religioso): 'Esse item mudou completamente o meu momento de oração'</option>
+                    <option value="quadro_ambiente">Harmonia & Fé na Casa (Quadros): 'Como esse quadro sagrado mudou a atmosfera da minha casa'</option>
+                    <option value="livro_transformacao">Leitura Transformadora (Livros/Bíblias): 'O livro/bíblia que todo mundo deveria ler ao menos uma vez'</option>
+                    <option value="segredo_revelado">Polêmico / Segredo Revelado: 'A indústria não quer que você descubra este truque'</option>
+                    <option value="presente_abencoador">Presente de Fé & Significado: 'O presente mais abençoado e especial para quem você ama'</option>
+                    <option value="prova_social">Prova Social Massiva: 'Por que todo mundo no TikTok só está falando desse produto?'</option>
+                    <option value="teste_durabilidade">Teste de Qualidade (Joias/Semijoias): 'Testei na água pra ver se esse acessório desbota ou escurece'</option>
+                    <option value="transformacao_imediata">Transformação Imediata: 'Olha o que aconteceu quando usei isso pela primeira vez'</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="salesHook">Gatilho de Venda - Oferta no Carrinho Amarelo (A a Z)</label>
+                <select id="salesHook">
+                    <option value="none">-- Nenhum (Sem oferta fixa / Foco total no produto) --</option>
+                    <option value="Alerta de Estoque Esgotando rapidamente por viralização">Alerta de Estoque Esgotando rapidamente por viralização</option>
+                    <option value="Desconto Relâmpago ('Custa menos que um lanche/café')">Desconto Relâmpago ('Custa menos que um lanche/café')</option>
+                    <option value="Frete Grátis + Cupom exclusivo de primeira compra no carrinho">Frete Grátis + Cupom exclusivo de primeira compra no carrinho</option>
+                    <option value="Garantia blindada e devolução sem burocracia pela plataforma">Garantia blindada e devolução sem burocracia pela plataforma</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="formatStyle">Estilo do Vídeo (A a Z)</label>
+                <select id="formatStyle">
+                    <option value="none">-- Nenhum (Estilo livre / Apresentação orgânica) --</option>
+                    <option value="Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')">Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')</option>
+                    <option value="Antes & Depois / Choque Visual (Problema resolvido ao vivo)">Antes & Depois / Choque Visual (Problema resolvido ao vivo)</option>
+                    <option value="Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')">Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')</option>
+                    <option value="UGC Autêntico / POV ('Comprei no TikTok Shop e Me Surpreendi')">UGC Autêntico / POV ('Comprei no TikTok Shop e Me Surpreendi')</option>
+                    <option value="Unboxing + Teste Honesto de primeira impressão">Unboxing + Teste Honesto de primeira impressão</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="presentationModel">Apresentador do Vídeo (A a Z)</label>
+                <select id="presentationModel">
+                    <option value="none">-- Nenhum (Formato livre / Mãos ou Criador) --</option>
+                    <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total)</option>
+                    <option value="person_lipsync">🗣️ Pessoa Falando com Sincronia Labial (Criador ou Avatar IA)</option>
+                    <option value="religioso_fe">✝️ Apresentador(a) Cristão(ã) com Viés Religioso & Mensagem de Fé (Linguagem Devocional / Sincronia Labial)</option>
+                </select>
+            </div>
         </div>
     </div>
 
-    <!-- 2. ESTRATÉGIA DE CONVERSÃO TIKTOK SHOP (TODAS AS OPÇÕES RIGOROSAMENTE EM ORDEM ALFABÉTICA A-Z) -->
-    <div class="section-title">🎯 2. Estratégia de Venda no TikTok Shop (Ordem Alfabética A a Z)</div>
-    <div class="row">
-        <div class="form-group">
-            <label for="hookType">Gancho Psicológico dos Primeiros 3 Segundos (A a Z)</label>
-            <select id="hookType">
-                <option value="none">-- Nenhum (Livre / IA escolhe o melhor gancho) --</option>
-                <option value="achadinho_economico">Achadinho Barato: 'O item mais barato do TikTok Shop que realmente funciona'</option>
-                <option value="alerta_erro">Alerta de Erro Comum: 'Você provavelmente está fazendo isso totalmente errado'</option>
-                <option value="polemico_curiosidade">Anti-Hype / Curiosidade: 'Não compre isso antes de ver este teste rápido'</option>
-                <option value="ceticismo_desafio">Ceticismo / Desafio: 'Disseram que isso não funcionava, então resolvi testar'</option>
-                <option value="choque_demonstracao">Demonstração de Choque: Problema irritante vs. Resolução em 1 segundo</option>
-                <option value="alivio_dor">Dor Aguda & Alívio: 'Pare de estragar seus produtos e passar raiva hoje'</option>
-                <option value="elegancia_look">Elegância & Look (Acessórios): 'O detalhe no meu look que faz todo mundo perguntar onde comprei'</option>
-                <option value="devocional_oracao">Fé & Devocional (Religioso): 'Esse item mudou completamente o meu momento de oração'</option>
-                <option value="quadro_ambiente">Harmonia & Fé na Casa (Quadros): 'Como esse quadro sagrado mudou a atmosfera da minha casa'</option>
-                <option value="livro_transformacao">Leitura Transformadora (Livros/Bíblias): 'O livro/bíblia que todo mundo deveria ler ao menos uma vez'</option>
-                <option value="segredo_revelado">Polêmico / Segredo Revelado: 'A indústria não quer que você descubra este truque'</option>
-                <option value="presente_abencoador">Presente de Fé & Significado: 'O presente mais abençoado e especial para quem você ama'</option>
-                <option value="prova_social">Prova Social Massiva: 'Por que todo mundo no TikTok só está falando desse produto?'</option>
-                <option value="teste_durabilidade">Teste de Qualidade (Joias/Semijoias): 'Testei na água pra ver se esse acessório desbota ou escurece'</option>
-                <option value="transformacao_imediata">Transformação Imediata: 'Olha o que aconteceu quando usei isso pela primeira vez'</option>
-            </select>
+    <!-- FORMULÁRIO MODO 2: PRODUCT COMPILATION (TOP 3 ACHADINHOS) -->
+    <div id="compilationProductForm" style="display: none;">
+        <!-- TEMA E NICHO DA COMPILAÇÃO -->
+        <div class="section-title">🛍️ 1. Tema & Nicho da Compilação (Top 3 Achadinhos)</div>
+        <div class="row">
+            <div class="form-group">
+                <label for="compCategory">Linha do Produto (Nicho)</label>
+                <select id="compCategory" onchange="updateCompThemeSuggestions()">
+                    <option value="✝️ Artigos Religiosos, Livros & Fé (Bíblias, Quadros Sagrados, Livros, Terços)" selected>✝️ Artigos Religiosos, Livros & Fé</option>
+                    <option value="💎 Acessórios Femininos, Joias & Semijoias (Brincos, Colares, Braceletes, Anéis)">💎 Acessórios Femininos & Joias</option>
+                    <option value="Casa, Cozinha & Organização (Utensílios Práticos, Hacks de Limpeza)">🏠 Casa, Cozinha & Hacks</option>
+                    <option value="Beleza & Cuidados Pessoais (Skincare, Maquiagem, Cabelos)">💄 Beleza & Skincare</option>
+                    <option value="Papelaria, Escritório & Produtividade">✏️ Papelaria & Home Office</option>
+                    <option value="Tecnologia & Gadgets (Acessórios Smart, Fones, Carregadores)">📱 Tecnologia & Gadgets</option>
+                    <option value="Moda, Roupas & Acessórios (Shapewear, Calçados, Bolsas)">👗 Moda & Acessórios</option>
+                    <option value="Infantil, Brinquedos Educativos & Maternidade">🧸 Infantil & Maternidade</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="compHookStyle">Estilo de Gancho da Lista (A a Z)</label>
+                <select id="compHookStyle" onchange="updateCompThemeSuggestions()">
+                    <option value="achadinhos_economicos">Achadinhos Baratinhos: '3 Achadinhos do TikTok Shop que custam menos de R$ 35'</option>
+                    <option value="parece_caro">Luxo Acessível: '3 Itens que parecem de R$ 500 mas paguei preço de banana'</option>
+                    <option value="transforma_ambiente">Transformação do Lar/Vida: '3 Coisas que mudaram totalmente a paz da minha casa'</option>
+                    <option value="presentes_especiais">Presentes Especiais: 'Top 3 Presentes mais abençoados para você dar este ano'</option>
+                    <option value="nao_sabia_precisava">Descoberta Inédita: '3 Coisas do TikTok Shop que eu não sabia que precisava'</option>
+                    <option value="testei_aprovei">Review Honesto: 'Testei os 3 produtos mais virais do TikTok Shop e esse foi o resultado'</option>
+                </select>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="salesHook">Gatilho de Venda - Oferta no Carrinho Amarelo (A a Z)</label>
-            <select id="salesHook">
-                <option value="none">-- Nenhum (Sem oferta fixa / Foco total no produto) --</option>
-                <option value="Alerta de Estoque Esgotando rapidamente por viralização">Alerta de Estoque Esgotando rapidamente por viralização</option>
-                <option value="Desconto Relâmpago ('Custa menos que um lanche/café')">Desconto Relâmpago ('Custa menos que um lanche/café')</option>
-                <option value="Frete Grátis + Cupom exclusivo de primeira compra no carrinho">Frete Grátis + Cupom exclusivo de primeira compra no carrinho</option>
-                <option value="Garantia blindada e devolução sem burocracia pela plataforma">Garantia blindada e devolução sem burocracia pela plataforma</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group">
-            <label for="formatStyle">Estilo do Vídeo (A a Z)</label>
-            <select id="formatStyle">
-                <option value="none">-- Nenhum (Estilo livre / Apresentação orgânica) --</option>
-                <option value="Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')">Achadinho Viral ('Coisas baratas do TikTok Shop que você precisa ter')</option>
-                <option value="Antes & Depois / Choque Visual (Problema resolvido ao vivo)">Antes & Depois / Choque Visual (Problema resolvido ao vivo)</option>
-                <option value="Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')">Review Sincero & Cético ('Comprei achando que era golpe e me surpreendi')</option>
-                <option value="UGC Autêntico / POV ('Comprei no TikTok Shop e Me Surpreendi')">UGC Autêntico / POV ('Comprei no TikTok Shop e Me Surpreendi')</option>
-                <option value="Unboxing + Teste Honesto de primeira impressão">Unboxing + Teste Honesto de primeira impressão</option>
-            </select>
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="compThemeCustom" style="font-weight: 700; color: #ffffff;">Tema / Título Principal da Compilação</label>
+            <input type="text" id="compThemeCustom" value="3 Achadinhos de Fé do TikTok Shop por Menos de R$ 35" placeholder="Ex: 3 Achadinhos de Fé do TikTok Shop por Menos de R$ 35..." oninput="updateFixedPromptsPreview()">
+            <div class="help-text">Esse título será a chamada hipnótica que abre o vídeo nos primeiros 3 segundos.</div>
         </div>
 
-        <div class="form-group">
-            <label for="presentationModel">Apresentador do Vídeo (A a Z)</label>
-            <select id="presentationModel">
-                <option value="none">-- Nenhum (Formato livre / Mãos ou Criador) --</option>
-                <option value="hands_only">🖐️ Apenas as Mãos Mostrando o Produto (POV / Sem Rosto / Foco Total)</option>
-                <option value="person_lipsync">🗣️ Pessoa Falando com Sincronia Labial (Criador ou Avatar IA)</option>
-                <option value="religioso_fe">✝️ Apresentador(a) Cristão(ã) com Viés Religioso & Mensagem de Fé (Linguagem Devocional / Sincronia Labial)</option>
-            </select>
+        <!-- OS 3 PRODUTOS DA LISTA -->
+        <div class="section-title">📦 2. Os 3 Produtos da Sua Compilação</div>
+        
+        <!-- PRODUTO 1 -->
+        <div class="comp-product-card" style="border: 1px solid rgba(6, 182, 212, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; color: var(--veo-cyan); font-size: 0.92rem;">🥇 1º Produto (Abertura / Choque)</span>
+                <span class="scene-badge-frame0" style="background: rgba(6, 182, 212, 0.15); color: var(--veo-cyan);">Cena 1 (03s - 10s)</span>
+            </div>
+            <div class="row" style="margin-bottom: 0;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <input type="text" id="compProd1Name" value="" placeholder="Nome do Produto 1 (ex: Quadro em Acrílico Salmo 91)..." oninput="updateFixedPromptsPreview()">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <input type="text" id="compProd1Detail" value="" placeholder="Destaque ou Preço (ex: Apenas R$ 29,39 no carrinho)...">
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUTO 2 -->
+        <div class="comp-product-card" style="border: 1px solid rgba(168, 85, 247, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; color: #c084fc; font-size: 0.92rem;">🥈 2º Produto (O Favorito / Intermediário)</span>
+                <span class="scene-badge-frame0" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">Cena 2 (10s - 18s)</span>
+            </div>
+            <div class="row" style="margin-bottom: 0;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <input type="text" id="compProd2Name" value="" placeholder="Nome do Produto 2 (ex: Marcador de Bíblia Metálico Dourado)..." oninput="updateFixedPromptsPreview()">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <input type="text" id="compProd2Detail" value="" placeholder="Destaque ou Preço (ex: Não amassa nem rasga as folhas)...">
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUTO 3 -->
+        <div class="comp-product-card" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; color: #34d399; font-size: 0.92rem;">🥉 3º Produto (O Mais Impressionante / Clímax)</span>
+                <span class="scene-badge-frame0" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Cena 3 (18s - 25s)</span>
+            </div>
+            <div class="row" style="margin-bottom: 0;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <input type="text" id="compProd3Name" value="" placeholder="Nome do Produto 3 (ex: Luminária Led Cruz em Acrílico 3D)..." oninput="updateFixedPromptsPreview()">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <input type="text" id="compProd3Detail" value="" placeholder="Destaque ou Preço (ex: Efeito 3D lindo para o quarto à noite)...">
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ESTRATÉGIA DE FECHAMENTO COMPILATION -->
+        <div class="section-title">🎯 3. Estratégia de Fechamento da Lista no TikTok Shop</div>
+        <div class="row">
+            <div class="form-group">
+                <label for="compSalesHook">Gatilho de Venda Coletivo no Carrinho</label>
+                <select id="compSalesHook">
+                    <option value="frete_gratis">Frete Grátis em Todos + Cupom de Primeira Compra</option>
+                    <option value="estoque_baixo">Alerta de Estoque Esgotando em Todos os Itens</option>
+                    <option value="menos_que_lanche">Todos Custam Menos que um Lanche / Super Baratinhos</option>
+                    <option value="promocao_conjunto">Compre os 3 e Ganhe Desconto Progressivo no Frete</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="compPresenter">Estilo do Apresentador(a)</label>
+                <select id="compPresenter">
+                    <option value="religioso_fe" selected>✝️ Apresentador(a) Cristão(ã) (Tom acolhedor, de fé e bênção)</option>
+                    <option value="hands_pov">🖐️ Apenas Mãos em POV (Mostrando os 3 itens na bancada em cortes rápidos)</option>
+                    <option value="creator_dynamic">🗣️ Criador(a) Falando para a Câmera (Estilo Dinâmico / TikTok Viral)</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -726,7 +941,7 @@
         </div>
     </div>
 
-    <button class="primary-btn" onclick="generateAll()">
+    <button class="primary-btn" id="mainGenerateBtn" onclick="generateAll()">
         <span>✨ Gerar Roteiro TikTok & Prompts Videos com Trava de Imagem</span>
     </button>
 
@@ -765,52 +980,110 @@
             </div>
         </div>
 
-        <!-- ABA 2: PROMPTS I2V ESTRUTURADOS EM SEQUÊNCIA FLOW EXTEND (PROMPT 1 ➔ EXTEND PROMPT 2 ➔ EXTEND PROMPT 3) -->
+        <!-- ABA 2: PROMPTS I2V ESTRUTURADOS -->
         <div class="tab-pane" id="tab-veo">
             <div class="output-header">
-                <label>Sequência de 3 Prompts no Flow Extend (Prompt 1 Gancho Devocional ➔ Extend 10s ➔ Extend 20s + Carrinho Amarelo):</label>
+                <label id="veoHeaderLabel">Sequência de Prompts no Flow Extend (00s a 30s):</label>
                 <div class="action-btn-group">
-                    <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar os 3 Prompts do Flow</button>
+                    <button class="action-btn cyan" onclick="copyAllVeoScenes()">📋 Copiar Todos os Prompts</button>
                 </div>
             </div>
 
-            <!-- PROMPT 1: GERAÇÃO INICIAL COM GANCHO RELIGIOSO/DEVOCIONAL (00s - 10s) -->
-            <div class="scene-card" style="border: 1px solid var(--veo-cyan); background: rgba(6, 182, 212, 0.05); margin-bottom: 20px;">
-                <div class="scene-card-header">
-                    <div class="scene-title" style="color: var(--veo-cyan); font-weight: 700;">🎬 PROMPT 1: Geração Inicial + Gancho Devocional (00s a 10s)</div>
-                    <span class="scene-badge-frame0" style="background: rgba(6, 182, 212, 0.2); color: var(--veo-cyan); border-color: var(--veo-cyan);">🔒 Frame 0 Original (0s-10s)</span>
-                    <button class="action-btn cyan" onclick="copyText('scenePrompt1')">📋 Copiar Prompt 1 (0-10s)</button>
+            <!-- CONTAINER MODO 1: PRODUTO ÚNICO -->
+            <div id="veoSingleContainer">
+                <!-- PROMPT 1: GERAÇÃO INICIAL COM GANCHO RELIGIOSO/DEVOCIONAL (00s - 10s) -->
+                <div class="scene-card" style="border: 1px solid var(--veo-cyan); background: rgba(6, 182, 212, 0.05); margin-bottom: 20px;">
+                    <div class="scene-card-header">
+                        <div class="scene-title" style="color: var(--veo-cyan); font-weight: 700;">🎬 PROMPT 1: Geração Inicial + Gancho Devocional (00s a 10s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(6, 182, 212, 0.2); color: var(--veo-cyan); border-color: var(--veo-cyan);">🔒 Frame 0 Original (0s-10s)</span>
+                        <button class="action-btn cyan" onclick="copyText('scenePrompt1')">📋 Copiar Prompt 1 (0-10s)</button>
+                    </div>
+                    <div class="flow-instruction-line" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3);">
+                        <span>💡 <strong>1. GERAÇÃO INICIAL:</strong> Anexe a foto de alta qualidade do seu produto como <strong>Frame 0</strong> na IA de vídeo (Runway, Kling, Veo, Luma) e cole este comando para iniciar o vídeo com o gancho devocional/religioso (0s a 10s).</span>
+                    </div>
+                    <div class="scene-prompt-text" id="scenePrompt1"></div>
                 </div>
-                <div class="flow-instruction-line" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3);">
-                    <span>💡 <strong>1. GERAÇÃO INICIAL:</strong> Anexe a foto de alta qualidade do seu produto como <strong>Frame 0</strong> na IA de vídeo (Runway, Kling, Veo, Luma) e cole este comando para iniciar o vídeo com o gancho devocional/religioso (0s a 10s).</span>
+
+                <!-- PROMPT 2: 1ª EXTENSÃO FLOW EXTEND (10s - 20s) -->
+                <div class="scene-card" style="border: 1px solid #a855f7; background: rgba(168, 85, 247, 0.05); margin-bottom: 20px;">
+                    <div class="scene-card-header">
+                        <div class="scene-title" style="color: #c084fc; font-weight: 700;">🔄 PROMPT 2: 1ª Extensão no Flow (Extend 10.0s ➔ 10s a 20s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: #a855f7;">🔒 1ª Extensão de Flow (10s-20s)</span>
+                        <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyText('scenePrompt2')">📋 Copiar Prompt 2 (Extend 10s)</button>
+                    </div>
+                    <div class="flow-instruction-line" style="background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3);">
+                        <span>💡 <strong>2. 1ª EXTENSÃO (EXTEND):</strong> Na sua IA de vídeo, clique no botão <strong>"EXTENDER" / "EXTEND (FLOW)"</strong> a partir dos 10.0s do Prompt 1 e cole este comando para demonstrar os detalhes do produto mantendo a consistência 100% contínua (10s a 20s).</span>
+                    </div>
+                    <div class="scene-prompt-text" id="scenePrompt2"></div>
                 </div>
-                <div class="scene-prompt-text" id="scenePrompt1"></div>
+
+                <!-- PROMPT 3: 2ª EXTENSÃO FLOW EXTEND + CARRINHO AMARELO (20s - 30s) -->
+                <div class="scene-card" style="border: 1px solid var(--accent-color); background: rgba(16, 185, 129, 0.05); margin-bottom: 24px;">
+                    <div class="scene-card-header">
+                        <div class="scene-title" style="color: var(--accent-color); font-weight: 700;">🛒 PROMPT 3: 2ª Extensão no Flow + Clique no Carrinho Amarelo (Extend 20.0s ➔ 20s a 30s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: var(--accent-color);">🔒 2ª Extensão + CTA Carrinho 👇</span>
+                        <button class="action-btn emerald" onclick="copyText('scenePrompt3')">📋 Copiar Prompt 3 (Extend 20s)</button>
+                    </div>
+                    <div class="flow-instruction-line" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">
+                        <span>💡 <strong>3. 2ª EXTENSÃO (EXTEND):</strong> Na sua IA de vídeo, clique no botão <strong>"EXTENDER" / "EXTEND (FLOW)"</strong> a partir dos 20.0s do Prompt 2 e cole este comando para o fechamento de conversão com clique e setas apontando para o <strong>Carrinho Amarelo</strong> (20s a 30s).</span>
+                    </div>
+                    <div class="scene-prompt-text" id="scenePrompt3"></div>
+                </div>
             </div>
 
-            <!-- PROMPT 2: 1ª EXTENSÃO FLOW EXTEND (10s - 20s) -->
-            <div class="scene-card" style="border: 1px solid #a855f7; background: rgba(168, 85, 247, 0.05); margin-bottom: 20px;">
-                <div class="scene-card-header">
-                    <div class="scene-title" style="color: #c084fc; font-weight: 700;">🔄 PROMPT 2: 1ª Extensão no Flow (Extend 10.0s ➔ 10s a 20s)</div>
-                    <span class="scene-badge-frame0" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: #a855f7;">🔒 1ª Extensão de Flow (10s-20s)</span>
-                    <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyText('scenePrompt2')">📋 Copiar Prompt 2 (Extend 10s)</button>
+            <!-- CONTAINER MODO 2: PRODUCT COMPILATION (CENA A CENA DE CADA PRODUTO) -->
+            <div id="veoCompilationContainer" style="display: none;">
+                <!-- PROMPT COMPILATION 1: FOTO DO 1º PRODUTO -->
+                <div class="scene-card" style="border: 1px solid var(--veo-cyan); background: rgba(6, 182, 212, 0.05); margin-bottom: 20px;">
+                    <div class="scene-card-header">
+                        <div class="scene-title" style="color: var(--veo-cyan); font-weight: 700;">🥇 PROMPT I2V 1: Foto do 1º Produto + Abertura da Lista (00s a 08s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(6, 182, 212, 0.2); color: var(--veo-cyan);">🔒 Frame 0 (Foto Prod 1)</span>
+                        <button class="action-btn cyan" onclick="copyText('sceneCompPrompt1')">📋 Copiar Prompt Prod 1</button>
+                    </div>
+                    <div class="flow-instruction-line" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3);">
+                        <span>💡 <strong>CENA 1:</strong> Anexe a foto de alta resolução do <strong>1º Produto</strong> como Frame 0 na IA de vídeo (Kling, Runway, Luma, Veo) e cole este prompt para iniciar a compilação com o gancho da lista.</span>
+                    </div>
+                    <div class="scene-prompt-text" id="sceneCompPrompt1"></div>
                 </div>
-                <div class="flow-instruction-line" style="background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3);">
-                    <span>💡 <strong>2. 1ª EXTENSÃO (EXTEND):</strong> Na sua IA de vídeo, clique no botão <strong>"EXTENDER" / "EXTEND (FLOW)"</strong> a partir dos 10.0s do Prompt 1 e cole este comando para demonstrar os detalhes do produto mantendo a consistência 100% contínua (10s a 20s).</span>
-                </div>
-                <div class="scene-prompt-text" id="scenePrompt2"></div>
-            </div>
 
-            <!-- PROMPT 3: 2ª EXTENSÃO FLOW EXTEND + CARRINHO AMARELO (20s - 30s) -->
-            <div class="scene-card" style="border: 1px solid var(--accent-color); background: rgba(16, 185, 129, 0.05); margin-bottom: 24px;">
-                <div class="scene-card-header">
-                    <div class="scene-title" style="color: var(--accent-color); font-weight: 700;">🛒 PROMPT 3: 2ª Extensão no Flow + Clique no Carrinho Amarelo (Extend 20.0s ➔ 20s a 30s)</div>
-                    <span class="scene-badge-frame0" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: var(--accent-color);">🔒 2ª Extensão + CTA Carrinho 👇</span>
-                    <button class="action-btn emerald" onclick="copyText('scenePrompt3')">📋 Copiar Prompt 3 (Extend 20s)</button>
+                <!-- PROMPT COMPILATION 2: FOTO DO 2º PRODUTO -->
+                <div class="scene-card" style="border: 1px solid #a855f7; background: rgba(168, 85, 247, 0.05); margin-bottom: 20px;">
+                    <div class="scene-card-header">
+                        <div class="scene-title" style="color: #c084fc; font-weight: 700;">🥈 PROMPT I2V 2: Foto do 2º Produto + Corte Dinâmico (08s a 16s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">🔒 Frame 0 (Foto Prod 2)</span>
+                        <button class="action-btn" style="background: #9333ea; color: white;" onclick="copyText('sceneCompPrompt2')">📋 Copiar Prompt Prod 2</button>
+                    </div>
+                    <div class="flow-instruction-line" style="background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3);">
+                        <span>💡 <strong>CENA 2:</strong> Anexe a foto do <strong>2º Produto</strong> na IA de vídeo e cole este prompt para gerar o corte rápido apresentando o segundo achadinho.</span>
+                    </div>
+                    <div class="scene-prompt-text" id="sceneCompPrompt2"></div>
                 </div>
-                <div class="flow-instruction-line" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">
-                    <span>💡 <strong>3. 2ª EXTENSÃO (EXTEND):</strong> Na sua IA de vídeo, clique no botão <strong>"EXTENDER" / "EXTEND (FLOW)"</strong> a partir dos 20.0s do Prompt 2 e cole este comando para o fechamento de conversão com clique e setas apontando para o <strong>Carrinho Amarelo</strong> (20s a 30s).</span>
+
+                <!-- PROMPT COMPILATION 3: FOTO DO 3º PRODUTO -->
+                <div class="scene-card" style="border: 1px solid var(--accent-color); background: rgba(16, 185, 129, 0.05); margin-bottom: 20px;">
+                    <div class="scene-card-header">
+                        <div class="scene-title" style="color: var(--accent-color); font-weight: 700;">🥉 PROMPT I2V 3: Foto do 3º Produto + Clímax da Lista (16s a 24s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">🔒 Frame 0 (Foto Prod 3)</span>
+                        <button class="action-btn emerald" onclick="copyText('sceneCompPrompt3')">📋 Copiar Prompt Prod 3</button>
+                    </div>
+                    <div class="flow-instruction-line" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">
+                        <span>💡 <strong>CENA 3:</strong> Anexe a foto do <strong>3º Produto</strong> na IA de vídeo e cole este prompt para revelar o terceiro achadinho em grande estilo.</span>
+                    </div>
+                    <div class="scene-prompt-text" id="sceneCompPrompt3"></div>
                 </div>
-                <div class="scene-prompt-text" id="scenePrompt3"></div>
+
+                <!-- PROMPT COMPILATION 4: FECHAMENTO NO CARRINHO -->
+                <div class="scene-card" style="border: 1px solid #f59e0b; background: rgba(245, 158, 11, 0.05); margin-bottom: 24px;">
+                    <div class="scene-card-header">
+                        <div class="scene-title" style="color: #fbbf24; font-weight: 700;">🛒 PROMPT I2V 4: Fechamento & Carrinho Alaranjado TikTok Shop (24s a 30s)</div>
+                        <span class="scene-badge-frame0" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🔒 CTA Carrinho 👇</span>
+                        <button class="action-btn" style="background: #d97706; color: white;" onclick="copyText('sceneCompPrompt4')">📋 Copiar Prompt Fechamento</button>
+                    </div>
+                    <div class="flow-instruction-line" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3);">
+                        <span>💡 <strong>CENA 4 (CTA):</strong> Utilize este prompt para a cena de fechamento com os itens reunidos e a mão/gesto apontando para a sacola de compras com frete grátis.</span>
+                    </div>
+                    <div class="scene-prompt-text" id="sceneCompPrompt4"></div>
+                </div>
             </div>
         </div>
 
@@ -836,6 +1109,77 @@
             productInput.value = '';
             productInput.placeholder = "Digite o nome do produto e a função principal...";
         }
+    }
+
+    let currentAppMode = 'single';
+
+    function setAppMode(mode) {
+        currentAppMode = mode;
+        const singleBtn = document.getElementById('modeSingleBtn');
+        const compBtn = document.getElementById('modeCompilationBtn');
+        const singleForm = document.getElementById('singleProductForm');
+        const compForm = document.getElementById('compilationProductForm');
+        const veoSingle = document.getElementById('veoSingleContainer');
+        const veoComp = document.getElementById('veoCompilationContainer');
+        const mainBtn = document.getElementById('mainGenerateBtn');
+        const roteiroHeaderLabel = document.getElementById('roteiroHeaderLabel');
+        const veoHeaderLabel = document.getElementById('veoHeaderLabel');
+        const captionTitle = document.getElementById('captionCardTitleText');
+
+        if (mode === 'compilation') {
+            singleBtn.classList.remove('active');
+            compBtn.classList.add('active');
+            singleForm.style.display = 'none';
+            compForm.style.display = 'block';
+            if (veoSingle) veoSingle.style.display = 'none';
+            if (veoComp) veoComp.style.display = 'block';
+            if (mainBtn) mainBtn.innerHTML = '<span>🛍️ Gerar Roteiro Compilation (Top 3) & Prompts I2V</span>';
+            if (roteiroHeaderLabel) roteiroHeaderLabel.textContent = 'Roteiro de Compilação TikTok Shop (Top 3 Achadinhos + Chamada para o Carrinho):';
+            if (veoHeaderLabel) veoHeaderLabel.textContent = 'Prompts I2V para Cada Produto da Compilação + Fechamento Carrinho:';
+            if (captionTitle) captionTitle.textContent = '🤖 Prompt para Gerar Título & Hashtags da Compilação na IA (1 Linha):';
+        } else {
+            compBtn.classList.remove('active');
+            singleBtn.classList.add('active');
+            compForm.style.display = 'none';
+            singleForm.style.display = 'block';
+            if (veoComp) veoComp.style.display = 'none';
+            if (veoSingle) veoSingle.style.display = 'block';
+            if (mainBtn) mainBtn.innerHTML = '<span>✨ Gerar Roteiro TikTok & Prompts Videos com Trava de Imagem</span>';
+            if (roteiroHeaderLabel) roteiroHeaderLabel.textContent = 'Roteiro Otimizado para Alta Conversão (Fala + Textos Hipnóticos na Tela + Carrinho Amarelo):';
+            if (veoHeaderLabel) veoHeaderLabel.textContent = 'Sequência de Prompts no Flow Extend (00s a 30s):';
+            if (captionTitle) captionTitle.textContent = '🤖 Prompt Pronto para Gerar Título & Hashtags na IA (Padrão TikTok em 1 Linha):';
+        }
+
+        updateFixedPromptsPreview();
+    }
+
+    function updateCompThemeSuggestions() {
+        const cat = document.getElementById('compCategory').value;
+        const hook = document.getElementById('compHookStyle').value;
+        const themeInput = document.getElementById('compThemeCustom');
+        if (!themeInput) return;
+
+        let suggestion = "3 Achadinhos do TikTok Shop que Você Precisa Conhecer";
+        if (cat.includes('Religiosos') || cat.includes('Fé')) {
+            if (hook === 'achadinhos_economicos') suggestion = "3 Achadinhos de Fé do TikTok Shop por Menos de R$ 35";
+            else if (hook === 'parece_caro') suggestion = "3 Itens Sagrados do TikTok Shop que Parecem de Luxo";
+            else if (hook === 'transforma_ambiente') suggestion = "3 Coisas que Mudaram Totalmente a Paz da Minha Casa";
+            else if (hook === 'presentes_especiais') suggestion = "Top 3 Presentes Mais Abençoados para Quem Você Ama";
+            else suggestion = "3 Achadinhos de Fé que Transformam Qualquer Momento com Deus";
+        } else if (cat.includes('Acessórios') || cat.includes('Joias')) {
+            if (hook === 'parece_caro') suggestion = "Top 3 Semijoias do TikTok Shop que Parecem de R$ 500";
+            else if (hook === 'achadinhos_economicos') suggestion = "3 Acessórios Baratinhos que Valorizam Qualquer Look";
+            else suggestion = "3 Joias do TikTok Shop que Todo Mundo me Pergunta Onde Comprei";
+        } else if (cat.includes('Casa') || cat.includes('Cozinha')) {
+            suggestion = "3 Hacks de Cozinha do TikTok Shop que Facilitam a Vida";
+        } else if (cat.includes('Beleza')) {
+            suggestion = "Top 3 Achadinhos de Skincare Virais do TikTok Shop";
+        } else {
+            suggestion = "Top 3 Achadinhos do TikTok Shop que Realmente Valem a Pena";
+        }
+
+        themeInput.value = suggestion;
+        updateFixedPromptsPreview();
     }
 
     function switchTab(tabId) {
@@ -885,14 +1229,43 @@
     }
 
     function getCaptionPromptForAI() {
+        const includeBrand = document.getElementById('brandSignature') ? document.getElementById('brandSignature').checked : true;
+        const brandRule = includeBrand ? `\n5. ASSINATURA DE MARCA OBRIGATÓRIA: Inclua no final da legenda a frase de autoridade: "Você só encontra aqui: Achadinhos de Jesus! 🙏✨"` : '';
+
+        if (currentAppMode === 'compilation') {
+            const category = document.getElementById('compCategory').value;
+            const theme = document.getElementById('compThemeCustom').value.trim() || "Top 3 Achadinhos do TikTok Shop";
+            const p1 = document.getElementById('compProd1Name').value.trim() || "1º Produto da Lista";
+            const p2 = document.getElementById('compProd2Name').value.trim() || "2º Produto da Lista";
+            const p3 = document.getElementById('compProd3Name').value.trim() || "3º Produto da Lista";
+
+            return `Atue como o maior especialista em SEO, Algoritmo e Conversão do TikTok Shop.
+
+Com base nesta COMPILAÇÃO DE PRODUTOS (VÍDEO DE LISTA / TOP 3 ACHADINHOS):
+🎯 TEMA DO VÍDEO: ${theme}
+📦 NICHO: ${category}
+🛍️ PRODUTOS DA LISTA:
+1. ${p1}
+2. ${p2}
+3. ${p3}
+💰 CHAMADA: Link e frete grátis para todos os produtos no carrinho alaranjado.
+
+SUA TAREFA OBRIGATÓRIA (PADRÃO TIKTOK EM UMA ÚNICA LINHA):
+Crie a legenda perfeita configurada para o algoritmo do TikTok Shop indexar nas buscas (SEO) e entregar o vídeo no feed "Para Você" (FYP).
+
+REGRAS RÍGIDAS DE RETENÇÃO E ALGORITMO:
+1. TÍTULO/LEGENDA: Frase inicial ultra-curta e hipnótica anunciando o Top 3 / Lista com emojis (ex: "Top 3 achadinhos que você precisa ter..."), perguntando qual foi o favorito do público e chamando para clicar no link do carrinho amarelo com emojis (👇🛒).
+2. PALAVRAS-CHAVE SEO: Inclua os termos exatos que as pessoas pesquisam no TikTok para achar achadinhos desse nicho.
+3. HASHTAGS ESTRATÉGICAS: Coloque de 5 a 7 hashtags de alto volume misturando tags de compra (#TikTokShop, #Achadinhos, #Top3, #CompreiNoTikTok, #TikTokMadeMeBuyIt) com tags do nicho.
+4. FORMATO: Devolva OBRIGATORIAMENTE em UMA ÚNICA LINHA, pronta apenas para eu copiar e colar no TikTok. Não inclua introduções, explicações, quebras de linha nem aspas.${brandRule}`;
+        }
+
         const category = document.getElementById('productCategory').value;
         const productName = document.getElementById('productName').value.trim() || "Produto em Destaque";
         const hookSelect = document.getElementById('hookType');
         const hookText = hookSelect.value === 'none' ? "Gancho Orgânico Viral (IA Livre)" : hookSelect.options[hookSelect.selectedIndex].text;
         const salesHook = document.getElementById('salesHook').value;
         const salesHookText = salesHook === 'none' ? "Oferta Exclusiva / Condição Especial no Carrinho Amarelo" : salesHook;
-        const includeBrand = document.getElementById('brandSignature') ? document.getElementById('brandSignature').checked : true;
-        const brandRule = includeBrand ? `\n5. ASSINATURA DE MARCA OBRIGATÓRIA: Inclua no final da legenda a frase de autoridade: "Você só encontra aqui: Achadinhos de Jesus! 🙏✨"` : '';
 
         return `Atue como o maior especialista em SEO, Algoritmo e Conversão do TikTok Shop.
 
@@ -922,6 +1295,34 @@ REGRAS RÍGIDAS DE RETENÇÃO E ALGORITMO:
     }
 
     function copyAllVeoScenes() {
+        if (currentAppMode === 'compilation') {
+            const p1 = document.getElementById('sceneCompPrompt1').innerText;
+            const p2 = document.getElementById('sceneCompPrompt2').innerText;
+            const p3 = document.getElementById('sceneCompPrompt3').innerText;
+            const p4 = document.getElementById('sceneCompPrompt4').innerText;
+
+            const allCompScenes = `[PROMPTS TÉCNICOS IMAGE-TO-VIDEO: COMPILAÇÃO MULTI-PRODUTOS TIKTOK SHOP]
+
+=== CENA 1: 1º PRODUTO + GANCHO DA LISTA (00s a 08s) ===
+${p1}
+
+=== CENA 2: 2º PRODUTO + CORTE DINÂMICO (08s a 16s) ===
+${p2}
+
+=== CENA 3: 3º PRODUTO + CLÍMAX DA LISTA (16s a 24s) ===
+${p3}
+
+=== CENA 4: FECHAMENTO & CARRINHO ALARANJADO (24s a 30s) ===
+${p4}`;
+
+            navigator.clipboard.writeText(allCompScenes).then(() => {
+                showToast('✅ Todos os Prompts da Compilação foram copiados!');
+            }).catch(() => {
+                showToast('Erro ao copiar.', true);
+            });
+            return;
+        }
+
         const p1 = document.getElementById('scenePrompt1').innerText;
         const p2 = document.getElementById('scenePrompt2').innerText;
         const p3 = document.getElementById('scenePrompt3').innerText;
@@ -944,7 +1345,7 @@ ${p3}`;
         });
     }
 
-    function generateAll() {
+    function generateSingleProduct() {
         const category = document.getElementById('productCategory').value;
         const photoType = document.getElementById('photoType').value;
         let productName = document.getElementById('productName').value.trim();
@@ -1285,7 +1686,268 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
         showToast('✨ Roteiro, Prompts e Prompt de Hashtags gerados com sucesso!');
     }
 
+    function generateCompilation() {
+        const category = document.getElementById('compCategory').value;
+        const hookStyle = document.getElementById('compHookStyle').value;
+        let theme = document.getElementById('compThemeCustom').value.trim();
+        if (!theme) {
+            theme = "3 Achadinhos do TikTok Shop que Você Precisa Conhecer";
+        }
+
+        let p1Name = document.getElementById('compProd1Name').value.trim() || "1º Achadinho Especial";
+        let p1Detail = document.getElementById('compProd1Detail').value.trim() || "por menos de R$ 30 e com qualidade impecável";
+
+        let p2Name = document.getElementById('compProd2Name').value.trim() || "2º Achadinho Favorito";
+        let p2Detail = document.getElementById('compProd2Detail').value.trim() || "acabamento de luxo que parece que custou caro";
+
+        let p3Name = document.getElementById('compProd3Name').value.trim() || "3º Achadinho Imperdível";
+        let p3Detail = document.getElementById('compProd3Detail').value.trim() || "o mais impressionante de todos que todo mundo quer";
+
+        const salesHook = document.getElementById('compSalesHook').value;
+        const presenter = document.getElementById('compPresenter').value;
+        const productInteraction = document.getElementById('productInteraction').value;
+        const strictFidelity = document.getElementById('strictFidelity').checked;
+        const includeBrand = document.getElementById('brandSignature') ? document.getElementById('brandSignature').checked : true;
+
+        let salesText = "";
+        let salesAudio = "";
+        if (salesHook === 'frete_gratis') {
+            salesText = "Frete Grátis em todos os itens + Cupom de primeira compra";
+            salesAudio = "Todos os 3 produtos estão no carrinho alaranjado aqui embaixo com frete grátis e cupom de primeira compra!";
+        } else if (salesHook === 'estoque_baixo') {
+            salesText = "Alerta de Estoque Esgotando em todos os itens";
+            salesAudio = "Todos eles estão com estoque baixíssimo no carrinho alaranjado por causa da viralização, então corre antes que zere!";
+        } else if (salesHook === 'menos_que_lanche') {
+            salesText = "Preço super baratinho (Menos que um lanche)";
+            salesAudio = "Cada um desses achadinhos custa menos que um lanche no carrinho alaranjado!";
+        } else {
+            salesText = "Desconto progressivo no frete para a lista completa";
+            salesAudio = "E se você levar os itens juntos, garante desconto especial no frete no carrinho alaranjado!";
+        }
+
+        const isReligious = category.includes('Religiosos') || category.includes('Fé') || presenter === 'religioso_fe';
+
+        let hookIntroAudio = "";
+        if (isReligious) {
+            hookIntroAudio = `Que a paz de Deus esteja com você! Olha esses 3 achadinhos abençoados que encontrei no TikTok Shop! [pausa de 0.3s]`;
+        } else {
+            hookIntroAudio = `Para tudo o que você está fazendo e olha esses 3 achadinhos virais do TikTok Shop! [pausa de 0.3s]`;
+        }
+
+        let brandEndingBlock = "";
+        if (includeBrand) {
+            brandEndingBlock = `
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✨ [30s - 32s] VINHETA & ASSINATURA EXCLUSIVA DA MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: Os 3 produtos permanecem em destaque sob luz reluzente com o selo central.
+📝 Texto na Tela: "VOCÊ SÓ ENCONTRA AQUI: ACHADINHOS DE JESUS! 🙏✨"
+🗣️ Fala: "E lembre-se: achadinhos abençoados assim você só encontra aqui no Achadinhos de Jesus! Já segue o perfil!"
+🎯 Autoridade: Bordão oficial de conversão e retenção comunitária.`;
+        }
+
+        // 1. ROTEIRO DE COMPILAÇÃO
+        const scriptCompilation = `📱 ROTEIRO TIKTOK SHOP — PRODUCT COMPILATION (TOP 3 ACHADINHOS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 Tema da Compilação: ${theme}
+📦 Nicho: ${category}
+⏱️ Duração Estimada: 30 a 32 segundos (Ritmo Dinâmico & Alta Retenção)
+🛒 Estratégia de Carrinho: ${salesText}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧲 [00s - 03s] GANCHO DE ABERTURA HIPNÓTICO (STOP SCROLL)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: Corte rápido e panorâmico mostrando os 3 produtos alinhados sobre a mesa com iluminação impecável de estúdio.
+📝 Texto na Tela: "${theme.toUpperCase()}! 🔥👇"
+🗣️ Fala: "${hookIntroAudio}"
+💡 Efeito Psicológico: Promessa da lista (Listicle) retém a audiência para descobrir quais são os 3 itens.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🥇 [03s - 10s] 1º ACHADINHO: ${p1Name.toUpperCase()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: Close macro no 1º produto. Mãos ajeitam e movimentam a peça suavemente revelando material, texturas e reflexos.
+📝 Texto na Tela: "1. ${p1Name.toUpperCase()} 🏷️"
+🗣️ Fala: "O primeiro é esse ${p1Name}! Olha a perfeição dos detalhes na mão, ${p1Detail}! É aquele tipo de item que todo mundo que vê pergunta onde comprei!"
+💡 Efeito: Choque de qualidade no primeiro item da compilação.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🥈 [10s - 18s] 2º ACHADINHO: ${p2Name.toUpperCase()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: Corte seco dinâmico com efeito de transição. O 2º produto é apresentado em ângulo POV sendo manuseado com destaque.
+📝 Texto na Tela: "2. ${p2Name.toUpperCase()} ✨"
+🗣️ Fala: "Agora o segundo é o meu favorito disparado: ${p2Name}! ${p2Detail}. Quem vê jura que custou uma fortuna, mas o preço é inacreditável!"
+💡 Efeito: Mantém o cérebro em pico de dopamina ao revelar o segundo item.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🥉 [18s - 25s] 3º ACHADINHO: ${p3Name.toUpperCase()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: Transição de impacto revelando o 3º produto em pleno uso ou com iluminação realçada.
+📝 Texto na Tela: "3. ${p3Name.toUpperCase()} 😱"
+🗣️ Fala: "E o terceiro é esse ${p3Name}! Olha que bênção de peça, ${p3Detail}! Esse aqui você precisa garantir antes que o lote acabe!"
+💡 Efeito: Clímax de desejo acumulado antes da chamada de compra.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🛒 [25s - 30s] FECHAMENTO & CONVERSÃO COLETIVA NO CARRINHO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎬 Ação Visual: Câmera afasta mostrando os 3 produtos reunidos na bancada. Dedo indicador aponta com firmeza para o canto inferior esquerdo onde fica a sacola/carrinho alaranjado do TikTok Shop, com setas pulsantes.
+📝 Texto na Tela: "TODOS NO CARRINHO ALARANJADO 👇🛒 FRETE GRÁTIS!"
+🗣️ Fala: "${salesAudio} Qual desses 3 foi o seu favorito? Clica no carrinho aqui embaixo e comenta aqui!"
+💡 Gatilho de Compra: Converte tanto quem gostou do produto 1, do 2 ou do 3.${brandEndingBlock}`;
+
+        // 2. PROMPT DE LEGENDA & HASHTAGS PARA IA
+        const captionPromptAI = getCaptionPromptForAI();
+
+        // 3. PROMPTS DE VÍDEO (I2V PARA CADA PRODUTO)
+        let interactionDirective = "";
+        if (productInteraction === 'maos_luvas_negras') {
+            interactionDirective = "Mãos elegantes vestindo luvas pretas de joalheria de luxo (exatamente no máximo 2 mãos na cena, zero 3ª mão) seguram o produto delicadamente.";
+        } else if (productInteraction === 'maos_femininas_delicadas') {
+            interactionDirective = "Mãos femininas delicadas e bem cuidadas (exatamente no máximo 2 mãos, zero mão extra) ajeitam e mostram o produto com suavidade.";
+        } else if (productInteraction === 'maos_masculinas_firmes') {
+            interactionDirective = "Mãos masculinas limpas e firmes (no máximo 2 mãos) seguram o item com segurança demonstrando sua construção sólida.";
+        } else {
+            interactionDirective = "Mãos humanas reais (no máximo 2 mãos humanas na cena, estritamente proibido 3ª mão) interagem de forma natural com o produto sem cobrir detalhes.";
+        }
+
+        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO & ANATOMIA HUMANA]:
+1. REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da tomada. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto no início da cena. A gravação deve continuar diretamente dos pixels da foto.
+2. TRAVA GEOMÉTRICA DE OBJETO RÍGIDO: O produto é uma peça sólida, física e imutável. Mantenha com precisão cirúrgica todas as cores, texturas, proporções e contornos da foto anexada.
+3. TRAVA MANDATÓRIA DE ANATOMIA HUMANA: ESTRITAMENTE NO MÁXIMO 2 MÃOS HUMANAS na cena (1 esquerda e 1 direita). Proibido alucinar 3 mãos ou membros adicionais.\n\n` : `[TRAVA ANTI-ALUCINAÇÃO]: No máximo 2 mãos humanas visíveis na cena (proibido 3ª mão).\n\n`;
+
+        const pComp1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 1 de 4: 00s a 08s).
+PRODUTO 1: ${p1Name} (${p1Detail}). Anexe a foto do Produto 1 como Frame 0.
+DIREÇÃO DE CENA: A cena inicia diretamente nos pixels da foto anexada com foco macro nítido. ${interactionDirective}
+MOVIMENTO DE CÂMERA: Movimento linear suave de aproximação revelando o acabamento impecável do 1º achadinho da lista.
+ATMOSFERA VISUAL: Iluminação suave e difusa de estúdio comercial a 45°, cores fiéis à foto anexada, profundidade de campo suave.`;
+
+        const pComp2 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 2 de 4: 08s a 16s).
+PRODUTO 2: ${p2Name} (${p2Detail}). Anexe a foto do Produto 2 como Frame 0.
+DIREÇÃO DE CENA: Corte rápido de transição cinematográfica. A cena inicia a partir da foto do 2º produto. ${interactionDirective}
+MOVIMENTO DE CÂMERA: Panorâmica suave destacando os detalhes do item enquanto a luz desliza pela superfície.
+ATMOSFERA VISUAL: Continuidade de iluminação difusa de estúdio, mantendo o padrão visual da compilação.`;
+
+        const pComp3 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 3 de 4: 16s a 24s).
+PRODUTO 3: ${p3Name} (${p3Detail}). Anexe a foto do Produto 3 como Frame 0.
+DIREÇÃO DE CENA: Transição revelando o 3º produto em grande estilo. ${interactionDirective}
+MOVIMENTO DE CÂMERA: Movimento de câmera dinâmico com enquadramento frontal privilegiado realçando o produto.
+ATMOSFERA VISUAL: Iluminação elegante de estúdio, nitidez cristalina e fidelidade absoluta à foto anexada.`;
+
+        const pComp4 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 4 de 4 - Fechamento: 24s a 30s).
+CENÁRIO: Bancada elegante de estúdio com os 3 produtos (${p1Name}, ${p2Name}, ${p3Name}) dispostos harmoniosamente.
+AÇÃO VISUAL: Uma mão com gesto claro e persuasivo aponta com firmeza para o canto inferior esquerdo da tela (onde localiza-se o carrinho alaranjado do TikTok Shop).
+ELEMENTOS NA TELA: Setas luminosas sutis indicando o carrinho de compras.
+ATMOSFERA VISUAL: Iluminação acolhedora e convidativa de fechamento de alta conversão.`;
+
+        const fullDocument = `══════════════════════════════════════════════════════════════════════
+📄 PACOTE COMPLETO: PRODUCT COMPILATION TIKTOK SHOP (TOP 3 ACHADINHOS)
+══════════════════════════════════════════════════════════════════════
+🎯 TEMA: ${theme}
+📦 NICHO: ${category}
+🛍️ PRODUTOS:
+1. ${p1Name} (${p1Detail})
+2. ${p2Name} (${p2Detail})
+3. ${p3Name} (${p3Detail})
+
+══════════════════════════════════════════════════════════════════════
+🤖 PROMPT DE TÍTULO & HASHTAGS PARA IA (PADRÃO TIKTOK EM 1 LINHA):
+══════════════════════════════════════════════════════════════════════
+${captionPromptAI}
+
+══════════════════════════════════════════════════════════════════════
+📱 ROTEIRO TIKTOK SHOP COMPILATION:
+══════════════════════════════════════════════════════════════════════
+${scriptCompilation}
+
+══════════════════════════════════════════════════════════════════════
+🎬 PROMPTS TÉCNICOS IMAGE-TO-VIDEO (CENA A CENA):
+══════════════════════════════════════════════════════════════════════
+
+--- CENA 1: 1º PRODUTO + GANCHO DA LISTA (00s a 08s) ---
+${pComp1}
+
+--- CENA 2: 2º PRODUTO + CORTE DINÂMICO (08s a 16s) ---
+${pComp2}
+
+--- CENA 3: 3º PRODUTO + CLÍMAX DA LISTA (16s a 24s) ---
+${pComp3}
+
+--- CENA 4: FECHAMENTO & CARRINHO ALARANJADO (24s a 30s) ---
+${pComp4}
+
+══════════════════════════════════════════════════════════════════════
+TRAVAS TÉCNICAS E DIRETRIZES:
+- Ancoragem rígida de Frame 0 para cada foto anexada;
+- Trava Anatômica: Estritamente no máximo 2 mãos humanas por cena (zero 3ª mão);
+- Chamada enfática para os múltiplos produtos linkados no carrinho alaranjado.
+══════════════════════════════════════════════════════════════════════`;
+
+        // Preenche campos da interface
+        document.getElementById('outputRoteiro').value = scriptCompilation;
+        document.getElementById('outputPromptAI').value = captionPromptAI;
+        document.getElementById('sceneCompPrompt1').innerText = pComp1;
+        document.getElementById('sceneCompPrompt2').innerText = pComp2;
+        document.getElementById('sceneCompPrompt3').innerText = pComp3;
+        document.getElementById('sceneCompPrompt4').innerText = pComp4;
+        document.getElementById('outputCompleto').value = fullDocument;
+
+        // Exibe resultados
+        const outputGroup = document.getElementById('outputGroup');
+        outputGroup.style.display = 'block';
+        outputGroup.scrollIntoView({ behavior: 'smooth' });
+
+        showToast('🛍️ Roteiro de Compilação (Top 3) e Prompts I2V gerados com sucesso!');
+    }
+
+    function generateAll() {
+        if (currentAppMode === 'compilation') {
+            generateCompilation();
+        } else {
+            generateSingleProduct();
+        }
+    }
+
     function updateFixedPromptsPreview() {
+        if (currentAppMode === 'compilation') {
+            const p1 = document.getElementById('compProd1Name') ? document.getElementById('compProd1Name').value.trim() : '';
+            const p2 = document.getElementById('compProd2Name') ? document.getElementById('compProd2Name').value.trim() : '';
+            const p3 = document.getElementById('compProd3Name') ? document.getElementById('compProd3Name').value.trim() : '';
+            const theme = document.getElementById('compThemeCustom') ? document.getElementById('compThemeCustom').value.trim() : '3 Achadinhos do TikTok Shop que Você Precisa Conhecer';
+            const cat = document.getElementById('compCategory') ? document.getElementById('compCategory').value : '✝️ Artigos Religiosos, Livros & Fé';
+
+            const p1Text = p1 || '1º Produto da Lista';
+            const p2Text = p2 || '2º Produto da Lista';
+            const p3Text = p3 || '3º Produto da Lista';
+
+            const compFixedP1 = `Com base nas imagens dos 3 produtos anexados desta COMPILAÇÃO (TOP 3 ACHADINHOS):
+1. ${p1Text}
+2. ${p2Text}
+3. ${p3Text}
+TEMA DO VÍDEO: "${theme}"
+NICHO: ${cat}
+
+Crie um STORYBOARD UGC completo, dinâmico e de alta conversão para o TikTok Shop estruturado no formato de LISTA (TOP 3 ACHADINHOS).
+
+O STORYBOARD deve seguir um ritmo rápido e envolvente (30 a 32 segundos no total):
+- Cena 1: GANCHO DA LISTA (00s-03s) prendendo a atenção instantaneamente mostrando os produtos alinhados;
+- Cena 2: 1º ACHADINHO (${p1Text}) - Revelação e destaque de benefício rápido (03s-10s);
+- Cena 3: 2º ACHADINHO (${p2Text}) - O favorito da lista / quebra de padrão (10s-18s);
+- Cena 4: 3º ACHADINHO (${p3Text}) - O mais surpreendente / clímax do vídeo (18s-25s);
+- Cena Final: FECHAMENTO & CTA COLETIVO (25s-30s) apontando para o carrinho alaranjado com frete grátis em todos os itens.
+
+✝️ REGRA DE CONEXÃO COM O PÚBLICO:
+Destaque o valor prático, a beleza e a bênção de ter esses itens no lar ou presentear quem se ama.
+Linguagem natural no estilo de recomendação sincera ("eu não vivo sem isso", "olha o detalhe desse acabamento").`;
+
+            const compFixedP2 = `Crie um vídeo de compilação multi-produtos estilo POV baseado neste storyboard para os 3 produtos (${p1Text}, ${p2Text}, ${p3Text}).`;
+
+            const preview1 = document.getElementById('fixedPrompt1Text');
+            const preview2 = document.getElementById('fixedPrompt2Text');
+            if (preview1) preview1.value = compFixedP1;
+            if (preview2) preview2.value = compFixedP2;
+            return;
+        }
+
         const productName = document.getElementById('productName') ? document.getElementById('productName').value.trim() : '';
         const category = document.getElementById('productCategory') ? document.getElementById('productCategory').value : '';
         
@@ -1474,7 +2136,7 @@ Quando possível, criar uma conexão emocional com o público cristão de forma 
         });
     }
 
-    // Inicialização: garante que o campo do produto esteja 100% vazio e sem resíduos
+    // Inicialização: garante que os campos estejam prontos e listeners ativos
     window.addEventListener('DOMContentLoaded', () => {
         const productInput = document.getElementById('productName');
         if (productInput) {
@@ -1482,6 +2144,10 @@ Quando possível, criar uma conexão emocional com o público cristão de forma 
             productInput.placeholder = "Digite o nome do produto e a função principal...";
             productInput.addEventListener('input', updateFixedPromptsPreview);
         }
+        ['compProd1Name', 'compProd2Name', 'compProd3Name', 'compThemeCustom'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', updateFixedPromptsPreview);
+        });
         updateFixedPromptsPreview();
     });
 </script>
