@@ -609,7 +609,13 @@
 <div class="container">
     <div class="header-badge-row">
         <div class="tag-badge">
-            <span>⚡ TikTok Shop Conversão</span>
+            <span>⚡ v1.9.1</span>
+        </div>
+        <div class="tag-badge" style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171;">
+            <span>🚫 Zero Marca D'água (Clean Plate)</span>
+        </div>
+        <div class="tag-badge">
+            <span>🛍️ Modo Product Compilation</span>
         </div>
         <div class="tag-badge cyan">
             <span>🎬 Image-to-Video Prompts</span>
@@ -871,7 +877,7 @@
 
         <div class="veo-box-header">
             <div class="veo-box-title">
-                <span>🛡️ Trava de Frame 0 & Diretriz Anti-Distorção</span>
+                <span>🛡️ Trava de Frame 0, Anti-Alucinação & Clean Plate (Sem Marca D'água)</span>
             </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="strictFidelity" checked>
@@ -884,7 +890,7 @@
 
         <div class="clause-preview">
             📌 <strong>Texto que será inserido no topo do prompt:</strong><br>
-            <em>"REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da cena. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto. Trate-o como peça sólida, física e imutável..."</em>
+            <em>"REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato... ZERO WATERMARK / CLEAN PLATE: É terminantemente PROIBIDO gerar marca d'água, logo do TikTok, textos ou elementos de interface na imagem..."</em>
         </div>
 
         <div class="row" style="margin-top: 16px;">
@@ -936,7 +942,7 @@
                         📋 2. Copiar Prompt de Vídeo
                     </button>
                 </div>
-                <input type="text" id="fixedPrompt2Text" class="result-box" style="height: 38px; padding: 8px 12px; font-size: 0.85rem; background: #090e17; color: #38bdf8; border: 1px solid #1e293b;" readonly value="Crie um vídeo baseado neste story board estilo POV.">
+                <input type="text" id="fixedPrompt2Text" class="result-box" style="height: 38px; padding: 8px 12px; font-size: 0.85rem; background: #090e17; color: #38bdf8; border: 1px solid #1e293b;" readonly value="Crie um vídeo baseado neste story board estilo POV. Filmagem 100% limpa (clean plate), vertical 9:16 de smartphone, sem marca d'água, sem logo do TikTok, sem botões de interface e sem textos na imagem.">
             </div>
         </div>
     </div>
@@ -1582,20 +1588,21 @@ Formato de Apresentação: ${presentationText}
             ? `\n4. TRAVA DE JOALHERIA & METAL RÍGIDO (FOTO FRAME 0): O produto é uma peça metálica/joia sólida com aros, texturas e contornos originais imutáveis. É terminantemente PROIBIDO fundir o metal com a pele, deformar a estrutura dos aros do bracelete/anel/colar ou derreter o banho de ouro. A iluminação deve apenas deslizar pelos reflexos metálicos preservando a geometria 100% autêntica da foto anexada.` 
             : '';
 
-        // CLÁUSULA MANDATÓRIA POSICIONADA NO TOPO (INCLUI A TRAVA RIGIDA DE NO MÁXIMO 2 MÃOS)
-        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO & ANATOMIA HUMANA]:
+        // CLÁUSULA MANDATÓRIA POSICIONADA NO TOPO (FRAME 0 + TRAVA ANATÔMICA + ZERO WATERMARK CLEAN PLATE)
+        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO, ANATOMIA & CLEAN PLATE]:
 1. REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da tomada. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto no início da cena. A gravação deve continuar diretamente dos pixels da foto.
 2. TRAVA GEOMÉTRICA DE OBJETO RÍGIDO: O produto é uma peça sólida, física e imutável. Mantenha com precisão cirúrgica todas as cores, texturas, botões, proporções, logotipos e contornos da foto anexada.
 3. PROIBIÇÃO ABSOLUTA: Proibido girar o produto em 360 graus, derreter arestas, esticar peças ou criar componentes que não existam na foto anexada.
 4. TRAVA MANDATÓRIA DE ANATOMIA HUMANA (MÁXIMO DE 2 MÃOS / ZERO 3ª MÃO): É TERMINANTEMENTE PROIBIDO GERAR 3 MÃOS, MÃOS FLUTUANTES, BRAÇOS ADICIONAIS OU DEDOS CLONADOS. A cena deve conter NO MÁXIMO UM ÚNICO PAR DE MÃOS HUMANAS (exatamente até 2 mãos reais: 1 esquerda e 1 direita). Nenhuma terceira mão pode aparecer em hipótese alguma.${jewelryLock}
+5. TRAVA MANDATÓRIA ZERO WATERMARK & CLEAN PLATE (FILMAGEM 100% LIMPA): É TERMINANTEMENTE PROIBIDO gerar qualquer marca d'água, logotipo do TikTok, símbolos, textos gerados na imagem, legendas, carimbos de data/hora ou ícones de interface/aplicativo (sem HUD, sem botões de tela). O vídeo deve ser gravado como filmagem pura de câmera de alta qualidade (clean plate / raw video).
 
-` : `[TRAVA MANDATÓRIA ANTI-ALUCINAÇÃO DE MÃOS]: A cena deve conter ESTRITAMENTE NO MÁXIMO 2 MÃOS HUMANAS (1 único par de mãos). É terminantemente PROIBIDO alucinar 3 mãos ou membros adicionais.\n\n`;
+` : `[TRAVA ANTI-ALUCINAÇÃO & ZERO MARCA D'ÁGUA]: A cena deve conter ESTRITAMENTE NO MÁXIMO 2 MÃOS HUMANAS e filmagem 100% limpa (TERMINANTEMENTE PROIBIDO gerar marca d'água, logo do TikTok, textos ou elementos de interface na cena).\n\n`;
 
         // DNA DE CONSISTÊNCIA VISUAL COMPARTILHADO ENTRE CENAS
-        const sharedStudioDNA = "ATMOSFERA & DNA VISUAL PADRONIZADO: Mesma iluminação suave e difusa de estúdio comercial a 45°, foco cristalino, profundidade de campo suave, cores e materiais 100% autênticos à foto de referência em todas as tomadas para máxima continuidade cinematográfica. TRAVA ANATÔMICA: No máximo 2 mãos humanas visíveis (zero alucinação de 3ª mão).";
+        const sharedStudioDNA = "ATMOSFERA & DNA VISUAL PADRONIZADO: Mesma iluminação suave e difusa de estúdio comercial a 45°, foco cristalino, profundidade de campo suave, cores e materiais 100% autênticos à foto de referência em todas as tomadas para máxima continuidade cinematográfica. TRAVA ANATÔMICA & CLEAN PLATE: No máximo 2 mãos humanas visíveis e zero marca d'água/logos de aplicativo.";
 
         // PROMPTS ESTRUTURADOS EM SEQUÊNCIA FLOW EXTEND (30 SEGUNDOS - 3 PROMPTS ENCADEADOS)
-        const pVeo1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok no padrão FLOW EXTEND (00s a 10s - Prompt 1 Inicial).
+        const pVeo1 = `${strictI2VHeader}Vídeo vertical 9:16 em estilo UGC realista e limpo no padrão FLOW EXTEND (00s a 10s - Prompt 1 Inicial - Sem marca d'água).
 PRODUTO DE REFERÊNCIA: ${productName} (Foto anexada como Frame 0 original).
 
 [PROMPT 1 - GERAÇÃO INICIAL & GANCHO DEVOCIONAL/RELIGIOSO (00s a 10s)]:
@@ -1605,23 +1612,23 @@ INTERAÇÃO FÍSICA & APRESENTAÇÃO: ${interactionDirective}
 NARRATIVA & GANCHO DEVOCIONAL: ${hookExample}
 ${sharedStudioDNA}`;
 
-        const pVeo2 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 2 (10s a 20s EXTEND 10.0s)]:
-1. REGRA DE EXTENSÃO DE FLOW: Na sua IA de vídeo, clique em "Estender / Extend (Flow)" a partir dos 10.0s do Prompt 1. É terminantemente PROIBIDO alterar o cenário, a iluminação de estúdio ou a estrutura física do produto. Mantenha 100% de continuidade fluida sem saltos visuais.
-2. DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA: O produto é demonstrado em velocidade real com riqueza de detalhes, evidenciando o acabamento autêntico e a qualidade do item (respeitando o limite estrito de no máximo 2 mãos humanas na cena).
+        const pVeo2 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 2 (10s a 20s EXTEND 10.0s - SEM MARCA D'ÁGUA)]:
+1. REGRA DE EXTENSÃO DE FLOW: Na sua IA de vídeo, clique em "Estender / Extend (Flow)" a partir dos 10.0s do Prompt 1. É terminantemente PROIBIDO alterar o cenário, a iluminação de estúdio ou a estrutura física do produto. Mantenha 100% de continuidade fluida sem saltos visuais e sem marcas d'água.
+2. DEMONSTRAÇÃO E SOLUÇÃO DO PROBLEMA: O produto é demonstrado em velocidade real com riqueza de detalhes, evidenciando o acabamento autêntico e a qualidade do item (respeitando o limite estrito de no máximo 2 mãos humanas na cena e filmagem 100% limpa).
 
 PRODUTO DE REFERÊNCIA: ${productName} (Extensão de Flow a partir dos 10.0s do Prompt 1).
 DIREÇÃO DE CÂMERA: Movimento linear lento e contínuo de aproximação suave e enquadramento frontal estável.
 INTERAÇÃO FÍSICA: ${interactionDirective}
 ${sharedStudioDNA}`;
 
-        const pVeo3 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 3 (20s a 30s EXTEND 20.0s + CARRINHO AMARELO)]:
+        const pVeo3 = `${strictI2VHeader}[DIRETRIZ MANDATÓRIA DE EXTENSÃO CONTINUA DE FLOW - PROMPT 3 (20s a 30s EXTEND 20.0s - CLEAN PLATE)]:
 1. REGRA DE EXTENSÃO DE FLOW FINAL: Na sua IA de vídeo, clique em "Estender / Extend (Flow)" a partir dos 20.0s do Prompt 2. Mantenha 100% de continuidade da cena anterior.
-2. CHAMADA DECISIVA COM CLIQUE NO CARRINHO AMARELO: O apresentador ou as mãos (máximo 2 mãos humanas na tela) executam um gesto claro apontando e clicando em direção ao canto inferior esquerdo da tela (botão de compra do TikTok Shop).
-3. ELEMENTO VISUAL DE CONVERSÃO: Deixe a área do canto inferior esquerdo desobstruída para exibição de setas animadas piscando (👇 ↘️) diretamente sobre o carrinho amarelo.
+2. CHAMADA DECISIVA COM GESTO DE APONTAR: O apresentador ou as mãos (máximo 2 mãos humanas na tela) executam um gesto claro e fluido apontando suavemente em direção à parte inferior da tela (reservando espaço limpo para a edição posterior adicionar botões e setas).
+3. ENQUADRAMENTO LIMPO (ZERO ELEMENTOS GRÁFICOS): É PROIBIDO desenhar botões, setas ou textos na imagem gerada. Mantenha a imagem 100% limpa (clean plate).
 
 PRODUTO DE REFERÊNCIA: ${productName} (Extensão Final de Flow a partir dos 20.0s do Prompt 2).
-DIREÇÃO DE CÂMERA: Enquadramento frontal estável do produto centralizado com destaque limpo no momento do clique no carrinho amarelo.
-INTERAÇÃO FÍSICA & GESTO DE CLIQUE: ${interactionDirective} com gesto contínuo de um único par de mãos (estritamente máximo 2 mãos na cena, proibido 3ª mão) apontando e clicando na direção do carrinho amarelo no canto inferior esquerdo.
+DIREÇÃO DE CÂMERA: Enquadramento frontal estável do produto centralizado com imagem limpa e cinematográfica.
+INTERAÇÃO FÍSICA & GESTO: ${interactionDirective} com gesto contínuo de um único par de mãos (estritamente máximo 2 mãos na cena, proibido 3ª mão) apontando suavemente para a parte inferior sem gerar sobreposições gráficas na imagem.
 ${sharedStudioDNA}`;
 
         const captionPromptAI = getCaptionPromptForAI();
@@ -1665,8 +1672,9 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
 - Ancoragem rígida no Primeiro Quadro (Frame 0 a 0.0s);
 - Objeto tratado como sólido físico imutável (zero deformação ou alucinação);
 - Trava Anatômica Anti-Alucinação: NO MÁXIMO 2 MÃOS HUMANAS na tela (proibido 3ª mão ou braços extras);
+- Trava Mandatória Zero Watermark / Clean Plate: Filmagem pura e limpa sem logos do TikTok, marcas d'água ou textos de tela na IA de vídeo;
 - DNA compartilhado de iluminação e estúdio para eliminar variações de cor entre tomadas;
-- Chamada final com clique e setas direcionadas ao Carrinho Amarelo (canto inferior esquerdo).
+- Chamada final com gesto de direcionamento mantendo respiro limpo para edição posterior.
 ══════════════════════════════════════════════════════════════════════`;
 
         // Preenche campos
@@ -1809,33 +1817,34 @@ TRAVAS TÉCNICAS E CONSISTÊNCIA UNIFICADA:
             interactionDirective = "Mãos humanas reais (no máximo 2 mãos humanas na cena, estritamente proibido 3ª mão) interagem de forma natural com o produto sem cobrir detalhes.";
         }
 
-        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO & ANATOMIA HUMANA]:
+        const strictI2VHeader = strictFidelity ? `[DIRETRIZ MANDATÓRIA IMAGE-TO-VIDEO, ANATOMIA & CLEAN PLATE]:
 1. REGRA DO PRIMEIRO QUADRO (FRAME 0): A imagem anexada DEVE ser o primeiro quadro exato (a 0.0s) da tomada. É terminantemente PROIBIDO redesenhar, recriar ou reinterpretar o produto no início da cena. A gravação deve continuar diretamente dos pixels da foto.
 2. TRAVA GEOMÉTRICA DE OBJETO RÍGIDO: O produto é uma peça sólida, física e imutável. Mantenha com precisão cirúrgica todas as cores, texturas, proporções e contornos da foto anexada.
-3. TRAVA MANDATÓRIA DE ANATOMIA HUMANA: ESTRITAMENTE NO MÁXIMO 2 MÃOS HUMANAS na cena (1 esquerda e 1 direita). Proibido alucinar 3 mãos ou membros adicionais.\n\n` : `[TRAVA ANTI-ALUCINAÇÃO]: No máximo 2 mãos humanas visíveis na cena (proibido 3ª mão).\n\n`;
+3. TRAVA MANDATÓRIA DE ANATOMIA HUMANA: ESTRITAMENTE NO MÁXIMO 2 MÃOS HUMANAS na cena (1 esquerda e 1 direita). Proibido alucinar 3 mãos ou membros adicionais.
+4. TRAVA MANDATÓRIA ZERO WATERMARK & CLEAN PLATE: É TERMINANTEMENTE PROIBIDO gerar marca d'água, logo do TikTok, textos, legendas automáticas ou elementos de interface na cena. Filmagem pura, limpa e cinematográfica (clean plate).\n\n` : `[TRAVA ANTI-ALUCINAÇÃO & ZERO MARCA D'ÁGUA]: No máximo 2 mãos humanas visíveis e filmagem 100% limpa sem logos do TikTok ou marcas d'água.\n\n`;
 
-        const pComp1 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 1 de 4: 00s a 08s).
+        const pComp1 = `${strictI2VHeader}Vídeo vertical 9:16 em estilo UGC limpo e cinematográfico - COMPILAÇÃO MULTI-PRODUTOS (Cena 1 de 4: 00s a 08s - Sem marca d'água).
 PRODUTO 1: ${p1Name} (${p1Detail}). Anexe a foto do Produto 1 como Frame 0.
 DIREÇÃO DE CENA: A cena inicia diretamente nos pixels da foto anexada com foco macro nítido. ${interactionDirective}
 MOVIMENTO DE CÂMERA: Movimento linear suave de aproximação revelando o acabamento impecável do 1º achadinho da lista.
-ATMOSFERA VISUAL: Iluminação suave e difusa de estúdio comercial a 45°, cores fiéis à foto anexada, profundidade de campo suave.`;
+ATMOSFERA VISUAL: Iluminação suave e difusa de estúdio comercial a 45°, cores fiéis à foto anexada, profundidade de campo suave. Clean plate sem marcas d'água.`;
 
-        const pComp2 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 2 de 4: 08s a 16s).
+        const pComp2 = `${strictI2VHeader}Vídeo vertical 9:16 em estilo UGC limpo e cinematográfico - COMPILAÇÃO MULTI-PRODUTOS (Cena 2 de 4: 08s a 16s - Sem marca d'água).
 PRODUTO 2: ${p2Name} (${p2Detail}). Anexe a foto do Produto 2 como Frame 0.
 DIREÇÃO DE CENA: Corte rápido de transição cinematográfica. A cena inicia a partir da foto do 2º produto. ${interactionDirective}
 MOVIMENTO DE CÂMERA: Panorâmica suave destacando os detalhes do item enquanto a luz desliza pela superfície.
-ATMOSFERA VISUAL: Continuidade de iluminação difusa de estúdio, mantendo o padrão visual da compilação.`;
+ATMOSFERA VISUAL: Continuidade de iluminação difusa de estúdio, mantendo o padrão visual da compilação. Clean plate sem marcas d'água.`;
 
-        const pComp3 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 3 de 4: 16s a 24s).
+        const pComp3 = `${strictI2VHeader}Vídeo vertical 9:16 em estilo UGC limpo e cinematográfico - COMPILAÇÃO MULTI-PRODUTOS (Cena 3 de 4: 16s a 24s - Sem marca d'água).
 PRODUTO 3: ${p3Name} (${p3Detail}). Anexe a foto do Produto 3 como Frame 0.
 DIREÇÃO DE CENA: Transição revelando o 3º produto em grande estilo. ${interactionDirective}
 MOVIMENTO DE CÂMERA: Movimento de câmera dinâmico com enquadramento frontal privilegiado realçando o produto.
-ATMOSFERA VISUAL: Iluminação elegante de estúdio, nitidez cristalina e fidelidade absoluta à foto anexada.`;
+ATMOSFERA VISUAL: Iluminação elegante de estúdio, nitidez cristalina e fidelidade absoluta à foto anexada. Clean plate sem marcas d'água.`;
 
-        const pComp4 = `${strictI2VHeader}Vídeo vertical 9:16 para TikTok Shop - COMPILAÇÃO MULTI-PRODUTOS (Cena 4 de 4 - Fechamento: 24s a 30s).
+        const pComp4 = `${strictI2VHeader}Vídeo vertical 9:16 em estilo UGC limpo e cinematográfico - COMPILAÇÃO MULTI-PRODUTOS (Cena 4 de 4 - Fechamento: 24s a 30s - Sem marca d'água).
 CENÁRIO: Bancada elegante de estúdio com os 3 produtos (${p1Name}, ${p2Name}, ${p3Name}) dispostos harmoniosamente sob iluminação suave.
-AÇÃO VISUAL: Apresentador(a) ou mãos (máximo 2 mãos humanas) com gesto elegante, convidativo e acolhedor apresentando os itens reunidos, direcionando o público para a Vitrine (Showcase) do perfil.
-ELEMENTOS NA TELA: Destaque visual sutil e harmonioso convidando a conferir os itens na Vitrine da loja.
+AÇÃO VISUAL: Apresentador(a) ou mãos (máximo 2 mãos humanas) com gesto elegante, convidativo e acolhedor apresentando os itens reunidos, com espaço limpo para edição posterior.
+ELEMENTOS NA TELA: Enquadramento visual limpo e harmônico (clean plate, sem textos ou logos na imagem gerada pela IA).
 ATMOSFERA VISUAL: Iluminação acolhedora e convidativa de fechamento de alta conversão.`;
 
         const fullDocument = `══════════════════════════════════════════════════════════════════════
@@ -1878,6 +1887,7 @@ ${pComp4}
 TRAVAS TÉCNICAS E DIRETRIZES:
 - Ancoragem rígida de Frame 0 para cada foto anexada;
 - Trava Anatômica: Estritamente no máximo 2 mãos humanas por cena (zero 3ª mão);
+- Trava Mandatória Zero Watermark: Vídeo 100% limpo (clean plate), sem marca d'água ou logotipos do TikTok na gravação da IA;
 - Chamada enfática informando que todos os produtos estão disponíveis na Vitrine do perfil.
 ══════════════════════════════════════════════════════════════════════`;
 
@@ -1936,9 +1946,12 @@ O STORYBOARD deve seguir um ritmo rápido e envolvente (30 a 32 segundos no tota
 
 ✝️ REGRA DE CONEXÃO COM O PÚBLICO:
 Destaque o valor prático, a beleza e a bênção de ter esses itens no lar ou presentear quem se ama.
-Linguagem natural no estilo de recomendação sincera ("eu não vivo sem isso", "olha o detalhe desse acabamento").`;
+Linguagem natural no estilo de recomendação sincera ("eu não vivo sem isso", "olha o detalhe desse acabamento").
 
-            const compFixedP2 = `Crie um vídeo de compilação multi-produtos estilo POV baseado neste storyboard para os 3 produtos (${p1Text}, ${p2Text}, ${p3Text}).`;
+🚫 REGRA VISUAL ZERO MARCA D'ÁGUA (CLEAN PLATE):
+As descrições visuais para as tomadas devem ser 100% puras, no estilo filmagem autêntica de smartphone. NÃO inclua nas descrições de imagem/cena elementos de marca d'água, logo do TikTok ou interfaces do aplicativo (esses elementos pertencem apenas à edição posterior).`;
+
+            const compFixedP2 = `Crie um vídeo de compilação multi-produtos estilo POV baseado neste storyboard para os 3 produtos (${p1Text}, ${p2Text}, ${p3Text}). Filmagem 100% limpa (clean plate), vertical 9:16, gravação autêntica de smartphone, estritamente sem marca d'água, sem logo do TikTok, sem botões de interface e sem sobreposição de textos na imagem.`;
 
             const preview1 = document.getElementById('fixedPrompt1Text');
             const preview2 = document.getElementById('fixedPrompt2Text');
@@ -2064,10 +2077,11 @@ Criar sensação de descoberta ou recomendação pessoal.
 Cena Final:
 CTA natural e persuasivo.
 
-📱 ESTILO DO VÍDEO:
+📱 ESTILO DO VÍDEO & CLEAN PLATE:
 
 - Formato vertical 9:16
-- Estilo TikTok Shop
+- Estilo UGC realista e autêntico de smartphone
+- Gravação 100% LIMPA (Clean Plate / Raw Footage): terminantemente SEM marca d'água, SEM logo do TikTok, SEM ícones de app e SEM textos gravados no vídeo gerado (textos e legendas pertencem à edição posterior)
 - UGC realista
 - Pessoa falando naturalmente para a câmera
 - Nada com aparência de propaganda tradicional
@@ -2105,7 +2119,7 @@ O produto deve ser o protagonista da história.
 
 Quando possível, criar uma conexão emocional com o público cristão de forma natural, respeitosa e estratégica, sem inventar características religiosas que o produto não possui.`;
 
-        const p2 = productName ? `Crie um vídeo baseado neste story board estilo POV para o produto "${productName}".` : `Crie um vídeo baseado neste story board estilo POV.`;
+        const p2 = productName ? `Crie um vídeo baseado neste story board estilo POV para o produto "${productName}". Filmagem 100% limpa (clean plate), vertical 9:16 de smartphone, estritamente sem marca d'água, sem logo do TikTok, sem botões de interface e sem textos na imagem.` : `Crie um vídeo baseado neste story board estilo POV. Filmagem 100% limpa (clean plate), vertical 9:16 de smartphone, estritamente sem marca d'água, sem logo do TikTok, sem botões de interface e sem textos na imagem.`;
 
         const preview1 = document.getElementById('fixedPrompt1Text');
         const preview2 = document.getElementById('fixedPrompt2Text');
